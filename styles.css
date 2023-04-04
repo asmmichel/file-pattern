@@ -8,3 +8,21 @@ button:first-child
   border: 1px solid #000000;
   color: #000000
   }
+  [data-set-pos-signup-journey-new] {
+    display: none;
+  }
+  [data-set-content-type-new] {
+    display: none;
+  }
+  [data-set-sub-category-new] {
+    display: none;
+  }
+  #sub-category  option:last-child {
+    font-weight: bold;
+  }
+  #pos-signup-journey option:last-child {
+    font-weight: bold;
+  }
+  #content-type  option:last-child {
+    font-weight: bold;
+  }
