@@ -102,11 +102,25 @@ form.addEventListener("submit", (event) => {
 	event.preventDefault();
 	if (campaignNameValid) {
 		const featureData = extractFormData(form);
+		const checkResults = [];
 		formElementsAndPrefix.forEach(({ formElement, prefix }) => {
-			form.elements[formElement].value = showFeatureName(prefix, featureData);
+			const result = showFeatureName(prefix, featureData);
+			checkResults.push(checkTheLengthAndSendValues(formElement, result));
 		});
+		if (checkResults.every((result) => result === true)) {
+			alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
+		}
 	}
 });
+
+function checkTheLengthAndSendValues(formElement, value) {
+  if (value.length >= 100) {
+    return true;
+  } else {
+		form.elements[formElement].value = value;
+		return false;
+	}
+}
 
 hideOrShowNewTextInputs([
   {
