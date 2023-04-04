@@ -22,21 +22,18 @@
 
 	
 
-	// show email name in input result
-	function showFeatureName(feature, featureData) {
-    const { office, type, category, subCategory, posSignupJourney, contentType, emailPsychology, funnel, subCategoryNew, posSignupJourneyNew, contentTypeNew } = featureData;
+function showFeatureName(prefix, featureData) {
+	const { office, type, category, subCategory, posSignupJourney, contentType, emailPsychology, funnel, subCategoryNew, posSignupJourneyNew, contentTypeNew } = featureData;
 
-    if (feature === "EMAIL") {
-        let result = `${office}_${type}_${category}`;
+	let result = `${prefix}${office}_${type}_${category}`;
 
-        result += subCategory === "Novo" ? `_${subCategoryNew}` : `_${subCategory}`;
-        result += posSignupJourney === "Novo" ? `_${posSignupJourneyNew}` : `_${posSignupJourney}`;
-        result += contentType === "Novo" ? `_${contentTypeNew}` : (contentType !== "" ? `_${contentType}` : "");
-        result += emailPsychology !== "" ? `_${emailPsychology}` : "";
-        result += funnel !== "" ? `_${funnel}` : "";
+	result += subCategory === "Novo" ? `_${subCategoryNew}` : `_${subCategory}`;
+	result += posSignupJourney === "Novo" ? `_${posSignupJourneyNew}` : `_${posSignupJourney}`;
+	result += contentType === "Novo" ? `_${contentTypeNew}` : (contentType !== "" ? `_${contentType}` : "");
+	result += emailPsychology !== "" ? `_${emailPsychology}` : "";
+	result += funnel !== "" ? `_${funnel}` : "";
 
-        return result.toUpperCase().trim().replaceAll(" ", "-");
-    }
+	return result.toUpperCase().trim().replaceAll(" ", "-");
 }
 
 
@@ -60,13 +57,54 @@ function extractFormData(form) {
 const form = document.querySelector("#signup");
 const campaignNameValid = true;
 
+
+const formElementsAndPrefix = [
+	{
+		formElement: "emailNameResult",
+		prefix: ""
+	},
+	{
+		formElement: "deNameResult",
+		prefix: "DE_"
+	},
+	{
+		formElement: "filterNameResult",
+		prefix: "FILTER_"
+	},
+	{
+		formElement: "sqlNameResult",
+		prefix: "SQL_"
+	},
+	{
+		formElement: "automationNameResult",
+		prefix: "AUT_"
+	},
+	{
+		formElement: "importNameResult",
+		prefix: "IMPORT_"
+	},
+	{
+		formElement: "dataExtractNameResult",
+		prefix: "DATA_EXT_"
+	},
+	{
+		formElement: "fileTransferNameResult",
+		prefix: "FT_"
+	}
+];
+
+
 form.addEventListener("submit", (event) => {
 	event.preventDefault();
 	if (campaignNameValid) {
 		const featureData = extractFormData(form);
-		form.elements["emailNameResult"].value = showFeatureName("EMAIL", featureData);
+		formElementsAndPrefix.forEach(({ formElement, prefix }) => {
+			form.elements[formElement].value = showFeatureName(prefix, featureData);
+		});
 	}
 });
+
+
 
 
 function hideOrShowNewTextInputs(newTextInputsOBJ) {
