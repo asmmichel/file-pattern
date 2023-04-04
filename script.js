@@ -20,6 +20,8 @@
 		return showSuccess(input);
 	}
 
+	
+
 	// show email name in input result
 	function showFeatureName(feature, office, type, category, subCategory, posSignupJourney, contentType, emailPsychology, funnel, subCategoryNew, posSignupJourneyNew, contentTypeNew) {
 
@@ -78,28 +80,27 @@
 		}
 	});
 
-let subCategoryNewDIV = form.querySelector("[data-set-sub-category-new]");
-let subCategorySelect = form.querySelector("#sub-category");
-
-let posSignupJourneyNewDIV = form.querySelector("[data-set-pos-signup-journey-new]");
-let posSignupJourneySelect = form.querySelector("#pos-signup-journey");
-
-let contentTypeNewDIV = form.querySelector("[data-set-content-type-new]");
-let contentTypeSelect = form.querySelector("#content-type");
 
 
-function hideOrShowNewTextInputs(selectElement, divElement) {
-	selectElement.addEventListener("change", function() {
-		if (selectElement.value === "Novo") {
-			divElement.style.display = "block";
-		} else {
-			divElement.style.display = "none";
-		}
-		});
+function hideOrShowNewTextInputs(newTextInputsOBJ) {
+  newTextInputsOBJ.forEach(inputOBJ => {
+    inputOBJ.select.addEventListener("change", () => {
+      inputOBJ.div.style.display = inputOBJ.select.value === "Novo" ? "block" : "none";
+    });
+  });
 }
 
-hideOrShowNewTextInputs(subCategorySelect, subCategoryNewDIV)
-hideOrShowNewTextInputs(posSignupJourneySelect, posSignupJourneyNewDIV)
-hideOrShowNewTextInputs(contentTypeSelect, contentTypeNewDIV)
-
-
+hideOrShowNewTextInputs([
+  {
+    select: form.querySelector("#sub-category"),
+    div: form.querySelector("[data-set-sub-category-new]")
+  },
+  {
+    select: form.querySelector("#pos-signup-journey"),
+    div: form.querySelector("[data-set-pos-signup-journey-new]")
+  },
+  {
+    select: form.querySelector("#content-type"),
+    div: form.querySelector("[data-set-content-type-new]")
+  }
+]);
