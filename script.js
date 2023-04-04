@@ -26,17 +26,17 @@
 		if (feature == "EMAIL"){
 			let result = office + "_" + type + "_" + category;
 			if (subCategory == "Novo") {
-				result += "_" + subCategoryNew.trim().replace("_", "-").replace(" ", "-");
+				result += "_" + subCategoryNew;
 			} else {
 				result += "_" + subCategory;
 			}
 			if (posSignupJourney == "Novo") {
-				result += "_" + posSignupJourneyNew.trim().replace("_", "-").replace(" ", "-");
+				result += "_" + posSignupJourneyNew;
 			} else {
 				result += "_" + posSignupJourney;
 			}
 			if (contentType == "Novo") {
-				result += "_" + contentTypeNew.trim().replace("_", "-").replace(" ", "-");
+				result += "_" + contentTypeNew;
 			}
 			if (contentType !== "" && contentType !== "Novo") {
 				result += "_" + contentType;
@@ -47,7 +47,7 @@
 			if (funnel !== "") {
 				result += "_" + funnel;
 			}
-			return result.toUpperCase();
+			return result.toUpperCase().trim().replaceAll(" ", "-");
 		}
 
 	}
@@ -69,9 +69,9 @@
 			let contentType = form.querySelector("#content-type").value;
 			let emailPsychology = form.querySelector("#email-psychology").value;
 			let funnel = form.querySelector("#funnel").value;
-			let subCategoryNew = form.querySelector("#sub-category-new").value.trim().replace("_", "-").replace(" ", "-");
-			let posSignupJourneyNew = form.querySelector("#pos-signup-journey-new").value.trim().replace("_", "-").replace(" ", "-");
-			let contentTypeNew = form.querySelector("#content-type-new").value.trim().replace("_", "-").replace(" ", "-");
+			let subCategoryNew = form.querySelector("#sub-category-new").value;
+			let posSignupJourneyNew = form.querySelector("#pos-signup-journey-new").value;
+			let contentTypeNew = form.querySelector("#content-type-new").value;
 
 			//returning the responses
 			form.elements["emailNameResult"].value = showFeatureName("EMAIL", office, type, category, subCategory, posSignupJourney, contentType, emailPsychology, funnel, subCategoryNew, posSignupJourneyNew, contentTypeNew);
