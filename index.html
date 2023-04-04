@@ -14,53 +14,144 @@
 		<div class="container">
 			<form action="" method="post" id="signup">
 
+
 				<div class="form-row">
+
 					<div class="form-group col-6 col-md-3">
-						<label for="country">Country Target</label>
-			            <select id="country" class="form-control">
+						<label for="office">Office</label>
+			            <select id="office" class="form-control">
+                      <option value="AM">AMSTERDAM</option>
 			                <option value="BR">BRAZIL</option>
-			                <option value="ES-ES">SPAIN</option>
-			                <option value="LAT">LATAM</option>
-			                <option value="ES">LATAM + SPAIN</option>
 			                <option value="CO">COLOMBIA</option>
-			                <option value="EN">REST OF THE WORLD</option>
-							<option value="ES">COLOMBIA</option>
 			                <option value="MX">MEXICO</option>
-			                <option value="NL">NETHERLANDS</option>
+			                <option value="ES">SPAIN</option>
+			                <option value="US">UNITED STATES</option>
 			            </select>
 					</div>
-					<div class="form-group col-6 col-md-3">
-						<label for="type">Type of Campaign</label>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="type">Tipo de Campanha</label>
 			            <select id="type" class="form-control">
 			                <option value="ADHOC">ADHOC</option>
 			                <option value="JOURNEY">JOURNEY</option>
 			                <option value="NEWS">NEWSLETTER</option>
 			                <option value="TRANSAC">TRANSACTIONAL</option>
 			            </select>
-					</div>		
-					<div class="form-group col-6 col-md-3">
-						<label for="team">Team</label>
-			            <select id="team" class="form-control">
-			                <option value="ACQ">ACQUISITION</option>
-			                <option value="CE">COMMUNITY</option>
-			                <option value="EVP">EVENTS</option>
-			                <option value="MPD">PRODUCT MARKETING</option>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="category">Categoria</label>
+			            <select id="category" class="form-control">
+			                <option value="BUBR">BUBR</option>
+			                <option value="BULat">BULat</option>
+			                <option value="GTM">GTM</option>
+			                <option value="Institucional">Institucional</option>
+			                <option value="Evento">Evento</option>
+			                <option value="Saas">Saas</option>
 			            </select>
 					</div>
-					<div class="form-group col-6 col-md-3">
-						<label for="campaign-name">Campaign Name</label>
-						<input type="text" class="form-control" id="campaign-name" name="campaign-name" placeholder="Enter your campaign name" />
+
+          <div class="form-group col-6 col-md-3">
+						<label for="sub-category">Sub-Categoria</label>
+			            <select id="sub-category" class="form-control">
+			                <option value="POS">Jornada Pós</option>
+			                <option value="PRE">Jornada Pré</option>
+											<option value="Novo">Nova Sub-Categoria</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="pos-signup-journey">Nomes Jornadas Pós</label>
+			            <select id="pos-signup-journey" class="form-control">
+			                <option value="SML">Produtor SML</option>
+			                <option value="BEGGINER">Produtor Iniciante</option>
+			                <option value="CURIOUS">Curioso</option>
+			                <option value="OTHERS">Outros</option>
+			                <option value="NOSALES">Produtor NoSales</option>
+			                <option value="SERVICEPROVIDER">Service Provider</option>
+			                <option value="AFFILIATE">Affiliate</option>
+			                <option value="FUS">FUS</option>
+			                <option value="ACP">ACP</option>
+			                <option value="GMVJ1">GMV J1</option>
+			                <option value="GMVJ2">GMV J2</option>
+			                <option value="GMVJ3">GMV J3</option>
+			                <option value="ATM">ATM</option>
+			                <option value="ALL-IN-ONE">All-in-one</option>
+			                <option value="ACPREPRESADO">ACPrepresado</option>
+			                <option value="Ladeirinha">Ladeirinha</option>
+			                <option value="Learn">Learn</option>
+			                <option value="Producer">Producer</option>
+			                <option value="Skip">Skip</option>
+											<option value="Novo">Novo Nome</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="content-type">Tipo Conteúdo</label>
+			            <select id="content-type" class="form-control">
+											<option value=""></option>
+			                <option value="EBOOK">E-book</option>
+			                <option value="LP">LP</option>
+			                <option value="VIDEO">Vídeo</option>
+			                <option value="INFOGRAFICO">Infográfico</option>
+			                <option value="ONE-PAGE-REVIEW">One page review</option>
+			                <option value="AULA-NO-CLUB">Aula no club</option>
+			                <option value="WEBINARIO">Webinário</option>
+			                <option value="BLOGPOST">Blogpost</option>
+			                <option value="Novo">Novo Tipo</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="email-psychology">Psicologia Email</label>
+			            <select id="email-psychology" class="form-control">
+											<option value=""></option>
+			                <option value="NEUTRO">Neutro</option>
+			                <option value="POSITIVO">Positivo</option>
+			                <option value="NEGATIVO">Negativo</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="funnel">Funil</label>
+			            <select id="funnel" class="form-control">
+											<option value=""></option>
+			                <option value="TOFU">ToFu</option>
+			                <option value="MOFU">MoFu</option>
+			                <option value="BOFU">BoFu</option>
+			            </select>
+					</div>
+
+					<div class="form-group col-6 col-md-3" data-set-sub-category-new>
+						<label for="sub-category-new">Nova Sub Categoria</label>
+						<input type="text" class="form-control" id="sub-category-new" name="sub-category-new" placeholder="Coloque a nova sub-categoria" />
 						<small class="invalid-feedback"></small>
 					</div>
+
+					<div class="form-group col-6 col-md-3" data-set-pos-signup-journey-new>
+						<label for="pos-signup-journey-new">Novo Nome Jornadas Pós</label>
+						<input type="text" class="form-control" id="pos-signup-journey-new" name="pos-signup-journey-new" placeholder="Coloque o novo nome" />
+						<small class="invalid-feedback"></small>
+					</div>
+
+					<div class="form-group col-6 col-md-3" data-set-content-type-new>
+						<label for="content-type-new">Novo Tipo Conteúdo</label>
+						<input type="text" class="form-control" id="content-type-new" name="content-type-new" placeholder="Coloque o novo nome" />
+						<small class="invalid-feedback"></small>
+					</div>
+
 				</div>
 				
+
 				<div class="form-row row">
 					<div class="col text-center">
 						<button type="submit" class="btn btn-primary mb-6">Generate Campaign</button>
 					</div>
 				</div>
 
+
 		<hr>
+
 
 				<div class="form-group">
 					<div class="form-row col-6 col-md-12">
@@ -143,6 +234,7 @@
 						</button>
 					</div>
 				</div>
+
 
 			</form>	
 		</div>
