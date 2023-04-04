@@ -88,26 +88,18 @@ let contentTypeNewDIV = form.querySelector("[data-set-content-type-new]");
 let contentTypeSelect = form.querySelector("#content-type");
 
 
-subCategorySelect.addEventListener("change", function() {
-if (subCategorySelect.value === "Novo") {
-	subCategoryNewDIV.style.display = "block";
-} else {
-	subCategoryNewDIV.style.display = "none";
+function hideOrShowNewTextInputs(selectElement, divElement) {
+	selectElement.addEventListener("change", function() {
+		if (selectElement.value === "Novo") {
+			divElement.style.display = "block";
+		} else {
+			divElement.style.display = "none";
+		}
+		});
 }
-});
 
-posSignupJourneySelect.addEventListener("change", function() {
-if (posSignupJourneySelect.value === "Novo") {
-	posSignupJourneyNewDIV.style.display = "block";
-} else {
-	posSignupJourneyNewDIV.style.display = "none";
-}
-});
+hideOrShowNewTextInputs(subCategorySelect, subCategoryNewDIV)
+hideOrShowNewTextInputs(posSignupJourneySelect, posSignupJourneyNewDIV)
+hideOrShowNewTextInputs(contentTypeSelect, contentTypeNewDIV)
 
-contentTypeSelect.addEventListener("change", function() {
-if (contentTypeSelect.value === "Novo") {
-	contentTypeNewDIV.style.display = "block";
-} else {
-	contentTypeNewDIV.style.display = "none";
-}
-});
+
