@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>JavaScript Form Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	</head>
+	<style> 
+		body {
+			background-color: #d1e2d8;
+			font-size:16px;
+			}
+		button:first-child
+			{
+			background-color:#d1e2d8;
+			border: 1px solid #000000;
+			color: #000000
+			}
+	</style>
+	<body>
+		<div class="container">
+			<form action="" method="post" id="signup">
+				<div class="form-row">
+					<div class="form-group col-6 col-md-3">
+						<label for="country">Country Target</label>
+			            <select id="country" class="form-control">
+			                <option value="BR">BRAZIL</option>
+			                <option value="ES-ES">SPAIN</option>
+			                <option value="LAT">LATAM</option>
+			                <option value="ES">LATAM + SPAIN</option>
+			                <option value="CO">COLOMBIA</option>
+			                <option value="EN">REST OF THE WORLD</option>
+							<option value="ES">COLOMBIA</option>
+			                <option value="MX">MEXICO</option>
+			                <option value="NL">NETHERLANDS</option>
+			            </select>
+					</div>
+					<div class="form-group col-6 col-md-3">
+						<label for="type">Type of Campaign</label>
+			            <select id="type" class="form-control">
+			                <option value="ADHOC">ADHOC</option>
+			                <option value="JOURNEY">JOURNEY</option>
+			                <option value="NEWS">NEWSLETTER</option>
+			                <option value="TRANSAC">TRANSACTIONAL</option>
+			            </select>
+					</div>				
+					<div class="form-group col-6 col-md-3">
+						<label for="team">Team</label>
+			            <select id="team" class="form-control">
+			                <option value="ACQ">ACQUISITION</option>
+			                <option value="CE">COMMUNITY</option>
+			                <option value="EVP">EVENTS</option>
+			                <option value="MPD">PRODUCT MARKETING</option>
+			            </select>
+					</div>
+					<div class="form-group col-6 col-md-3">
+						<label for="campaign-name">Campaign Name</label>
+						<input type="text" class="form-control" id="campaign-name" name="campaign-name" placeholder="Enter your campaign name" />
+						<small class="invalid-feedback"></small>
+					</div>
+
+				</div>
+				
+				<div class="form-row row">
+					<div class="col text-center">
+						<button type="submit" class="btn btn-primary mb-6">Generate Campaign</button>
+					</div>
+				</div>
+		<hr>
+				<div class="form-group">
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="emailNameResult">Email Name</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" disabled="true" id="emailNameResult" name="emailNameResult" />
+						</div>
+						<button class="col-sm-2 btn btn-outline-dark btn-sm" onclick="copyFeatureName('EMAIL')">
+							Copy<span class="material-icons">content_copy</span> 
+						</button>
+					</div>
+					<br/>
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="deNameResult">Data Extension</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" disabled="true" id="deNameResult" name="deNameResult" />
+						</div>
+						<button class="col-sm-2 btn btn-outline-dark btn-sm" onclick="copyFeatureName('DE')">
+							Copy<span class="material-icons">content_copy</span>
+						</button>
+					</div>
+					<br/>
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="filterNameResult">Filter</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" disabled="true" id="filterNameResult" name="filterNameResult" />
+						</div>
+						<button class="col-sm-2 btn btn-outline-dark btn-sm" onclick="copyFeatureName('FILTER')">
+							Copy<span class="material-icons">content_copy</span>
+						</button>
+					</div>
+					<br/>
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="sqlNameResult">SQL Query</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" disabled="true" id="sqlNameResult" name="sqlNameResult" />
+						</div>
+						<button class="col-sm-2 btn btn-outline-dark btn-sm" onclick="copyFeatureName('SQL')">
+							Copy<span class="material-icons">content_copy</span>
+						</button>
+					</div>
+					<br/>
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="automationNameResult">Automation</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" disabled="true" id="automationNameResult" name="automationNameResult" />
+						</div>
+						<button class="col-sm-2 btn btn-outline-dark btn-sm" onclick="copyFeatureName('AUT')">
+							Copy<span class="material-icons">content_copy</span>
+						</button>
+					</div>
+					<br/>
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="importNameResult">Import</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" disabled="true" id="importNameResult" name="importNameResult" />
+						</div>
+						<button class="col-sm-2 btn btn-outline-dark btn-sm" onclick="copyFeatureName('IMPORT')">
+							Copy<span class="material-icons">content_copy</span>
+						</button>
+					</div>
+					<br/>
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="dataExtractNameResult">Data Extract</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" disabled="true" id="dataExtractNameResult" name="dataExtractNameResult" />
+						</div>
+						<button class="col-sm-2 btn btn-outline-dark btn-sm" onclick="copyFeatureName('DATA_EXT')">
+							Copy<span class="material-icons">content_copy</span>
+						</button>
+					</div>
+					<br/>
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="fileTransferNameResult">File Transfer</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" disabled="true" id="fileTransferNameResult" name="fileTransferNameResult" />
+						</div>
+						<button class="col-sm-2 btn btn-outline-dark btn-sm" onclick="copyFeatureName('FT')">
+							Copy<span class="material-icons">content_copy</span>
+						</button>
+					</div>
+				</div>
+			</form>	
+		</div>
+		<script>
+		// show a message with a type of the input
+		function showMessage(input, message, type) {
+			// get the small element and set the message
+			const msg = input.parentNode.querySelector("small");
+			msg.innerText = message;
+			// update the class for the input
+			input.className = type ? "form-control" : "form-control is-invalid";
+			return type;
+		}
+		function showError(input, message) {
+			return showMessage(input, message, false);
+		}
+		function showSuccess(input) {
+			return showMessage(input, "", true);
+		}
+		function hasValue(input, message) {
+			if (input.value.trim() === "") {
+				return showError(input, message);
+			}
+			return showSuccess(input);
+		}
+		function validateCampaign(input, requiredMsg, invalidMsg) {
+			// check if the value is not empty
+			if (!hasValue(input, requiredMsg)) {
+				return false;
+			}
+
+			// validate email format
+			const emailRegex =
+				/([^<>()\[\]\\.,;:\s@"])/;
+
+			const email = input.value.trim();
+			if (!emailRegex.test(email)) {
+				return showError(input, invalidMsg);
+			}
+			return true;
+		}
+		// show email name in input result
+		function showFeatureName(feature, country, type, team, campaignName) {
+
+			if (feature == "EMAIL"){
+				// get the small element and set the message
+				const result = country + "_" + type + "_" + team + "-" + campaignName
+				return result.toUpperCase();
+			}
+			else if (feature == "DE"){
+				// get the small element and set the message
+				const result = "TB_" + country.replace("-","_") + "_" + type + "_" + team + "_" + campaignName.replace("-","_").replace(" ","_")
+				return result.toUpperCase();
+			}
+			else if (feature == "FILTER"){
+				// get the small element and set the message
+				const result = "FILTER_" + country.replace("-","_") + "_" + type + "_" + team + "_" + campaignName.replace("-","_").replace(" ","_")
+				return result.toUpperCase();
+			}
+			else if (feature == "SQL"){
+				// get the small element and set the message
+				const result = "QR_" + country.replace("-","_") + "_" + type + "_" + team + "_" + campaignName.replace("-","_").replace(" ","_")
+				return result.toUpperCase();
+			}
+			else if (feature == "AUT"){
+				// get the small element and set the message
+				const result = "AUT_" + country.replace("-","_") + "_" + type + "_" + team + "_" + campaignName.replace("-","_").replace(" ","_")
+				return result.toUpperCase();
+			}
+			else if (feature == "IMPORT"){
+				// get the small element and set the message
+				const result = "IMPORT_" + country.replace("-","_") + "_" + type + "_" + team + "_" + campaignName.replace("-","_").replace(" ","_")
+				return result.toUpperCase();
+			}
+			else if (feature == "DATA_EXT"){
+				// get the small element and set the message
+				const result = "DE_" + country.replace("-","_") + "_" + type + "_" + team + "_" + campaignName.replace("-","_").replace(" ","_")
+				return result.toUpperCase();
+			}
+			else if (feature == "FT"){
+				// get the small element and set the message
+				const result = "FT_" + country.replace("-","_") + "_" + type + "_" + team + "_" + campaignName.replace("-","_").replace(" ","_")
+				return result.toUpperCase();
+			}
+		}
+		function copyFeatureName(feature) {
+			if (feature == "EMAIL"){
+				
+				var copyText = document.getElementById("emailNameResult");
+			}
+			else if (feature == "DE"){
+
+				var copyText = document.getElementById("deNameResult");
+			}
+			else if (feature == "FILTER"){
+
+				var copyText = document.getElementById("filterNameResult");
+			}
+			else if (feature == "SQL"){
+				
+				var copyText = document.getElementById("sqlNameResult");
+			}
+			else if (feature == "AUT"){
+				
+				var copyText = document.getElementById("automationNameResult");
+			}
+			else if (feature == "IMPORT"){
+				
+				var copyText = document.getElementById("importNameResult");
+			}
+			else if (feature == "DATA_EXT"){
+				
+				var copyText = document.getElementById("dataExtractNameResult");
+			}
+			else if (feature == "FT"){
+				
+				var copyText = document.getElementById("fileTransferNameResult");
+			}
+					
+			  /* Select the text field */
+			  copyText.select();
+			  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+			  /* Copy the text inside the text field */
+			  navigator.clipboard.writeText(copyText.value);
+			  
+			  /* Alert the copied text */
+			  alert("Copied the text: " + copyText.value);
+		}
+		const form = document.querySelector("#signup");
+		const COUNTRY_REQUIRED  = "Please enter your name";
+		const CAMPAIGN_REQUIRED = "Please enter your campaign name";
+		const CAMPAIGN_INVALID  = "Please enter a correct email address format";
+		form.addEventListener("submit", function (event) {
+			// stop form submission
+			event.preventDefault();
+
+			// validate the form
+			//let countryValid = hasValue(form.querySelector("#country"), COUNTRY_REQUIRED);
+			//let teamValid = hasValue(form.querySelector("#team"), TEAM_REQUIRED);
+			let campaignNameValid = hasValue(form.elements["campaign-name"], CAMPAIGN_REQUIRED);
+			//let typeValid = hasValue(form.querySelector("#type"), TYPE_REQUIRED);
+			//let emailValid = validateEmail(form.elements["email"], EMAIL_REQUIRED, EMAIL_INVALID);
+			// if valid, submit the form.
+			if (campaignNameValid) {
+				let country = form.querySelector("#country").value;
+				let team = form.querySelector("#team").value;
+				let campaignName = form.elements["campaign-name"].value.trim().replace("_", "-").replace(" ", "-");
+				let type = form.querySelector("#type").value;
+				//returning the responses
+				form.elements["emailNameResult"].value        = showFeatureName("EMAIL", country, type, team, campaignName);
+				form.elements["deNameResult"].value           = showFeatureName("DE", country, type, team, campaignName);
+				form.elements["filterNameResult"].value       = showFeatureName("FILTER", country, type, team, campaignName);
+				form.elements["sqlNameResult"].value          = showFeatureName("SQL", country, type, team, campaignName);
+				form.elements["automationNameResult"].value   = showFeatureName("AUT", country, type, team, campaignName);
+				form.elements["importNameResult"].value       = showFeatureName("IMPORT", country, type, team, campaignName);
+				form.elements["dataExtractNameResult"].value  = showFeatureName("DATA_EXT", country, type, team, campaignName);
+				form.elements["fileTransferNameResult"].value = showFeatureName("FT", country, type, team, campaignName);
+
+				//alert(country + '_' + type + '_' + team + '_' + campaignName );
+			}
+		});
+</script>
+	</body>
+</html>
