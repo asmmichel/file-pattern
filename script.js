@@ -19,22 +19,7 @@
 			}
 			return showSuccess(input);
 		}
-		function validateCampaign(input, requiredMsg, invalidMsg) {
-			// check if the value is not empty
-			if (!hasValue(input, requiredMsg)) {
-				return false;
-			}
 
-			// validate email format
-			const emailRegex =
-				/([^<>()\[\]\\.,;:\s@"])/;
-
-			const email = input.value.trim();
-			if (!emailRegex.test(email)) {
-				return showError(input, invalidMsg);
-			}
-			return true;
-		}
 		// show email name in input result
 		function showFeatureName(feature, country, type, team, campaignName) {
 
@@ -79,66 +64,16 @@
 				return result.toUpperCase();
 			}
 		}
-		function copyFeatureName(feature) {
-			if (feature == "EMAIL"){
-				
-				var copyText = document.getElementById("emailNameResult");
-			}
-			else if (feature == "DE"){
-
-				var copyText = document.getElementById("deNameResult");
-			}
-			else if (feature == "FILTER"){
-
-				var copyText = document.getElementById("filterNameResult");
-			}
-			else if (feature == "SQL"){
-				
-				var copyText = document.getElementById("sqlNameResult");
-			}
-			else if (feature == "AUT"){
-				
-				var copyText = document.getElementById("automationNameResult");
-			}
-			else if (feature == "IMPORT"){
-				
-				var copyText = document.getElementById("importNameResult");
-			}
-			else if (feature == "DATA_EXT"){
-				
-				var copyText = document.getElementById("dataExtractNameResult");
-			}
-			else if (feature == "FT"){
-				
-				var copyText = document.getElementById("fileTransferNameResult");
-			}
-					
-			  /* Select the text field */
-			  copyText.select();
-			  copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
-			  /* Copy the text inside the text field */
-			  navigator.clipboard.writeText(copyText.value);
-			  
-			  /* Alert the copied text */
-			  alert("Copied the text: " + copyText.value);
-		}
     
 		const form = document.querySelector("#signup");
-		const COUNTRY_REQUIRED  = "Please enter your name";
 		const CAMPAIGN_REQUIRED = "Please enter your campaign name";
-		const CAMPAIGN_INVALID  = "Please enter a correct email address format";
 
 		form.addEventListener("submit", function (event) {
 			// stop form submission
 			event.preventDefault();
 
 			// validate the form
-			//let countryValid = hasValue(form.querySelector("#country"), COUNTRY_REQUIRED);
-			//let teamValid = hasValue(form.querySelector("#team"), TEAM_REQUIRED);
 			let campaignNameValid = hasValue(form.elements["campaign-name"], CAMPAIGN_REQUIRED);
-			//let typeValid = hasValue(form.querySelector("#type"), TYPE_REQUIRED);
-			//let emailValid = validateEmail(form.elements["email"], EMAIL_REQUIRED, EMAIL_INVALID);
 			// if valid, submit the form.
 			if (campaignNameValid) {
 				let country = form.querySelector("#country").value;
@@ -154,7 +89,5 @@
 				form.elements["importNameResult"].value       = showFeatureName("IMPORT", country, type, team, campaignName);
 				form.elements["dataExtractNameResult"].value  = showFeatureName("DATA_EXT", country, type, team, campaignName);
 				form.elements["fileTransferNameResult"].value = showFeatureName("FT", country, type, team, campaignName);
-
-				//alert(country + '_' + type + '_' + team + '_' + campaignName );
 			}
 		});
