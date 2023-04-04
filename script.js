@@ -40,41 +40,33 @@
 }
 
 
-	
-	
-	const form = document.querySelector("#signup");
-	const campaignNameValid = true;
 
-	form.addEventListener("submit", function (event) {
-		// stop form submission
-		event.preventDefault();
+function extractFormData(form) {
+  return {
+    office: form.querySelector("#office").value,
+    type: form.querySelector("#type").value,
+    category: form.querySelector("#category").value,
+    subCategory: form.querySelector("#sub-category").value,
+    posSignupJourney: form.querySelector("#pos-signup-journey").value,
+    contentType: form.querySelector("#content-type").value,
+    emailPsychology: form.querySelector("#email-psychology").value,
+    funnel: form.querySelector("#funnel").value,
+    subCategoryNew: form.querySelector("#sub-category-new").value,
+    posSignupJourneyNew: form.querySelector("#pos-signup-journey-new").value,
+    contentTypeNew: form.querySelector("#content-type-new").value
+  };
+}
 
-		// if valid, submit the form.
+const form = document.querySelector("#signup");
+const campaignNameValid = true;
 
-		console.log(form);
-
-		if (campaignNameValid) {
-			let featureData = {
-				office: form.querySelector("#office").value,
-				type: form.querySelector("#type").value,
-				category: form.querySelector("#category").value,
-				subCategory: form.querySelector("#sub-category").value,
-				posSignupJourney: form.querySelector("#pos-signup-journey").value,
-				contentType: form.querySelector("#content-type").value,
-				emailPsychology: form.querySelector("#email-psychology").value,
-				funnel: form.querySelector("#funnel").value,
-				subCategoryNew: form.querySelector("#sub-category-new").value,
-				posSignupJourneyNew: form.querySelector("#pos-signup-journey-new").value,
-				contentTypeNew: form.querySelector("#content-type-new").value
-			};
-		
-			// returning the responses
-			form.elements["emailNameResult"].value = showFeatureName("EMAIL", featureData);
-		}
-		
-		
-	});
-
+form.addEventListener("submit", (event) => {
+	event.preventDefault();
+	if (campaignNameValid) {
+		const featureData = extractFormData(form);
+		form.elements["emailNameResult"].value = showFeatureName("EMAIL", featureData);
+	}
+});
 
 
 function hideOrShowNewTextInputs(newTextInputsOBJ) {
