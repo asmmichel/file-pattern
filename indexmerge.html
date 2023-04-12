@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>JavaScript Form Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <style>
+
+body {
+    background-color: #d1e2d8;
+    font-size:16px;
+}
+    button:first-child
+{
+    background-color:#d1e2d8;
+    border: 1px solid #000000;
+    color: #000000
+}
+[data-set-pos-signup-journey-new] {
+    display: none;
+}
+[data-set-content-type-new] {
+    display: none;
+}
+[data-set-sub-category-new] {
+    display: none;
+}
+#sub-category  option:last-child {
+    font-weight: bold;
+}
+#pos-signup-journey option:last-child {
+    font-weight: bold;
+}
+#content-type  option:last-child {
+    font-weight: bold;
+}
+
+        </style>
+
+
+	</head>
+
+	<body>
+		<div class="container">
+			<form action="" method="post" id="signup">
+
+
+				<div class="form-row">
+
+					<div class="form-group col-6 col-md-3">
+						<label for="office">Office</label>
+			            <select id="office" class="form-control">
+                      <option value="AM">AMSTERDAM</option>
+			                <option value="BR">BRAZIL</option>
+			                <option value="CO">COLOMBIA</option>
+			                <option value="MX">MEXICO</option>
+			                <option value="ES">SPAIN</option>
+			                <option value="US">UNITED STATES</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="type">Tipo de Campanha</label>
+			            <select id="type" class="form-control">
+			                <option value="ADH">ADHOC</option>
+			                <option value="JOR">JOURNEY</option>
+			                <option value="NEWS">NEWSLETTER</option>
+			                <option value="TRA">TRANSACTIONAL</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="category">Categoria</label>
+			            <select id="category" class="form-control">
+			                <option value="BUBR">BUBR</option>
+			                <option value="BULat">BULatam</option>
+			                <option value="GTM">GTM</option>
+			                <option value="IST">Institucional</option>
+			                <option value="EVT">Evento</option>
+			                <option value="Saas">Saas</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="sub-category">Sub-Categoria</label>
+			            <select id="sub-category" class="form-control">
+			                <option value="POS">Jornada Pós</option>
+			                <option value="PRE">Jornada Pré</option>
+											<option value="Novo">Nova Sub-Categoria</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="pos-signup-journey">Nomes Jornadas Pós</label>
+			            <select id="pos-signup-journey" class="form-control">
+			                <option value="SML">Produtor SML</option>
+			                <option value="BEGGINER">Produtor Iniciante</option>
+			                <option value="CURIOUS">Curioso</option>
+			                <option value="OTHERS">Outros</option>
+			                <option value="NOSALES">Produtor NoSales</option>
+			                <option value="SERVICEPROVIDER">Service Provider</option>
+			                <option value="AFFILIATE">Affiliate</option>
+			                <option value="FUS">FUS</option>
+			                <option value="ACP">ACP</option>
+			                <option value="GMVJ1">GMV J1</option>
+			                <option value="GMVJ2">GMV J2</option>
+			                <option value="GMVJ3">GMV J3</option>
+			                <option value="ATM">ATM</option>
+			                <option value="ALL-IN-ONE">All-in-one</option>
+			                <option value="ACPREPRESADO">ACPrepresado</option>
+			                <option value="Ladeirinha">Ladeirinha</option>
+			                <option value="Learn">Learn</option>
+			                <option value="Producer">Producer</option>
+			                <option value="Skip">Skip</option>
+											<option value="Novo">Novo Nome</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="content-type">Tipo Conteúdo</label>
+			            <select id="content-type" class="form-control">
+											<option value=""></option>
+			                <option value="EBOOK">E-book</option>
+			                <option value="LP">LP</option>
+			                <option value="VIDEO">Vídeo</option>
+			                <option value="INFOGRAFICO">Infográfico</option>
+			                <option value="ONE-PAGE-REVIEW">One page review</option>
+			                <option value="AULA-NO-CLUB">Aula no club</option>
+			                <option value="WEBINARIO">Webinário</option>
+			                <option value="BLOGPOST">Blogpost</option>
+			                <option value="Novo">Novo Tipo</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="email-psychology">Psicologia Email</label>
+			            <select id="email-psychology" class="form-control">
+											<option value=""></option>
+			                <option value="NEUTRO">Neutro</option>
+			                <option value="POSITIVO">Positivo</option>
+			                <option value="NEGATIVO">Negativo</option>
+			            </select>
+					</div>
+
+          <div class="form-group col-6 col-md-3">
+						<label for="funnel">Funil</label>
+			            <select id="funnel" class="form-control">
+											<option value=""></option>
+			                <option value="TOFU">ToFu</option>
+			                <option value="MOFU">MoFu</option>
+			                <option value="BOFU">BoFu</option>
+			            </select>
+					</div>
+
+					<div class="form-group col-6 col-md-3" data-set-sub-category-new>
+						<label for="sub-category-new">Nova Sub Categoria</label>
+						<input type="text" class="form-control" id="sub-category-new" name="sub-category-new" placeholder="Coloque a nova sub-categoria" />
+						<small class="invalid-feedback"></small>
+					</div>
+
+					<div class="form-group col-6 col-md-3" data-set-pos-signup-journey-new>
+						<label for="pos-signup-journey-new">Novo Nome Jornadas Pós</label>
+						<input type="text" class="form-control" id="pos-signup-journey-new" name="pos-signup-journey-new" placeholder="Coloque o novo nome" />
+						<small class="invalid-feedback"></small>
+					</div>
+
+					<div class="form-group col-6 col-md-3" data-set-content-type-new>
+						<label for="content-type-new">Novo Tipo Conteúdo</label>
+						<input type="text" class="form-control" id="content-type-new" name="content-type-new" placeholder="Coloque o novo nome" />
+						<small class="invalid-feedback"></small>
+					</div>
+
+				</div>
+				
+
+				<div class="form-row row">
+					<div class="col text-center">
+						<button type="submit" class="btn btn-primary mb-6">Generate Campaign</button>
+					</div>
+				</div>
+
+
+		<hr>
+
+
+				<div class="form-group">
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="emailNameResult">Email Name</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="emailNameResult" name="emailNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="deNameResult">Data Extension</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="deNameResult" name="deNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="filterNameResult">Filter</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="filterNameResult" name="filterNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="sqlNameResult">SQL Query</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="sqlNameResult" name="sqlNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="automationNameResult">Automation</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="automationNameResult" name="automationNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="importNameResult">Import</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="importNameResult" name="importNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="dataExtractNameResult">Data Extract</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="dataExtractNameResult" name="dataExtractNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="fileTransferNameResult">File Transfer</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="fileTransferNameResult" name="fileTransferNameResult" />
+						</div>
+					</div>
+
+				</div>
+
+
+			</form>	
+		</div>
+		
+        <script>
+
+// show a message with a type of the input
+function showMessage(input, message, type) {
+	// get the small element and set the message
+	const msg = input.parentNode.querySelector("small");
+	msg.innerText = message;
+	// update the class for the input
+	input.className = type ? "form-control" : "form-control is-invalid";
+	return type;
+}
+function showError(input, message) {
+	return showMessage(input, message, false);
+}
+function showSuccess(input) {
+	return showMessage(input, "", true);
+}
+function hasValue(input, message) {
+	if (input.value.trim() === "") {
+		return showError(input, message);
+	}
+	return showSuccess(input);
+}
+
+
+	
+function extractFormData(form) {
+	return {
+		office: form.querySelector("#office").value,
+		type: form.querySelector("#type").value,
+		category: form.querySelector("#category").value,
+		subCategory: form.querySelector("#sub-category").value,
+		posSignupJourney: form.querySelector("#pos-signup-journey").value,
+		contentType: form.querySelector("#content-type").value,
+		emailPsychology: form.querySelector("#email-psychology").value,
+		funnel: form.querySelector("#funnel").value,
+		subCategoryNew: form.querySelector("#sub-category-new").value,
+		posSignupJourneyNew: form.querySelector("#pos-signup-journey-new").value,
+		contentTypeNew: form.querySelector("#content-type-new").value
+	};
+}
+
+function showFeatureName(prefix, featureData) {
+	const { office, type, category, subCategory, posSignupJourney, contentType, emailPsychology, funnel, subCategoryNew, posSignupJourneyNew, contentTypeNew } = featureData;
+
+	let result = `${prefix}${office}_${type}_${category}`;
+
+	result += subCategory === "Novo" ? `_${subCategoryNew}` : `_${subCategory}`;
+	result += posSignupJourney === "Novo" ? `_${posSignupJourneyNew}` : `_${posSignupJourney}`;
+	result += contentType === "Novo" ? `_${contentTypeNew}` : (contentType !== "" ? `_${contentType}` : "");
+	result += emailPsychology !== "" ? `_${emailPsychology}` : "";
+	result += funnel !== "" ? `_${funnel}` : "";
+
+	return result.toUpperCase().trim().replaceAll(" ", "-");
+}
+
+function hideOrShowNewTextInputs(newTextInputsOBJ) {
+  newTextInputsOBJ.forEach(inputOBJ => {
+    inputOBJ.select.addEventListener("change", () => {
+      inputOBJ.div.style.display = inputOBJ.select.value === "Novo" ? "block" : "none";
+    });
+  });
+}
+
+const form = document.querySelector("#signup");
+const campaignNameValid = true;
+
+const formElementsAndPrefix = [
+	{
+		formElement: "emailNameResult",
+		prefix: ""
+	},
+	{
+		formElement: "deNameResult",
+		prefix: "DE_"
+	},
+	{
+		formElement: "filterNameResult",
+		prefix: "FILTER_"
+	},
+	{
+		formElement: "sqlNameResult",
+		prefix: "SQL_"
+	},
+	{
+		formElement: "automationNameResult",
+		prefix: "AUT_"
+	},
+	{
+		formElement: "importNameResult",
+		prefix: "IMPORT_"
+	},
+	{
+		formElement: "dataExtractNameResult",
+		prefix: "DATA_EXT_"
+	},
+	{
+		formElement: "fileTransferNameResult",
+		prefix: "FT_"
+	}
+];
+
+form.addEventListener("submit", (event) => {
+	event.preventDefault();
+	if (campaignNameValid) {
+		const featureData = extractFormData(form);
+		const checkResults = [];
+		formElementsAndPrefix.forEach(({ formElement, prefix }) => {
+			const result = showFeatureName(prefix, featureData);
+			checkResults.push(checkTheLengthAndSendValues(formElement, result));
+		});
+		if (checkResults.every((result) => result === true)) {
+			alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
+		}
+	}
+});
+
+function checkTheLengthAndSendValues(formElement, value) {
+  if (value.length >= 100) {
+    return true;
+  } else {
+		form.elements[formElement].value = value;
+		return false;
+	}
+}
+
+hideOrShowNewTextInputs([
+  {
+    select: form.querySelector("#sub-category"),
+    div: form.querySelector("[data-set-sub-category-new]")
+  },
+  {
+    select: form.querySelector("#pos-signup-journey"),
+    div: form.querySelector("[data-set-pos-signup-journey-new]")
+  },
+  {
+    select: form.querySelector("#content-type"),
+    div: form.querySelector("[data-set-content-type-new]")
+  }
+]);
+
+        </script>
+
+	</body>
+</html>
