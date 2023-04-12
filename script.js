@@ -138,3 +138,4 @@ hideOrShowNewTextInputs([
 ]);
 
 
+console.log('ola')
