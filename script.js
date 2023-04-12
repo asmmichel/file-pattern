@@ -136,6 +136,3 @@ hideOrShowNewTextInputs([
     div: form.querySelector("[data-set-content-type-new]")
   }
 ]);
-
-
-console.log('ola ola ola')
