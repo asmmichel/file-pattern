@@ -19,15 +19,21 @@ button:first-child
   }
   [data-set-sub-category-new] span {
     font-size: 0.8rem;
-    color: rgb(112, 12, 12);
+    color: #000000;
     border: 2px solid #ffd700;
-    padding: 5px;
+    border-radius: 5px;
+    padding: 10px;
     z-index: 9999;
     background-color: #ffffff;
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
+  }
+  [data-set-sub-category-new] span::before {
+    content: "ATENÇÃO: ";
+    color: red;
+    font-weight: bold;
   }
   
   [data-set-pos-signup-journey-new] span {
