@@ -8,15 +8,37 @@ button:first-child
   border: 1px solid #000000;
   color: #000000
   }
+  [data-set-sub-category-new] {
+    display: none;
+  }
   [data-set-pos-signup-journey-new] {
     display: none;
   }
   [data-set-content-type-new] {
     display: none;
   }
-  [data-set-sub-category-new] {
+  [data-set-sub-category-new] span {
+    font-size: 0.8rem;
+    color: rgb(112, 12, 12);
+    border: 2px solid #ffd700;
+    padding: 5px;
+    z-index: 9999;
+    background-color: #ffffff;
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
   }
+  
+  [data-set-pos-signup-journey-new] span {
+    font-size: 5px;
+    
+  }
+  [data-set-content-type-new] span {
+    font-size: 5px;
+
+  }
+
   #sub-category  option:last-child {
     font-weight: bold;
   }

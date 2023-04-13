@@ -137,3 +137,52 @@ hideOrShowNewTextInputs([
   }
 ]);
 
+
+
+const subCategoryNewSpan = document.querySelector('[data-set-sub-category-new] span');
+const subCategoryNew = form.querySelector("#sub-category-new");
+
+let isMouseOverSpan = false;
+
+const emailLink = document.querySelector('#email-link');
+
+subCategoryNew.addEventListener('mouseover',  () => {
+    subCategoryNewSpan.style.display = 'block';
+});
+
+subCategoryNew.addEventListener('mouseout', () => {
+    if (!isMouseOverSpan) {
+        subCategoryNewSpan.style.display = 'none';
+    }
+});
+
+subCategoryNew.addEventListener('mouseover', () => {
+    isMouseOverSpan = true;
+});
+
+emailLink.addEventListener('mouseover', () => {
+    subCategoryNewSpan.style.display = 'block';
+});
+
+emailLink.addEventListener('mouseout', () => {
+    isMouseOverSpan = false;
+    subCategoryNewSpan.style.display = 'none';
+});
+
+subCategoryNewSpan.addEventListener('mouseover', () => {
+    isMouseOverSpan = true;
+    subCategoryNewSpan.style.display = 'block';
+});
+
+subCategoryNewSpan.addEventListener('mouseout', () => {
+    isMouseOverSpan = false;
+    subCategoryNewSpan.style.display = 'none';
+});
+
+emailLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.open('https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE', '_blank');
+
+});
+
+
