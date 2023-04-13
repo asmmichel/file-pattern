@@ -186,3 +186,6 @@ emailLink.addEventListener('click', (event) => {
 });
 
 
+form.addEventListener('click', () => {
+    subCategoryNewSpan.style.display = 'none';
+});
