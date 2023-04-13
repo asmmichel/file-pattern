@@ -188,7 +188,7 @@ emailLink.addEventListener('click', (event) => {
 const posSignupJourneyNewSpan = document.querySelector('[data-set-pos-signup-journey-new] span');
 const posSignupJourneyNew = form.querySelector("#pos-signup-journey-new");
 let isMouseOverSpan2 = false;
-const emailLink2 = document.querySelector('#email-link');
+const emailLink2 = document.querySelector('#email-link-2');
 posSignupJourneyNew.addEventListener('mouseover',  () => {
     posSignupJourneyNewSpan.style.display = 'block';
 });
@@ -228,7 +228,7 @@ emailLink2.addEventListener('click', (event) => {
 const contentTypeNewSpan = document.querySelector('[data-set-content-type-new] span');
 const contentTypeNew = form.querySelector("#content-type-new");
 let isMouseOverSpan3 = false;
-const emailLink3 = document.querySelector('#email-link');
+const emailLink3 = document.querySelector('#email-link-3');
 contentTypeNew.addEventListener('mouseover',  () => {
     contentTypeNewSpan.style.display = 'block';
 });

@@ -11,33 +11,65 @@
         <style>
 
 body {
-    background-color: #d1e2d8;
-    font-size:16px;
-}
-    button:first-child
-{
-    background-color:#d1e2d8;
-    border: 1px solid #000000;
-    color: #000000
-}
-[data-set-pos-signup-journey-new] {
+  background-color: #d1e2d8;
+  font-size:16px;
+  }
+button:first-child
+  {
+  background-color:#d1e2d8;
+  border: 1px solid #000000;
+  color: #000000
+  }
+  [data-set-sub-category-new],
+  [data-set-pos-signup-journey-new],
+  [data-set-content-type-new] {
     display: none;
-}
-[data-set-content-type-new] {
+  }
+
+  [data-set-sub-category-new] span,
+  [data-set-pos-signup-journey-new] span,
+  [data-set-content-type-new] span {
+    font-size: 0.7rem;
+    color: #000000;
+    border: 2px solid #ffd700;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 5px;
+    z-index: 9999;
+    background-color: #ffffff;
     display: none;
-}
-[data-set-sub-category-new] {
-    display: none;
-}
-#sub-category  option:last-child {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    animation: fadeIn .3s ease-in-out;
+  }
+  
+  [data-set-sub-category-new] span::before,
+  [data-set-pos-signup-journey-new] span::before,
+  [data-set-content-type-new] span::before {
+    content: "ATENÇÃO: ";
+    color: red;
     font-weight: bold;
-}
-#pos-signup-journey option:last-child {
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+
+  #sub-category  option:last-child,
+  #pos-signup-journey option:last-child,
+  #content-type  option:last-child {
     font-weight: bold;
-}
-#content-type  option:last-child {
-    font-weight: bold;
-}
+  }
+  
 
         </style>
 
@@ -90,7 +122,7 @@ body {
 			            <select id="sub-category" class="form-control">
 			                <option value="POS">Jornada Pós</option>
 			                <option value="PRE">Jornada Pré</option>
-											<option value="Novo">Nova Sub-Categoria</option>
+							<option value="Novo">Nova Sub-Categoria</option>
 			            </select>
 					</div>
 
@@ -116,7 +148,7 @@ body {
 			                <option value="Learn">Learn</option>
 			                <option value="Producer">Producer</option>
 			                <option value="Skip">Skip</option>
-											<option value="Novo">Novo Nome</option>
+							<option value="Novo">Novo Nome</option>
 			            </select>
 					</div>
 
@@ -139,7 +171,7 @@ body {
           <div class="form-group col-6 col-md-3">
 						<label for="email-psychology">Psicologia Email</label>
 			            <select id="email-psychology" class="form-control">
-											<option value=""></option>
+							<option value=""></option>
 			                <option value="NEUTRO">Neutro</option>
 			                <option value="POSITIVO">Positivo</option>
 			                <option value="NEGATIVO">Negativo</option>
@@ -149,7 +181,7 @@ body {
           <div class="form-group col-6 col-md-3">
 						<label for="funnel">Funil</label>
 			            <select id="funnel" class="form-control">
-											<option value=""></option>
+							<option value=""></option>
 			                <option value="TOFU">ToFu</option>
 			                <option value="MOFU">MoFu</option>
 			                <option value="BOFU">BoFu</option>
@@ -157,20 +189,23 @@ body {
 					</div>
 
 					<div class="form-group col-6 col-md-3" data-set-sub-category-new>
-						<label for="sub-category-new">Nova Sub Categoria</label>
+						<label for="sub-category-new">Nova Sub-Categoria</label>
 						<input type="text" class="form-control" id="sub-category-new" name="sub-category-new" placeholder="Coloque a nova sub-categoria" />
+						<span>Enviar uma mensagem para <a id="email-link" href="mailto:alfredo.jorge@hotmart.com">alfredo.jorge@hotmart.com</a> informando a nova Sub-Categoria digitada para podermos mensurar nos Dashboards!</span>
 						<small class="invalid-feedback"></small>
-					</div>
+					  </div>					  
 
 					<div class="form-group col-6 col-md-3" data-set-pos-signup-journey-new>
 						<label for="pos-signup-journey-new">Novo Nome Jornadas Pós</label>
 						<input type="text" class="form-control" id="pos-signup-journey-new" name="pos-signup-journey-new" placeholder="Coloque o novo nome" />
+						<span>Enviar uma mensagem para <a id="email-link-2" href="mailto:alfredo.jorge@hotmart.com">alfredo.jorge@hotmart.com</a> informando o novo nome digitado para podermos mensurar nos Dashboards!</span>
 						<small class="invalid-feedback"></small>
 					</div>
 
 					<div class="form-group col-6 col-md-3" data-set-content-type-new>
 						<label for="content-type-new">Novo Tipo Conteúdo</label>
 						<input type="text" class="form-control" id="content-type-new" name="content-type-new" placeholder="Coloque o novo nome" />
+						<span>Enviar uma mensagem para <a id="email-link-3" href="mailto:alfredo.jorge@hotmart.com">alfredo.jorge@hotmart.com</a> informando o novo tipo digitado para podermos mensurar nos Dashboards!</span>
 						<small class="invalid-feedback"></small>
 					</div>
 
@@ -267,8 +302,8 @@ body {
 		
         <script>
 
-// show a message with a type of the input
-function showMessage(input, message, type) {
+	// show a message with a type of the input
+	function showMessage(input, message, type) {
 	// get the small element and set the message
 	const msg = input.parentNode.querySelector("small");
 	msg.innerText = message;
@@ -405,6 +440,130 @@ hideOrShowNewTextInputs([
     div: form.querySelector("[data-set-content-type-new]")
   }
 ]);
+
+
+
+
+form.addEventListener('click', () => {
+    subCategoryNewSpan.style.display = 'none';
+    posSignupJourneyNewSpan.style.display = 'none';
+    contentTypeNewSpan.style.display = 'none';
+});
+
+
+const subCategoryNewSpan = document.querySelector('[data-set-sub-category-new] span');
+const subCategoryNew = form.querySelector("#sub-category-new");
+let isMouseOverSpan = false;
+const emailLink = document.querySelector('#email-link');
+subCategoryNew.addEventListener('mouseover',  () => {
+    subCategoryNewSpan.style.display = 'block';
+});
+subCategoryNew.addEventListener('mouseout', () => {
+    if (!isMouseOverSpan) {
+        subCategoryNewSpan.style.display = 'none';
+    }
+});
+subCategoryNew.addEventListener('mouseover', () => {
+    isMouseOverSpan = true;
+});
+emailLink.addEventListener('mouseover', () => {
+    subCategoryNewSpan.style.display = 'block';
+});
+emailLink.addEventListener('mouseout', () => {
+    isMouseOverSpan = false;
+    subCategoryNewSpan.style.display = 'none';
+});
+subCategoryNewSpan.addEventListener('mouseover', () => {
+    isMouseOverSpan = true;
+    subCategoryNewSpan.style.display = 'block';
+});
+subCategoryNewSpan.addEventListener('mouseout', () => {
+    isMouseOverSpan = false;
+    subCategoryNewSpan.style.display = 'none';
+});
+emailLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.open('https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE', '_blank');
+
+});
+
+
+
+const posSignupJourneyNewSpan = document.querySelector('[data-set-pos-signup-journey-new] span');
+const posSignupJourneyNew = form.querySelector("#pos-signup-journey-new");
+let isMouseOverSpan2 = false;
+const emailLink2 = document.querySelector('#email-link-2');
+posSignupJourneyNew.addEventListener('mouseover',  () => {
+    posSignupJourneyNewSpan.style.display = 'block';
+});
+posSignupJourneyNew.addEventListener('mouseout', () => {
+    if (!isMouseOverSpan2) {
+        posSignupJourneyNewSpan.style.display = 'none';
+    }
+});
+posSignupJourneyNew.addEventListener('mouseover', () => {
+    isMouseOverSpan2 = true;
+});
+emailLink2.addEventListener('mouseover', () => {
+    posSignupJourneyNewSpan.style.display = 'block';
+});
+emailLink2.addEventListener('mouseout', () => {
+    isMouseOverSpan2 = false;
+    posSignupJourneyNewSpan.style.display = 'none';
+});
+posSignupJourneyNewSpan.addEventListener('mouseover', () => {
+    isMouseOverSpan2 = true;
+    posSignupJourneyNewSpan.style.display = 'block';
+});
+posSignupJourneyNewSpan.addEventListener('mouseout', () => {
+    isMouseOverSpan2 = false;
+    posSignupJourneyNewSpan.style.display = 'none';
+});
+emailLink2.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.open('https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE', '_blank');
+
+});
+
+
+
+
+
+const contentTypeNewSpan = document.querySelector('[data-set-content-type-new] span');
+const contentTypeNew = form.querySelector("#content-type-new");
+let isMouseOverSpan3 = false;
+const emailLink3 = document.querySelector('#email-link-3');
+contentTypeNew.addEventListener('mouseover',  () => {
+    contentTypeNewSpan.style.display = 'block';
+});
+contentTypeNew.addEventListener('mouseout', () => {
+    if (!isMouseOverSpan3) {
+        contentTypeNewSpan.style.display = 'none';
+    }
+});
+contentTypeNew.addEventListener('mouseover', () => {
+    isMouseOverSpan3 = true;
+});
+emailLink3.addEventListener('mouseover', () => {
+    contentTypeNewSpan.style.display = 'block';
+});
+emailLink3.addEventListener('mouseout', () => {
+    isMouseOverSpan3 = false;
+    contentTypeNewSpan.style.display = 'none';
+});
+contentTypeNewSpan.addEventListener('mouseover', () => {
+    isMouseOverSpan3 = true;
+    contentTypeNewSpan.style.display = 'block';
+});
+contentTypeNewSpan.addEventListener('mouseout', () => {
+    isMouseOverSpan3 = false;
+    contentTypeNewSpan.style.display = 'none';
+});
+emailLink3.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.open('https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE', '_blank');
+
+});
 
         </script>
 
