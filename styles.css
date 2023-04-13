@@ -2,59 +2,58 @@ body {
   background-color: #d1e2d8;
   font-size:16px;
   }
-button:first-child
-  {
+
+button:first-child {
   background-color:#d1e2d8;
   border: 1px solid #000000;
   color: #000000
-  }
-  [data-set-sub-category-new],
-  [data-set-pos-signup-journey-new],
-  [data-set-content-type-new] {
-    display: none;
-  }
+}
 
-  [data-set-sub-category-new] span,
-  [data-set-pos-signup-journey-new] span,
-  [data-set-content-type-new] span {
-    font-size: 0.7rem;
-    color: #000000;
-    border: 2px solid #ffd700;
-    border-radius: 5px;
-    padding: 10px;
-    margin-right: 5px;
-    z-index: 9999;
-    background-color: #ffffff;
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    animation: fadeIn .3s ease-in-out;
-  }
-  
-  [data-set-sub-category-new] span::before,
-  [data-set-pos-signup-journey-new] span::before,
-  [data-set-content-type-new] span::before {
-    content: "ATENÇÃO: ";
-    color: red;
-    font-weight: bold;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
+#sub-category  option:last-child,
+#pos-signup-journey option:last-child,
+#content-type  option:last-child {
+  font-weight: bold;
+}
 
-  #sub-category  option:last-child,
-  #pos-signup-journey option:last-child,
-  #content-type  option:last-child {
-    font-weight: bold;
+[data-set-sub-category-new],
+[data-set-pos-signup-journey-new],
+[data-set-content-type-new] {
+  display: none;
+}
+
+[data-set-sub-category-new] span,
+[data-set-pos-signup-journey-new] span,
+[data-set-content-type-new] span {
+  font-size: 0.7rem;
+  color: #000000;
+  border: 2px solid #ffd700;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 5px;
+  z-index: 9999;
+  background-color: #ffffff;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  animation: fadeIn .3s ease-in-out;
+}
+
+[data-set-sub-category-new] span::before,
+[data-set-pos-signup-journey-new] span::before,
+[data-set-content-type-new] span::before {
+  content: "ATENÇÃO: ";
+  color: red;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
