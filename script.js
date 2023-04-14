@@ -52,7 +52,7 @@ function showFeatureName(prefix, featureData) {
 	return result.toUpperCase().trim().replaceAll(" ", "-");
 }
 
-function hideOrShowNewTextInputs(newTextInputsOBJ) {
+function showNewTextInputs(newTextInputsOBJ) {
   newTextInputsOBJ.forEach(inputOBJ => {
     inputOBJ.select.addEventListener("change", () => {
       inputOBJ.div.style.display = inputOBJ.select.value === "Novo" ? "block" : "none";
@@ -122,7 +122,7 @@ function checkTheLengthAndSendValues(formElement, value) {
 	}
 }
 
-hideOrShowNewTextInputs([
+showNewTextInputs([
   {
     select: form.querySelector("#sub-category"),
     div: form.querySelector("[data-set-sub-category-new]")
@@ -138,50 +138,98 @@ hideOrShowNewTextInputs([
 ]);
 
 
+showBoxWarningAndOpenGmail([
+  {
+    input: form.querySelector("#sub-category-new"),
+		emails: form.querySelectorAll("[data-set-sub-category-new] a.email-chat")
+  },
+  {
+    input: form.querySelector("#pos-signup-journey-new"),
+		emails: form.querySelectorAll("[data-set-pos-signup-journey-new] a.email-chat")
+
+  }
+]);
 
 
-form.addEventListener('click', () => {
-    subCategoryNewSpan.style.display = 'none';
-    // posSignupJourneyNewSpan.style.display = 'none';
-    // contentTypeNewSpan.style.display = 'none';
-});
+
+function showBoxWarningAndOpenGmail(boxWarningOBJ) {
+
+	let isMouseOverBox = false;
+
+	boxWarningOBJ.forEach((box) => {
+
+		const spanBox = box.input.nextElementSibling;
+
+		box.input.addEventListener('mouseover', () => {
+			spanBox.style.display = 'block';
+		});
+
+		spanBox.addEventListener('mouseover', () => {
+			isMouseOverBox = true;
+			spanBox.style.display = 'block';
+		});
+		
+		spanBox.addEventListener('mouseout', () => {
+			isMouseOverBox = false;
+			spanBox.style.display = 'none';
+		});
+		
+		box.input.addEventListener('mouseout', () => {
+				if (!isMouseOverBox) {
+					spanBox.style.display = 'none';
+				}
+		});
 
 
-const subCategoryNewSpan = document.querySelector('[data-set-sub-category-new] span');
-const subCategoryNew = form.querySelector("#sub-category-new");
-let isMouseOverSpan = false;
-const emailLink = document.querySelector('#email-link');
-subCategoryNew.addEventListener('mouseover',  () => {
-    subCategoryNewSpan.style.display = 'block';
-});
-subCategoryNew.addEventListener('mouseout', () => {
-    if (!isMouseOverSpan) {
-        subCategoryNewSpan.style.display = 'none';
-    }
-});
-subCategoryNew.addEventListener('mouseover', () => {
-    isMouseOverSpan = true;
-});
-emailLink.addEventListener('mouseover', () => {
-    subCategoryNewSpan.style.display = 'block';
-});
-emailLink.addEventListener('mouseout', () => {
-    isMouseOverSpan = false;
-    subCategoryNewSpan.style.display = 'none';
-});
-subCategoryNewSpan.addEventListener('mouseover', () => {
-    isMouseOverSpan = true;
-    subCategoryNewSpan.style.display = 'block';
-});
-subCategoryNewSpan.addEventListener('mouseout', () => {
-    isMouseOverSpan = false;
-    subCategoryNewSpan.style.display = 'none';
-});
-emailLink.addEventListener('click', (event) => {
-    event.preventDefault();
-    window.open('https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE', '_blank');
+		box.emails.forEach((email) => {
+			const ariaLabel = email.getAttribute('aria-label');
+			email.addEventListener('click', (event) => {
+				event.preventDefault();
+				window.open(ariaLabel, '_blank');
+		})
+	})
 
-});
+})
+
+}
+
+
+
+
+
+// const subCategoryNew = form.querySelector("#sub-category-new");
+// const subCategoryNewSpan = document.querySelector('[data-set-sub-category-new] span');
+// const emailLink = document.querySelector('#email-link');
+// let isMouseOverSpan = false;
+
+
+
+// subCategoryNew.addEventListener('mouseover', () => {
+//     subCategoryNewSpan.style.display = 'block';
+// });
+
+// subCategoryNewSpan.addEventListener('mouseover', () => {
+// 	isMouseOverSpan = true;
+// 	subCategoryNewSpan.style.display = 'block';
+// });
+
+// subCategoryNewSpan.addEventListener('mouseout', () => {
+// 	isMouseOverSpan = false;
+// 	subCategoryNewSpan.style.display = 'none';
+// });
+
+// subCategoryNew.addEventListener('mouseout', () => {
+//     if (!isMouseOverSpan) {
+//         subCategoryNewSpan.style.display = 'none';
+//     }
+// });
+
+
+// emailLink.addEventListener('click', (event) => {
+//     event.preventDefault();
+//     window.open('https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE', '_blank');
+
+// });
 
 
 
