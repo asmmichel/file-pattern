@@ -71,61 +71,6 @@ function showNewTextInputs(newTextInputsOBJ) {
   });
 }
 
-const form = document.querySelector("#signup");
-
-const formElementsAndPrefix = [
-	{
-		formElement: "emailNameResult",
-		prefix: ""
-	},
-	{
-		formElement: "deNameResult",
-		prefix: "DE_"
-	},
-	{
-		formElement: "filterNameResult",
-		prefix: "FILTER_"
-	},
-	{
-		formElement: "sqlNameResult",
-		prefix: "SQL_"
-	},
-	{
-		formElement: "automationNameResult",
-		prefix: "AUT_"
-	},
-	{
-		formElement: "importNameResult",
-		prefix: "IMPORT_"
-	},
-	{
-		formElement: "dataExtractNameResult",
-		prefix: "DATA_EXT_"
-	},
-	{
-		formElement: "fileTransferNameResult",
-		prefix: "FT_"
-	}
-];
-
-
-form.addEventListener("submit", (event) => {
-	event.preventDefault();
-	const featureData = extractFormData(form);
-	const resultsLenghtArray = [];
-
-	formElementsAndPrefix.forEach(({ formElement, prefix }) => {
-		let result = showFeatureName(prefix, featureData);
-		const emptyCheckerArray = checkIfNewTextInputsAreEmpty(featureData)
-		if(emptyCheckerArray.includes(true)) result = '';
-		resultsLenghtArray.push(checkTheLengthAndSendValues(formElement, result));
-	});
-
-	if (resultsLenghtArray.every((result) => result === true)) {
-		alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
-	}
-});
-
 function checkTheLengthAndSendValues(formElement, result) {
   if (result.length >= 100) {
     return true;
@@ -134,7 +79,6 @@ function checkTheLengthAndSendValues(formElement, result) {
 		return false;
 	}
 }
-
 
 function checkIfNewTextInputsAreEmpty(featureData) {
 	const { subCategory, subCategoryNew, emptyWarningDivSubCategory, inputBoxSubCategory, posSignupJourney, posSignupJourneyNew , emptyWarningDivPosSignupJourney, inputBoxPosSignupJourney, contentTypeNew} = featureData;
@@ -162,36 +106,6 @@ function checkIfNewTextInputsAreEmpty(featureData) {
 
 	return emptyCheckerArray;
 }
-
-
-showNewTextInputs([
-  {
-    select: form.querySelector("#sub-category"),
-    div: form.querySelector("[data-set-sub-category-new]")
-  },
-  {
-    select: form.querySelector("#pos-signup-journey"),
-    div: form.querySelector("[data-set-pos-signup-journey-new]")
-  },
-  {
-    select: form.querySelector("#content-type"),
-    div: form.querySelector("[data-set-content-type-new]")
-  }
-]);
-
-
-showBoxWarningAndOpenGmail([
-  {
-    input: form.querySelector("#sub-category-new"),
-		emails: form.querySelectorAll("[data-set-sub-category-new] a.email-chat")
-  },
-  {
-    input: form.querySelector("#pos-signup-journey-new"),
-		emails: form.querySelectorAll("[data-set-pos-signup-journey-new] a.email-chat")
-
-  }
-]);
-
 
 function showBoxWarningAndOpenGmail(boxWarningOBJ) {
 
@@ -233,4 +147,88 @@ function showBoxWarningAndOpenGmail(boxWarningOBJ) {
 })
 
 }
+
+
+
+const form = document.querySelector("#signup");
+
+const formElementsAndPrefix = [
+	{
+		formElement: "emailNameResult",
+		prefix: ""
+	},
+	{
+		formElement: "deNameResult",
+		prefix: "DE_"
+	},
+	{
+		formElement: "filterNameResult",
+		prefix: "FILTER_"
+	},
+	{
+		formElement: "sqlNameResult",
+		prefix: "SQL_"
+	},
+	{
+		formElement: "automationNameResult",
+		prefix: "AUT_"
+	},
+	{
+		formElement: "importNameResult",
+		prefix: "IMPORT_"
+	},
+	{
+		formElement: "dataExtractNameResult",
+		prefix: "DATA_EXT_"
+	},
+	{
+		formElement: "fileTransferNameResult",
+		prefix: "FT_"
+	}
+];
+
+showNewTextInputs([
+  {
+    select: form.querySelector("#sub-category"),
+    div: form.querySelector("[data-set-sub-category-new]")
+  },
+  {
+    select: form.querySelector("#pos-signup-journey"),
+    div: form.querySelector("[data-set-pos-signup-journey-new]")
+  },
+  {
+    select: form.querySelector("#content-type"),
+    div: form.querySelector("[data-set-content-type-new]")
+  }
+]);
+
+showBoxWarningAndOpenGmail([
+  {
+    input: form.querySelector("#sub-category-new"),
+		emails: form.querySelectorAll("[data-set-sub-category-new] a.email-chat")
+  },
+  {
+    input: form.querySelector("#pos-signup-journey-new"),
+		emails: form.querySelectorAll("[data-set-pos-signup-journey-new] a.email-chat")
+
+  }
+]);
+
+form.addEventListener("submit", (event) => {
+	event.preventDefault();
+	const featureData = extractFormData(form);
+	const resultsLenghtArray = [];
+
+	formElementsAndPrefix.forEach(({ formElement, prefix }) => {
+		let result = showFeatureName(prefix, featureData);
+		const emptyCheckerArray = checkIfNewTextInputsAreEmpty(featureData)
+		if(emptyCheckerArray.includes(true)) result = '';
+		resultsLenghtArray.push(checkTheLengthAndSendValues(formElement, result));
+	});
+
+	if (resultsLenghtArray.every((result) => result === true)) {
+		alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
+	}
+});
+
 
