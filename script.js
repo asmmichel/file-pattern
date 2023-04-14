@@ -21,7 +21,7 @@ function hasValue(input, message) {
 }
 
 
-	
+
 function extractFormData(form) {
 	return {
 		office: form.querySelector("#office").value,
@@ -47,17 +47,21 @@ function showFeatureName(prefix, featureData) {
 
 	let result = `${prefix}${office}_${type}_${category}`;
 
-	result += subCategory === "Novo" ? `_${subCategoryNew}` : `_${subCategory}`;
-	result += posSignupJourney === "Novo" ? `_${posSignupJourneyNew}` : `_${posSignupJourney}`;
-	result += contentType === "Novo" ? `_${contentTypeNew}` : (contentType !== "" ? `_${contentType}` : "");
-	result += emailPsychology !== "" ? `_${emailPsychology}` : "";
-	result += funnel !== "" ? `_${funnel}` : "";
+	if (subCategory === "Novo")  result += `_${subCategoryNew}` 
+	else result += `_${subCategory}`;
 
+	if (posSignupJourney === "Novo") result += `_${posSignupJourneyNew}`;
+	else	result += `_${posSignupJourney}`;
+
+	if (contentType === "Novo") result += `_${contentTypeNew}`;
+	else if (contentType !== "") result += `_${contentType}`;
+
+	if (emailPsychology !== "") result += `_${emailPsychology}`;
+	
+	if (funnel !== "") result += `_${funnel}`;
 
 	return result.toUpperCase().trim().replaceAll(" ", "-");
 }
-
-
 
 function showNewTextInputs(newTextInputsOBJ) {
   newTextInputsOBJ.forEach(inputOBJ => {
@@ -68,7 +72,6 @@ function showNewTextInputs(newTextInputsOBJ) {
 }
 
 const form = document.querySelector("#signup");
-const campaignNameValid = true;
 
 const formElementsAndPrefix = [
 	{
@@ -106,32 +109,20 @@ const formElementsAndPrefix = [
 ];
 
 
-
-
 form.addEventListener("submit", (event) => {
 	event.preventDefault();
-	if (campaignNameValid) {
-		const featureData = extractFormData(form);
+	const featureData = extractFormData(form);
+	const resultsLenghtArray = [];
 
+	formElementsAndPrefix.forEach(({ formElement, prefix }) => {
+		let result = showFeatureName(prefix, featureData);
+		const emptyCheckerArray = checkIfNewTextInputsAreEmpty(featureData)
+		if(emptyCheckerArray.includes(true)) result = '';
+		resultsLenghtArray.push(checkTheLengthAndSendValues(formElement, result));
+	});
 
-
-
-
-
-		const resultsLenghtArray = [];
-		formElementsAndPrefix.forEach(({ formElement, prefix }) => {
-			const result = showFeatureName(prefix, featureData);
-			resultsLenghtArray.push(checkTheLengthAndSendValues(formElement, result));
-			//console.log(featureData);
-
-			checkIfNewTextInputsAreEmpty(featureData);
-
-
-
-		});
-		if (resultsLenghtArray.every((result) => result === true)) {
-			alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
-		}
+	if (resultsLenghtArray.every((result) => result === true)) {
+		alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
 	}
 });
 
@@ -146,13 +137,30 @@ function checkTheLengthAndSendValues(formElement, result) {
 
 
 function checkIfNewTextInputsAreEmpty(featureData) {
-  const { subCategory, subCategoryNew, emptyWarningDivSubCategory, inputBoxSubCategory, posSignupJourney, posSignupJourneyNew , emptyWarningDivPosSignupJourney, inputBoxPosSignupJourney } = featureData;
+	const { subCategory, subCategoryNew, emptyWarningDivSubCategory, inputBoxSubCategory, posSignupJourney, posSignupJourneyNew , emptyWarningDivPosSignupJourney, inputBoxPosSignupJourney, contentTypeNew} = featureData;
+	const emptyCheckerArray = []
 
-  emptyWarningDivSubCategory.style.display = subCategory === "Novo" && subCategoryNew === "" ? "block" : "none";
-  inputBoxSubCategory.style.border = subCategory === "Novo" && subCategoryNew === "" ? "1px solid red" : "none";
+	if (subCategory === "Novo" && subCategoryNew === "") {
+		emptyWarningDivSubCategory.style.display = "block"
+		inputBoxSubCategory.style.border = "1px solid red";
+		emptyCheckerArray.push(true)
+	} else {
+		emptyWarningDivSubCategory.style.display = "none"
+		inputBoxSubCategory.style.border = "none";
+		emptyCheckerArray.push(false)
+	}
 
-  emptyWarningDivPosSignupJourney.style.display = posSignupJourney === "Novo" && posSignupJourneyNew === "" ? "block" : "none";
-  inputBoxPosSignupJourney.style.border = posSignupJourney === "Novo" && posSignupJourneyNew === "" ? "1px solid red" : "none";
+	if (posSignupJourney === "Novo" && posSignupJourneyNew === "") {
+		emptyWarningDivPosSignupJourney.style.display = "block"
+		inputBoxPosSignupJourney.style.border = "1px solid red";
+		emptyCheckerArray.push(true)
+	} else {
+		emptyWarningDivPosSignupJourney.style.display = "none"
+		inputBoxPosSignupJourney.style.border = "none";
+		emptyCheckerArray.push(false)
+	}
+
+	return emptyCheckerArray;
 }
 
 
@@ -183,7 +191,6 @@ showBoxWarningAndOpenGmail([
 
   }
 ]);
-
 
 
 function showBoxWarningAndOpenGmail(boxWarningOBJ) {
