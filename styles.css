@@ -60,5 +60,5 @@ button:first-child {
 [data-set-pos-signup-journey-new] .empty-warning {
   color: red;
   font-size: .7rem;
-  border: 1px solid red;
+  display: none;
 }

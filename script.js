@@ -33,7 +33,11 @@ function extractFormData(form) {
 		emailPsychology: form.querySelector("#email-psychology").value,
 		funnel: form.querySelector("#funnel").value,
 		subCategoryNew: form.querySelector("#sub-category-new").value,
+		emptyWarningDivSubCategory: form.querySelector("[data-set-sub-category-new] div"),
+		inputBoxSubCategory: form.querySelector("[data-set-sub-category-new] input"),
 		posSignupJourneyNew: form.querySelector("#pos-signup-journey-new").value,
+		emptyWarningDivPosSignupJourney: form.querySelector("[data-set-pos-signup-journey-new] div"),
+		inputBoxPosSignupJourney: form.querySelector("[data-set-pos-signup-journey-new] input"),
 		contentTypeNew: form.querySelector("#content-type-new").value
 	};
 }
@@ -49,8 +53,11 @@ function showFeatureName(prefix, featureData) {
 	result += emailPsychology !== "" ? `_${emailPsychology}` : "";
 	result += funnel !== "" ? `_${funnel}` : "";
 
+
 	return result.toUpperCase().trim().replaceAll(" ", "-");
 }
+
+
 
 function showNewTextInputs(newTextInputsOBJ) {
   newTextInputsOBJ.forEach(inputOBJ => {
@@ -98,29 +105,56 @@ const formElementsAndPrefix = [
 	}
 ];
 
+
+
+
 form.addEventListener("submit", (event) => {
 	event.preventDefault();
 	if (campaignNameValid) {
 		const featureData = extractFormData(form);
-		const checkResults = [];
+
+
+
+
+
+
+		const resultsLenghtArray = [];
 		formElementsAndPrefix.forEach(({ formElement, prefix }) => {
 			const result = showFeatureName(prefix, featureData);
-			checkResults.push(checkTheLengthAndSendValues(formElement, result));
+			resultsLenghtArray.push(checkTheLengthAndSendValues(formElement, result));
+			//console.log(featureData);
+
+			checkIfNewTextInputsAreEmpty(featureData);
+
+
+
 		});
-		if (checkResults.every((result) => result === true)) {
+		if (resultsLenghtArray.every((result) => result === true)) {
 			alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
 		}
 	}
 });
 
-function checkTheLengthAndSendValues(formElement, value) {
-  if (value.length >= 100) {
+function checkTheLengthAndSendValues(formElement, result) {
+  if (result.length >= 100) {
     return true;
   } else {
-		form.elements[formElement].value = value;
+		form.elements[formElement].value = result;
 		return false;
 	}
 }
+
+
+function checkIfNewTextInputsAreEmpty(featureData) {
+  const { subCategory, subCategoryNew, emptyWarningDivSubCategory, inputBoxSubCategory, posSignupJourney, posSignupJourneyNew , emptyWarningDivPosSignupJourney, inputBoxPosSignupJourney } = featureData;
+
+  emptyWarningDivSubCategory.style.display = subCategory === "Novo" && subCategoryNew === "" ? "block" : "none";
+  inputBoxSubCategory.style.border = subCategory === "Novo" && subCategoryNew === "" ? "1px solid red" : "none";
+
+  emptyWarningDivPosSignupJourney.style.display = posSignupJourney === "Novo" && posSignupJourneyNew === "" ? "block" : "none";
+  inputBoxPosSignupJourney.style.border = posSignupJourney === "Novo" && posSignupJourneyNew === "" ? "1px solid red" : "none";
+}
+
 
 showNewTextInputs([
   {
@@ -193,118 +227,3 @@ function showBoxWarningAndOpenGmail(boxWarningOBJ) {
 
 }
 
-
-
-
-
-// const subCategoryNew = form.querySelector("#sub-category-new");
-// const subCategoryNewSpan = document.querySelector('[data-set-sub-category-new] span');
-// const emailLink = document.querySelector('#email-link');
-// let isMouseOverSpan = false;
-
-
-
-// subCategoryNew.addEventListener('mouseover', () => {
-//     subCategoryNewSpan.style.display = 'block';
-// });
-
-// subCategoryNewSpan.addEventListener('mouseover', () => {
-// 	isMouseOverSpan = true;
-// 	subCategoryNewSpan.style.display = 'block';
-// });
-
-// subCategoryNewSpan.addEventListener('mouseout', () => {
-// 	isMouseOverSpan = false;
-// 	subCategoryNewSpan.style.display = 'none';
-// });
-
-// subCategoryNew.addEventListener('mouseout', () => {
-//     if (!isMouseOverSpan) {
-//         subCategoryNewSpan.style.display = 'none';
-//     }
-// });
-
-
-// emailLink.addEventListener('click', (event) => {
-//     event.preventDefault();
-//     window.open('https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE', '_blank');
-
-// });
-
-
-
-// const posSignupJourneyNewSpan = document.querySelector('[data-set-pos-signup-journey-new] span');
-// const posSignupJourneyNew = form.querySelector("#pos-signup-journey-new");
-// let isMouseOverSpan2 = false;
-// const emailLink2 = document.querySelector('#email-link-2');
-// posSignupJourneyNew.addEventListener('mouseover',  () => {
-//     posSignupJourneyNewSpan.style.display = 'block';
-// });
-// posSignupJourneyNew.addEventListener('mouseout', () => {
-//     if (!isMouseOverSpan2) {
-//         posSignupJourneyNewSpan.style.display = 'none';
-//     }
-// });
-// posSignupJourneyNew.addEventListener('mouseover', () => {
-//     isMouseOverSpan2 = true;
-// });
-// emailLink2.addEventListener('mouseover', () => {
-//     posSignupJourneyNewSpan.style.display = 'block';
-// });
-// emailLink2.addEventListener('mouseout', () => {
-//     isMouseOverSpan2 = false;
-//     posSignupJourneyNewSpan.style.display = 'none';
-// });
-// posSignupJourneyNewSpan.addEventListener('mouseover', () => {
-//     isMouseOverSpan2 = true;
-//     posSignupJourneyNewSpan.style.display = 'block';
-// });
-// posSignupJourneyNewSpan.addEventListener('mouseout', () => {
-//     isMouseOverSpan2 = false;
-//     posSignupJourneyNewSpan.style.display = 'none';
-// });
-// emailLink2.addEventListener('click', (event) => {
-//     event.preventDefault();
-//     window.open('https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE', '_blank');
-
-// });
-
-
-
-
-
-// const contentTypeNewSpan = document.querySelector('[data-set-content-type-new] span');
-// const contentTypeNew = form.querySelector("#content-type-new");
-// let isMouseOverSpan3 = false;
-// const emailLink3 = document.querySelector('#email-link-3');
-// contentTypeNew.addEventListener('mouseover',  () => {
-//     contentTypeNewSpan.style.display = 'block';
-// });
-// contentTypeNew.addEventListener('mouseout', () => {
-//     if (!isMouseOverSpan3) {
-//         contentTypeNewSpan.style.display = 'none';
-//     }
-// });
-// contentTypeNew.addEventListener('mouseover', () => {
-//     isMouseOverSpan3 = true;
-// });
-// emailLink3.addEventListener('mouseover', () => {
-//     contentTypeNewSpan.style.display = 'block';
-// });
-// emailLink3.addEventListener('mouseout', () => {
-//     isMouseOverSpan3 = false;
-//     contentTypeNewSpan.style.display = 'none';
-// });
-// contentTypeNewSpan.addEventListener('mouseover', () => {
-//     isMouseOverSpan3 = true;
-//     contentTypeNewSpan.style.display = 'block';
-// });
-// contentTypeNewSpan.addEventListener('mouseout', () => {
-//     isMouseOverSpan3 = false;
-//     contentTypeNewSpan.style.display = 'none';
-// });
-// emailLink3.addEventListener('click', (event) => {
-//     event.preventDefault();
-//     window.open('https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE', '_blank');
-
-// });
