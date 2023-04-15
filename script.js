@@ -42,7 +42,7 @@ function extractFormData(form) {
 	};
 }
 
-function showFeatureName(prefix, featureData) {
+function showFeatureName(prefix, featureData, event) {
 	const { office, type, category, subCategory, posSignupJourney, contentType, emailPsychology, funnel, subCategoryNew, posSignupJourneyNew, contentTypeNew } = featureData;
 
 	let result = `${prefix}${office}_${type}_${category}`;
@@ -60,6 +60,17 @@ function showFeatureName(prefix, featureData) {
 	
 	if (funnel !== "") result += `_${funnel}`;
 
+	if(event.submitter.name === 'date') return showFeatureNameWithDate(result);
+
+	return result.toUpperCase().trim().replaceAll(" ", "-");
+}
+
+function showFeatureNameWithDate(result) {
+	const date = new Date();
+	const year = String(date.getFullYear()).slice(-2);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+	result += `-${year}${month}${day}`;
 	return result.toUpperCase().trim().replaceAll(" ", "-");
 }
 
@@ -220,7 +231,7 @@ form.addEventListener("submit", (event) => {
 	const resultsLenghtArray = [];
 
 	formElementsAndPrefix.forEach(({ formElement, prefix }) => {
-		let result = showFeatureName(prefix, featureData);
+		let result = showFeatureName(prefix, featureData, event);
 		const emptyCheckerArray = checkIfNewTextInputsAreEmpty(featureData)
 		if(emptyCheckerArray.includes(true)) result = '';
 		resultsLenghtArray.push(checkTheLengthAndSendValues(formElement, result));

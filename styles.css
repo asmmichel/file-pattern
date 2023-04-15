@@ -62,3 +62,19 @@ button:first-child {
   font-size: .7rem;
   display: none;
 }
+
+.btn-secondary {
+  font-size: .8rem;
+  padding: 3px;
+  margin-top: 3px;
+}
+.btn-secondary:hover {
+  background-color: #FF6600;
+}
+.btn-secondary:active {
+  background-color: #FF6600;
+}
+.btn-secondary:focus,
+.btn-secondary:active {
+  box-shadow: 0 0 0 0.2rem #FFA07A;
+}
