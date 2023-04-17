@@ -118,47 +118,28 @@ function checkIfNewTextInputsAreEmpty(featureData) {
 	return emptyCheckerArray;
 }
 
-function showBoxWarningAndOpenGmail(boxWarningOBJ) {
-
-	let isMouseOverBox = false;
-
-	boxWarningOBJ.forEach((box) => {
-
-		const spanBox = box.input.nextElementSibling;
-
-		box.input.addEventListener('mouseover', () => {
-			spanBox.style.display = 'block';
-		});
-
-		spanBox.addEventListener('mouseover', () => {
-			isMouseOverBox = true;
-			spanBox.style.display = 'block';
-		});
+function showBoxWarningAndOpenGmail(divsArray) {
+	divsArray.forEach((div) => {
+		const span = div.querySelector('span')
 		
-		spanBox.addEventListener('mouseout', () => {
-			isMouseOverBox = false;
-			spanBox.style.display = 'none';
+		div.addEventListener('mouseover', () => {
+			span.style.display = 'block';
 		});
-		
-		box.input.addEventListener('mouseout', () => {
-				if (!isMouseOverBox) {
-					spanBox.style.display = 'none';
-				}
+		div.addEventListener('mouseout', () => {
+				span.style.display = 'none';
 		});
 
-
-		box.emails.forEach((email) => {
+		const emailsDivs = document.querySelectorAll('div a.email-chat')
+				
+		emailsDivs.forEach((email) => {
 			const ariaLabel = email.getAttribute('aria-label');
 			email.addEventListener('click', (event) => {
 				event.preventDefault();
 				window.open(ariaLabel, '_blank');
+			})
 		})
 	})
-
-})
-
 }
-
 
 
 const form = document.querySelector("#signup");
@@ -214,15 +195,8 @@ showNewTextInputs([
 ]);
 
 showBoxWarningAndOpenGmail([
-  {
-    input: form.querySelector("#sub-category-new"),
-		emails: form.querySelectorAll("[data-set-sub-category-new] a.email-chat")
-  },
-  {
-    input: form.querySelector("#pos-signup-journey-new"),
-		emails: form.querySelectorAll("[data-set-pos-signup-journey-new] a.email-chat")
-
-  }
+	form.querySelector("[data-set-sub-category-new]"),
+	form.querySelector("[data-set-pos-signup-journey-new]")
 ]);
 
 form.addEventListener("submit", (event) => {
