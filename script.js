@@ -1,19 +1,16 @@
 function init() {
 
-	showBoxWarningAndOpenGmail(newInputsOBJ);
+	showBoxWarningAndOpenGmail(inputsOBJ);
 
-	showNewTextInputs(newInputsOBJ)	
+	showNewTextInputs(inputsOBJ)	
 	
 	form.addEventListener("submit", (event) => {
 		event.preventDefault();
-
-		const formElementsAndPrefix = getFormElementsAndPrefix();
-
 		const resultsLenghtArray = [];
 		
 		formElementsAndPrefix.forEach(({ formElement, prefix }) => {
-			let result = showFeatureName(prefix, newInputsOBJ, event);
-			const emptyCheckerArray = checkIfNewTextInputsAreEmpty(newInputsOBJ)
+			let result = showFeatureName(prefix, inputsOBJ, event);
+			const emptyCheckerArray = checkIfNewTextInputsAreEmpty(inputsOBJ)
 			if(emptyCheckerArray.includes(true)) result = '';
 			resultsLenghtArray.push(checkTheLengthAndSendValues(formElement, result));
 		});
@@ -24,10 +21,10 @@ function init() {
 	});
 }
 
-function showFeatureName(prefix, newInputsOBJ, event) {
+function showFeatureName(prefix, inputsOBJ, event) {
 	let result = `${prefix}`;
 
-	newInputsOBJ.forEach(obj => {
+	inputsOBJ.forEach(obj => {
 		const { select, newDiv } = obj;
 		const onlyDropdown = 					select.classList.contains('only-dropdown');
 		const newInput = 							select.classList.contains('new-input');
@@ -49,8 +46,8 @@ function showFeatureName(prefix, newInputsOBJ, event) {
 			}
 			if (newInputOptional) {
 				if (valueIsNotEmpty && valueIsNotNew) 		result += `${select.value}_`;
+				else if (valueIsNew && newDivValueEmpty) 	result = result.replace(/_+$/, "_");
 				else if (valueIsNew) 											result += `${newDivValue}_`;
-				else if (valueIsNew && newDivValueEmpty) 	result = result.slice(0, -1);
 			}
 		}
 
@@ -58,7 +55,7 @@ function showFeatureName(prefix, newInputsOBJ, event) {
 			if (valueIsNotEmpty) result += `${select.value}_`;
 		}
 	});
-
+	
 	result = result.replace(/_+$/, "");
 
 	if(event.submitter.name === 'date') return showFeatureNameWithDate(result);
@@ -75,8 +72,8 @@ function showFeatureNameWithDate(result) {
 	return result.toUpperCase().trim().replaceAll(" ", "-");
 }
 
-function showNewTextInputs(newInputsOBJ) {
-	newInputsOBJ.forEach(obj => {
+function showNewTextInputs(inputsOBJ) {
+	inputsOBJ.forEach(obj => {
 		if(obj.hasOwnProperty('newDiv')) {
 			obj.select.addEventListener("change", () => {
 				obj.newDiv.style.display = obj.select.value === "Novo" ? "block" : "none";
@@ -94,9 +91,9 @@ function checkTheLengthAndSendValues(formElement, result) {
 	}
 }
 
-function checkIfNewTextInputsAreEmpty(newInputsOBJ) {
+function checkIfNewTextInputsAreEmpty(inputsOBJ) {
 	const emptyCheckerArray = []
-	newInputsOBJ.forEach((obj) => {
+	inputsOBJ.forEach((obj) => {
 		if(obj.hasOwnProperty('newDiv')) {
 			const { select, newDiv } = obj;
 			const emptyWarningDiv = newDiv.querySelector('.empty-warning')
@@ -117,8 +114,8 @@ function checkIfNewTextInputsAreEmpty(newInputsOBJ) {
 	return emptyCheckerArray;
 }
 
-function showBoxWarningAndOpenGmail(newInputsOBJ) {
-	newInputsOBJ.forEach((obj) => {
+function showBoxWarningAndOpenGmail(inputsOBJ) {
+	inputsOBJ.forEach((obj) => {
 		if(obj.hasOwnProperty('newDiv')) {
 			const { newDiv } = obj;
 			const span = newDiv.querySelector('span')
@@ -139,46 +136,44 @@ function showBoxWarningAndOpenGmail(newInputsOBJ) {
 	})
 }
 
-function getFormElementsAndPrefix() {
-	return [
-		{
-			formElement: "emailNameResult",
-			prefix: ""
-		},
-		{
-			formElement: "deNameResult",
-			prefix: "DE_"
-		},
-		{
-			formElement: "filterNameResult",
-			prefix: "FILTER_"
-		},
-		{
-			formElement: "sqlNameResult",
-			prefix: "SQL_"
-		},
-		{
-			formElement: "automationNameResult",
-			prefix: "AUT_"
-		},
-		{
-			formElement: "importNameResult",
-			prefix: "IMPORT_"
-		},
-		{
-			formElement: "dataExtractNameResult",
-			prefix: "DATA_EXT_"
-		},
-		{
-			formElement: "fileTransferNameResult",
-			prefix: "FT_"
-		}
-	];
-}
+const formElementsAndPrefix = [
+	{
+		formElement: "emailNameResult",
+		prefix: ""
+	},
+	{
+		formElement: "deNameResult",
+		prefix: "DE_"
+	},
+	{
+		formElement: "filterNameResult",
+		prefix: "FILTER_"
+	},
+	{
+		formElement: "sqlNameResult",
+		prefix: "SQL_"
+	},
+	{
+		formElement: "automationNameResult",
+		prefix: "AUT_"
+	},
+	{
+		formElement: "importNameResult",
+		prefix: "IMPORT_"
+	},
+	{
+		formElement: "dataExtractNameResult",
+		prefix: "DATA_EXT_"
+	},
+	{
+		formElement: "fileTransferNameResult",
+		prefix: "FT_"
+	}
+];
 
 const form = document.querySelector("#signup");
 
-const newInputsOBJ = [
+const inputsOBJ = [
 	{
 		select: form.querySelector("#office")
 	},
