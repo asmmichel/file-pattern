@@ -4,7 +4,7 @@ function init() {
 
 	showNewTextInputs(inputsOBJ)	
 	
-	form.addEventListener("submit", (event) => {
+	form.addEventListener('submit', (event) => {
 		event.preventDefault();
 		const resultsLenghtArray = [];
 		
@@ -31,22 +31,22 @@ function showFeatureName(prefix, inputsOBJ, event) {
 		const newInputOptional = 			select.classList.contains('new-input-optional');
 		const onlyDropdownOptional = 	select.classList.contains('only-dropdown-optional');
 		const hasNewDiv = obj.hasOwnProperty('newDiv');
-		const valueIsNew = 				(select.value === "Novo")
-		const valueIsNotNew = 		(select.value !== "Novo")
-		const valueIsNotEmpty = 	(select.value !== "")
+		const valueIsNew = 				(select.value === 'Novo')
+		const valueIsNotNew = 		(select.value !== 'Novo')
+		const valueIsNotEmpty = 	(select.value !== '')
 
 		if (onlyDropdown) result += `${select.value}_`;
 
 		if (hasNewDiv) {
-			const newDivValue = newDiv.querySelector("input").value;
-			const newDivValueEmpty = (newDivValue === "");
+			const newDivValue = newDiv.querySelector('input').value;
+			const newDivValueEmpty = (newDivValue === '');
 			if (newInput) {
 				if (valueIsNotNew) 		result += `${select.value}_`;
 				else if (valueIsNew) 	result += `${newDivValue}_`;
 			}
 			if (newInputOptional) {
 				if (valueIsNotEmpty && valueIsNotNew) 		result += `${select.value}_`;
-				else if (valueIsNew && newDivValueEmpty) 	result = result.replace(/_+$/, "_");
+				else if (valueIsNew && newDivValueEmpty) 	result = result.replace(/_+$/, '_');
 				else if (valueIsNew) 											result += `${newDivValue}_`;
 			}
 		}
@@ -56,11 +56,11 @@ function showFeatureName(prefix, inputsOBJ, event) {
 		}
 	});
 	
-	result = result.replace(/_+$/, "");
+	result = result.replace(/_+$/, '');
 
 	if(event.submitter.name === 'date') return showFeatureNameWithDate(result);
 
-	return result.toUpperCase().trim().replaceAll(" ", "-");
+	return result.toUpperCase().trim().replaceAll(' ', '-');
 }
 
 function showFeatureNameWithDate(result) {
@@ -69,14 +69,14 @@ function showFeatureNameWithDate(result) {
 	const month = String(date.getMonth() + 1).padStart(2, '0');
 	const day = String(date.getDate()).padStart(2, '0');
 	result += `-${year}${month}${day}`;
-	return result.toUpperCase().trim().replaceAll(" ", "-");
+	return result.toUpperCase().trim().replaceAll(' ', '-');
 }
 
 function showNewTextInputs(inputsOBJ) {
 	inputsOBJ.forEach(obj => {
 		if(obj.hasOwnProperty('newDiv')) {
-			obj.select.addEventListener("change", () => {
-				obj.newDiv.style.display = obj.select.value === "Novo" ? "block" : "none";
+			obj.select.addEventListener('change', () => {
+				obj.newDiv.style.display = obj.select.value === 'Novo' ? 'block' : 'none';
 			});
 		}
 	});
@@ -99,13 +99,13 @@ function checkIfNewTextInputsAreEmpty(inputsOBJ) {
 			const emptyWarningDiv = newDiv.querySelector('.empty-warning')
 			const newDivInput = newDiv.querySelector('.never-empty');
 			if(emptyWarningDiv && newDivInput !== null) {
-				if (select.value === "Novo" && newDivInput.value === "") {
-					emptyWarningDiv.style.display = "block"
-					newDivInput.style.border = "1px solid red";
+				if (select.value === 'Novo' && newDivInput.value === '') {
+					emptyWarningDiv.style.display = 'block'
+					newDivInput.style.border = '1px solid red';
 					emptyCheckerArray.push(true)
 				} else {
-					emptyWarningDiv.style.display = "none"
-					newDivInput.style.border = "none";
+					emptyWarningDiv.style.display = 'none'
+					newDivInput.style.border = 'none';
 					emptyCheckerArray.push(false)
 				}
 			}
@@ -138,68 +138,68 @@ function showBoxWarningAndOpenGmail(inputsOBJ) {
 
 const formElementsAndPrefix = [
 	{
-		formElement: "emailNameResult",
-		prefix: ""
+		formElement: 'emailNameResult',
+		prefix: ''
 	},
 	{
-		formElement: "deNameResult",
-		prefix: "DE_"
+		formElement: 'deNameResult',
+		prefix: 'DE_'
 	},
 	{
-		formElement: "filterNameResult",
-		prefix: "FILTER_"
+		formElement: 'filterNameResult',
+		prefix: 'FILTER_'
 	},
 	{
-		formElement: "sqlNameResult",
-		prefix: "SQL_"
+		formElement: 'sqlNameResult',
+		prefix: 'SQL_'
 	},
 	{
-		formElement: "automationNameResult",
-		prefix: "AUT_"
+		formElement: 'automationNameResult',
+		prefix: 'AUT_'
 	},
 	{
-		formElement: "importNameResult",
-		prefix: "IMPORT_"
+		formElement: 'importNameResult',
+		prefix: 'IMPORT_'
 	},
 	{
-		formElement: "dataExtractNameResult",
-		prefix: "DATA_EXT_"
+		formElement: 'dataExtractNameResult',
+		prefix: 'DATA_EXT_'
 	},
 	{
-		formElement: "fileTransferNameResult",
-		prefix: "FT_"
+		formElement: 'fileTransferNameResult',
+		prefix: 'FT_'
 	}
 ];
 
-const form = document.querySelector("#signup");
+const form = document.querySelector('#signup');
 
 const inputsOBJ = [
 	{
-		select: form.querySelector("#office")
+		select: form.querySelector('#office')
 	},
 	{
-		select: form.querySelector("#type")
+		select: form.querySelector('#type')
 	},
 	{
-		select: form.querySelector("#category")
+		select: form.querySelector('#category')
 	},
 	{
-		select: form.querySelector("#sub-category"),
-		newDiv: form.querySelector("[data-set-sub-category-new]")
+		select: form.querySelector('#sub-category'),
+		newDiv: form.querySelector('[data-set-sub-category-new]')
 	},
 	{
-		select: form.querySelector("#pos-signup-journey"),
-		newDiv: form.querySelector("[data-set-pos-signup-journey-new]")
+		select: form.querySelector('#pos-signup-journey'),
+		newDiv: form.querySelector('[data-set-pos-signup-journey-new]')
 	},
 	{
-		select: form.querySelector("#content-type"),
-		newDiv: form.querySelector("[data-set-content-type-new]")
+		select: form.querySelector('#content-type'),
+		newDiv: form.querySelector('[data-set-content-type-new]')
 	},
 	{
-		select: form.querySelector("#email-psychology")
+		select: form.querySelector('#email-psychology')
 	},
 	{
-		select: form.querySelector("#funnel")
+		select: form.querySelector('#funnel')
 	},
 ];
 
