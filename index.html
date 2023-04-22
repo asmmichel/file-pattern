@@ -19,7 +19,7 @@
 
 					<div class="form-group col-6 col-md-3">
 						<label for="office">Office</label>
-									<select id="office" class="form-control">
+									<select id="office" class="form-control only-dropdown">
 											<option value="AM">AMSTERDAM</option>
 											<option value="BR">BRAZIL</option>
 											<option value="CO">COLOMBIA</option>
@@ -31,7 +31,7 @@
 
 					<div class="form-group col-6 col-md-3">
 						<label for="type">Tipo de Campanha</label>
-									<select id="type" class="form-control">
+									<select id="type" class="form-control only-dropdown">
 											<option value="ADH">ADHOC</option>
 											<option value="JOR">JOURNEY</option>
 											<option value="NEWS">NEWSLETTER</option>
@@ -41,29 +41,30 @@
 
 					<div class="form-group col-6 col-md-3">
 						<label for="category">Categoria</label>
-									<select id="category" class="form-control">
+									<select id="category" class="form-control only-dropdown">
 											<option value="BUBR">BUBR</option>
 											<option value="BULATAM">BULatam</option>
 											<option value="GTM">GTM</option>
 											<option value="IST">Institucional</option>
 											<option value="EVT">Evento</option>
 											<option value="SAAS">Saas</option>
+											<option value="ROTW">ROTW</option>
 									</select>
 					</div>
 
 					<div class="form-group col-6 col-md-3">
 						<label for="sub-category">Sub-Categoria</label>
-									<select id="sub-category" class="form-control">
+									<select id="sub-category" class="form-control new-input">
 											<option value="POS">Jornada Pós</option>
 											<option value="PRE">Jornada Pré</option>
-											<option value="MKTPD">MKT Produto</option>
+											<option value="MPD">MKT Produto</option>
 											<option value="Novo">Nova Sub-Categoria</option>
 									</select>
 					</div>
 
 					<div class="form-group col-6 col-md-3">
 						<label for="pos-signup-journey">Nomes Jornadas Pós</label>
-									<select id="pos-signup-journey" class="form-control">
+									<select id="pos-signup-journey" class="form-control new-input">
 											<option value="SML">Produtor SML</option>
 											<option value="BEGGINER">Produtor Iniciante</option>
 											<option value="CURIOUS">Curioso</option>
@@ -89,7 +90,7 @@
 
 					<div class="form-group col-6 col-md-3">
 						<label for="content-type">Tipo Conteúdo</label>
-									<select id="content-type" class="form-control">
+									<select id="content-type" class="form-control new-input-optional">
 											<option value=""></option>
 											<option value="EBOOK">E-book</option>
 											<option value="LP">LP</option>
@@ -105,8 +106,8 @@
 
 					<div class="form-group col-6 col-md-3">
 						<label for="email-psychology">Psicologia Email</label>
-									<select id="email-psychology" class="form-control">
-							<option value=""></option>
+									<select id="email-psychology" class="form-control only-dropdown-optional">
+											<option value=""></option>
 											<option value="NEUTRO">Neutro</option>
 											<option value="POSITIVO">Positivo</option>
 											<option value="NEGATIVO">Negativo</option>
@@ -115,8 +116,8 @@
 
 					<div class="form-group col-6 col-md-3">
 						<label for="funnel">Funil</label>
-									<select id="funnel" class="form-control">
-							<option value=""></option>
+									<select id="funnel" class="form-control only-dropdown-optional">
+											<option value=""></option>
 											<option value="TOFU">ToFu</option>
 											<option value="MOFU">MoFu</option>
 											<option value="BOFU">BoFu</option>
