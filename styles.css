@@ -40,7 +40,7 @@ button:first-child {
 
 [data-set-sub-category-new] span::before,
 [data-set-pos-signup-journey-new] span::before {
-  content: "ATENÇÃO: ";
+  content: 'ATENÇÃO: ';
   color: red;
   font-weight: bold;
 }
