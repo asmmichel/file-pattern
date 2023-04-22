@@ -37,7 +37,7 @@
 			contentTypeNew: form.querySelector("#content-type-new").value
 		};
 	}
-	
+
 	function showFeatureName(prefix, featureData, event) {
 		const { office, type, category, subCategory, posSignupJourney, contentType, emailPsychology, funnel, subCategoryNew, posSignupJourneyNew, contentTypeNew } = featureData;
 	
@@ -62,7 +62,7 @@
 	
 		return result.toUpperCase().trim().replaceAll(" ", "-");
 	}
-	
+
 	function showFeatureNameWithDate(result) {
 		const date = new Date();
 		const year = String(date.getFullYear()).slice(-2);
@@ -72,14 +72,14 @@
 		return result.toUpperCase().trim().replaceAll(" ", "-");
 	}
 	
-	function showNewTextInputs(newTextInputsOBJ) {
-		newTextInputsOBJ.forEach(inputOBJ => {
-			inputOBJ.select.addEventListener("change", () => {
-				inputOBJ.div.style.display = inputOBJ.select.value === "Novo" ? "block" : "none";
+	function showNewTextInputs(newInputsOBJ) {
+		newInputsOBJ.forEach(obj => {
+			obj.select.addEventListener("change", () => {
+				obj.newDiv.style.display = obj.select.value === "Novo" ? "block" : "none";
 			});
 		});
 	}
-	
+
 	function checkTheLengthAndSendValues(formElement, result) {
 		if (result.length >= 100) {
 			return true;
@@ -88,49 +88,50 @@
 			return false;
 		}
 	}
-	
+
 	function checkIfNewTextInputsAreEmpty(newInputsOBJ) {
 		const emptyCheckerArray = []
-	
-		newInputsOBJ.forEach((newElement) => {
-			const { formElement, formNewElement } = newElement;
-	
-			const emptyWarningDiv = formNewElement.querySelector('.empty-warning')
-			const formNewElementInput = formNewElement.querySelector('.never-empty');
-	
-			if (formElement.value === "Novo" && formNewElementInput.value === "") {
-				emptyWarningDiv.style.display = "block"
-				formNewElementInput.style.border = "1px solid red";
-				emptyCheckerArray.push(true)
-			} else {
-				emptyWarningDiv.style.display = "none"
-				formNewElementInput.style.border = "none";
-				emptyCheckerArray.push(false)
+		newInputsOBJ.forEach((obj) => {
+			const { select, newDiv } = obj;
+			const emptyWarningDiv = newDiv.querySelector('.empty-warning')
+			const newDivInput = newDiv.querySelector('.never-empty');
+			if(emptyWarningDiv && newDivInput !== null) {
+				if (select.value === "Novo" && newDivInput.value === "") {
+					emptyWarningDiv.style.display = "block"
+					newDivInput.style.border = "1px solid red";
+					emptyCheckerArray.push(true)
+				} else {
+					emptyWarningDiv.style.display = "none"
+					newDivInput.style.border = "none";
+					emptyCheckerArray.push(false)
+				}
 			}
 		})
 		return emptyCheckerArray;
 	}
-	
+
 	function showBoxWarningAndOpenGmail(newInputsOBJ) {
-		newInputsOBJ.forEach((newElement) => {
-			const { formNewElement } = newElement;
-			const span = formNewElement.querySelector('span')
-			formNewElement.addEventListener('mouseover', () => span.style.display = 'block');
-			formNewElement.addEventListener('mouseout', () => span.style.display = 'none');
-	
-			const emailsDivs = formNewElement.querySelectorAll('a.email-chat')
-			emailsDivs.forEach((email) => {
-				const ariaLabel = email.getAttribute('aria-label');
-				email.addEventListener('click', (event) => {
-					event.preventDefault();
-					window.open(ariaLabel, '_blank');
+		newInputsOBJ.forEach((obj) => {
+			const { newDiv } = obj;
+			const span = newDiv.querySelector('span')
+			if(span !== null) {
+				newDiv.addEventListener('mouseover', () => span.style.display = 'block');
+				newDiv.addEventListener('mouseout', () => span.style.display = 'none');
+		
+				const emailsDivs = newDiv.querySelectorAll('a.email-chat')
+				emailsDivs.forEach((email) => {
+					const ariaLabel = email.getAttribute('aria-label');
+					email.addEventListener('click', (event) => {
+						event.preventDefault();
+						window.open(ariaLabel, '_blank');
+					})
 				})
-			})
+			}
 		})
 	}
-	
+
 	const form = document.querySelector("#signup");
-	
+
 	const formElementsAndPrefix = [
 		{
 			formElement: "emailNameResult",
@@ -165,35 +166,26 @@
 			prefix: "FT_"
 		}
 	];
-	
+
 	const newInputsOBJ = [
 		{
-			formElement: form.querySelector("#sub-category"),
-			formNewElement: form.querySelector("[data-set-sub-category-new]")
-		},
-		{
-			formElement: form.querySelector("#pos-signup-journey"),
-			formNewElement: form.querySelector("[data-set-pos-signup-journey-new]")
-		},
-	];
-	
-	showNewTextInputs([
-		{
 			select: form.querySelector("#sub-category"),
-			div: form.querySelector("[data-set-sub-category-new]")
+			newDiv: form.querySelector("[data-set-sub-category-new]")
 		},
 		{
 			select: form.querySelector("#pos-signup-journey"),
-			div: form.querySelector("[data-set-pos-signup-journey-new]")
+			newDiv: form.querySelector("[data-set-pos-signup-journey-new]")
 		},
 		{
 			select: form.querySelector("#content-type"),
-			div: form.querySelector("[data-set-content-type-new]")
-		}
-	]);
-	
+			newDiv: form.querySelector("[data-set-content-type-new]")
+		},
+	];
+
 	showBoxWarningAndOpenGmail(newInputsOBJ);
-	
+
+	showNewTextInputs(newInputsOBJ)	
+
 	form.addEventListener("submit", (event) => {
 		event.preventDefault();
 		const featureData = extractFormData(form);
