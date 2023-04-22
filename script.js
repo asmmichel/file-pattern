@@ -1,26 +1,28 @@
-	// show a message with a type of the input
-	function showMessage(input, message, type) {
-		// get the small element and set the message
-		const msg = input.parentNode.querySelector("small");
-		msg.innerText = message;
-		// update the class for the input
-		input.className = type ? "form-control" : "form-control is-invalid";
-		return type;
-	}
-	function showError(input, message) {
-		return showMessage(input, message, false);
-	}
-	function showSuccess(input) {
-		return showMessage(input, "", true);
-	}
-	function hasValue(input, message) {
-		if (input.value.trim() === "") {
-			return showError(input, message);
+function init() {
+
+	showBoxWarningAndOpenGmail(newInputsOBJ);
+
+	showNewTextInputs(newInputsOBJ)	
+	
+	form.addEventListener("submit", (event) => {
+		event.preventDefault();
+
+		const formElementsAndPrefix = getFormElementsAndPrefix();
+
+		const resultsLenghtArray = [];
+		
+		formElementsAndPrefix.forEach(({ formElement, prefix }) => {
+			let result = showFeatureName(prefix, newInputsOBJ, event);
+			const emptyCheckerArray = checkIfNewTextInputsAreEmpty(newInputsOBJ)
+			if(emptyCheckerArray.includes(true)) result = '';
+			resultsLenghtArray.push(checkTheLengthAndSendValues(formElement, result));
+		});
+	
+		if (resultsLenghtArray.every((result) => result === true)) {
+			alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
 		}
-		return showSuccess(input);
-	}
-
-
+	});
+}
 
 function showFeatureName(prefix, newInputsOBJ, event) {
 	let result = `${prefix}`;
@@ -137,42 +139,44 @@ function showBoxWarningAndOpenGmail(newInputsOBJ) {
 	})
 }
 
-const form = document.querySelector("#signup");
+function getFormElementsAndPrefix() {
+	return [
+		{
+			formElement: "emailNameResult",
+			prefix: ""
+		},
+		{
+			formElement: "deNameResult",
+			prefix: "DE_"
+		},
+		{
+			formElement: "filterNameResult",
+			prefix: "FILTER_"
+		},
+		{
+			formElement: "sqlNameResult",
+			prefix: "SQL_"
+		},
+		{
+			formElement: "automationNameResult",
+			prefix: "AUT_"
+		},
+		{
+			formElement: "importNameResult",
+			prefix: "IMPORT_"
+		},
+		{
+			formElement: "dataExtractNameResult",
+			prefix: "DATA_EXT_"
+		},
+		{
+			formElement: "fileTransferNameResult",
+			prefix: "FT_"
+		}
+	];
+}
 
-const formElementsAndPrefix = [
-	{
-		formElement: "emailNameResult",
-		prefix: ""
-	},
-	{
-		formElement: "deNameResult",
-		prefix: "DE_"
-	},
-	{
-		formElement: "filterNameResult",
-		prefix: "FILTER_"
-	},
-	{
-		formElement: "sqlNameResult",
-		prefix: "SQL_"
-	},
-	{
-		formElement: "automationNameResult",
-		prefix: "AUT_"
-	},
-	{
-		formElement: "importNameResult",
-		prefix: "IMPORT_"
-	},
-	{
-		formElement: "dataExtractNameResult",
-		prefix: "DATA_EXT_"
-	},
-	{
-		formElement: "fileTransferNameResult",
-		prefix: "FT_"
-	}
-];
+const form = document.querySelector("#signup");
 
 const newInputsOBJ = [
 	{
@@ -204,25 +208,4 @@ const newInputsOBJ = [
 	},
 ];
 
-showBoxWarningAndOpenGmail(newInputsOBJ);
-
-showNewTextInputs(newInputsOBJ)	
-
-form.addEventListener("submit", (event) => {
-	event.preventDefault();
-	const resultsLenghtArray = [];
-	
-	formElementsAndPrefix.forEach(({ formElement, prefix }) => {
-		//nova linha aqui - feature removerExtract
-		let result = showFeatureName(prefix, newInputsOBJ, event);
-		//
-		const emptyCheckerArray = checkIfNewTextInputsAreEmpty(newInputsOBJ)
-		if(emptyCheckerArray.includes(true)) result = '';
-		resultsLenghtArray.push(checkTheLengthAndSendValues(formElement, result));
-	});
-
-	if (resultsLenghtArray.every((result) => result === true)) {
-		alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
-	}
-});
-	
+init()
