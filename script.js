@@ -1,7 +1,5 @@
 function init() {
-
 	showBoxWarningAndOpenGmail(inputsOBJ);
-
 	showNewTextInputs(inputsOBJ)	
 	
 	form.addEventListener('submit', (event) => {
@@ -136,6 +134,38 @@ function showBoxWarningAndOpenGmail(inputsOBJ) {
 	})
 }
 
+const form = document.querySelector('#signup');
+
+const inputsOBJ = [
+	{
+		select: form.querySelector('#office')
+	},
+	{
+		select: form.querySelector('#type')
+	},
+	{
+		select: form.querySelector('#category')
+	},
+	{
+		select: form.querySelector('#sub-category'),
+		newDiv: form.querySelector('[data-set-sub-category-new]')
+	},
+	{
+		select: form.querySelector('#pos-signup-journey'),
+		newDiv: form.querySelector('[data-set-pos-signup-journey-new]')
+	},
+	{
+		select: form.querySelector('#content-type'),
+		newDiv: form.querySelector('[data-set-content-type-new]')
+	},
+	{
+		select: form.querySelector('#email-psychology')
+	},
+	{
+		select: form.querySelector('#funnel')
+	},
+];
+
 const formElementsAndPrefix = [
 	{
 		formElement: 'emailNameResult',
@@ -169,38 +199,6 @@ const formElementsAndPrefix = [
 		formElement: 'fileTransferNameResult',
 		prefix: 'FT_'
 	}
-];
-
-const form = document.querySelector('#signup');
-
-const inputsOBJ = [
-	{
-		select: form.querySelector('#office')
-	},
-	{
-		select: form.querySelector('#type')
-	},
-	{
-		select: form.querySelector('#category')
-	},
-	{
-		select: form.querySelector('#sub-category'),
-		newDiv: form.querySelector('[data-set-sub-category-new]')
-	},
-	{
-		select: form.querySelector('#pos-signup-journey'),
-		newDiv: form.querySelector('[data-set-pos-signup-journey-new]')
-	},
-	{
-		select: form.querySelector('#content-type'),
-		newDiv: form.querySelector('[data-set-content-type-new]')
-	},
-	{
-		select: form.querySelector('#email-psychology')
-	},
-	{
-		select: form.querySelector('#funnel')
-	},
 ];
 
 init()
