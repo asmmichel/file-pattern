@@ -70,12 +70,12 @@ class NamePattern {
 		this.inputsOBJ.forEach((obj) => {
 			if(obj.hasOwnProperty('newDiv')) {
 				const { newDiv } = obj;
-				const span = newDiv.querySelector('span')
+				const span = newDiv.querySelector('span');
 				if(span !== null) {
 					newDiv.addEventListener('mouseover', () => span.style.display = 'block');
 					newDiv.addEventListener('mouseout', () => span.style.display = 'none');
-			
-					const emailsDivs = newDiv.querySelectorAll('a.email-chat')
+
+					const emailsDivs = newDiv.querySelectorAll('a.email-chat');
 					emailsDivs.forEach((email) => {
 						const ariaLabel = email.getAttribute('aria-label');
 						email.addEventListener('click', (event) => {
@@ -92,7 +92,8 @@ class NamePattern {
 		this.inputsOBJ.forEach(obj => {
 			if(obj.hasOwnProperty('newDiv')) {
 				obj.select.addEventListener('change', () => {
-					obj.newDiv.style.display = obj.select.value === 'Novo' ? 'block' : 'none';
+					if (obj.select.value === 'Novo') obj.newDiv.style.display = 'block';
+					else obj.newDiv.style.display = 'none';
 				});
 			}
 		});
@@ -108,9 +109,9 @@ class NamePattern {
 			const newInputOptional = 			select.classList.contains('new-input-optional');
 			const onlyDropdownOptional = 	select.classList.contains('only-dropdown-optional');
 			const hasNewDiv = obj.hasOwnProperty('newDiv');
-			const valueIsNew = 				(select.value === 'Novo')
-			const valueIsNotNew = 		(select.value !== 'Novo')
-			const valueIsNotEmpty = 	(select.value !== '')
+			const valueIsNew = 				(select.value === 'Novo');
+			const valueIsNotNew = 		(select.value !== 'Novo');
+			const valueIsNotEmpty = 	(select.value !== '');
 	
 			if (onlyDropdown) result += `${select.value}_`;
 	
@@ -150,53 +151,46 @@ class NamePattern {
 	}
 	
 	checkIfNewTextInputsAreEmpty() {
-		const emptyCheckerArray = []
+		const emptyCheckerArray = [];
 		this.inputsOBJ.forEach((obj) => {
 			if(obj.hasOwnProperty('newDiv')) {
 				const { select, newDiv } = obj;
-				const emptyWarningDiv = newDiv.querySelector('.empty-warning')
+				const emptyWarningDiv = newDiv.querySelector('.empty-warning');
 				const newDivInput = newDiv.querySelector('.never-empty');
+
 				if(emptyWarningDiv && newDivInput !== null) {
 					if (select.value === 'Novo' && newDivInput.value === '') {
-						emptyWarningDiv.style.display = 'block'
+						emptyWarningDiv.style.display = 'block';
 						newDivInput.style.border = '1px solid red';
-						emptyCheckerArray.push(true)
+						emptyCheckerArray.push(true);
 					} else {
-						emptyWarningDiv.style.display = 'none'
+						emptyWarningDiv.style.display = 'none';
 						newDivInput.style.border = 'none';
-						emptyCheckerArray.push(false)
+						emptyCheckerArray.push(false);
 					}
 				}
 			}
 		})
 		return emptyCheckerArray;
 	}
-
 	
 	checkTheLengthAndSendValues(result, index) {
-		if (result.length >= 100) {
-			return true;
-		} else {
-			this.form.elements[ this.formElementsAndPrefix[index].formElement].value = result;
-			return false;
-		}
+		if (result.length >= 100) return true;
+		else this.form.elements[ this.formElementsAndPrefix[index].formElement].value = result; return false;
 	}
 
 	init() {
 		this.showBoxWarningAndOpenGmail();
-		this.showNewTextInputs()	
-		
+		this.showNewTextInputs();
 		this.form.addEventListener('submit', (event) => {
 			event.preventDefault();
 			const resultsLenghtArray = [];
-			
 			this.formElementsAndPrefix.forEach((element, index) => {
 				let result = this.showFeatureName(event, index);
-				const emptyCheckerArray = this.checkIfNewTextInputsAreEmpty()
+				const emptyCheckerArray = this.checkIfNewTextInputsAreEmpty();
 				if(emptyCheckerArray.includes(true)) result = '';
 				resultsLenghtArray.push(this.checkTheLengthAndSendValues(result, index));
 			});
-		
 			if (resultsLenghtArray.every((result) => result === true)) {
 				alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
 			}
@@ -204,4 +198,4 @@ class NamePattern {
 	}
 }
 
-new NamePattern('#signup').init()
+new NamePattern('#signup').init();
