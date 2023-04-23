@@ -15,14 +15,14 @@ button:first-child {
   font-weight: bold;
 }
 
-[data-set-sub-category-new],
-[data-set-pos-signup-journey-new],
-[data-set-content-type-new] {
+.sub-category-new,
+.pos-signup-journey-new,
+.content-type-new {
   display: none;
 }
 
-[data-set-sub-category-new] span,
-[data-set-pos-signup-journey-new] span {
+.sub-category-new span,
+.pos-signup-journey-new span {
   font-size: 0.7rem;
   color: #000000;
   border: 2px solid #ffd700;
@@ -38,8 +38,8 @@ button:first-child {
   animation: fadeIn .3s ease-in-out;
 }
 
-[data-set-sub-category-new] span::before,
-[data-set-pos-signup-journey-new] span::before {
+.sub-category-new span::before,
+.pos-signup-journey-new span::before {
   content: 'ATENÇÃO: ';
   color: red;
   font-weight: bold;
@@ -56,8 +56,8 @@ button:first-child {
   }
 }
 
-[data-set-sub-category-new] .empty-warning,
-[data-set-pos-signup-journey-new] .empty-warning {
+.sub-category-new .empty-warning,
+.pos-signup-journey-new .empty-warning {
   color: red;
   font-size: .7rem;
   display: none;
