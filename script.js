@@ -204,6 +204,4 @@ class NamePattern {
 	}
 }
 
-
-const initNamePattern = new NamePattern('#signup')
-initNamePattern.init()
+new NamePattern('#signup').init()
