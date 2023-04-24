@@ -1,68 +1,71 @@
-class NamePattern {
+class FilePattern {
 	constructor(form) {
 		this.form = document.querySelector(form);
 		this.inputsOBJ = [
 			{
-				select: this.form.querySelector('#office')
+				select: this.form.querySelector('#customer-type')
 			},
 			{
-				select: this.form.querySelector('#type')
+				select: this.form.querySelector('#sales-cycle-stage')
 			},
 			{
-				select: this.form.querySelector('#category')
+				select: this.form.querySelector('#customer-interest')
 			},
 			{
-				select: this.form.querySelector('#sub-category'),
-				newDiv: this.form.querySelector('.sub-category-new')
+				select: this.form.querySelector('#lead-source'),
+				newDiv: this.form.querySelector('.lead-source-new')
 			},
 			{
-				select: this.form.querySelector('#pos-signup-journey'),
-				newDiv: this.form.querySelector('.pos-signup-journey-new')
+				select: this.form.querySelector('#related-event'),
+				newDiv: this.form.querySelector('.related-event-new')
 			},
 			{
-				select: this.form.querySelector('#content-type'),
-				newDiv: this.form.querySelector('.content-type-new')
+				select: this.form.querySelector('#product-category'),
+				newDiv: this.form.querySelector('.product-category-new')
 			},
 			{
-				select: this.form.querySelector('#email-psychology')
+				select: this.form.querySelector('#engagement-level')
 			},
 			{
-				select: this.form.querySelector('#funnel')
+				select: this.form.querySelector('#time-sensitivity')
+			},
+			{
+				select: this.form.querySelector('#sales-rep')
 			},
 		];
 		this.formElementsAndPrefix = [
 			{
+				formElement: 'documentNameResult',
+				prefix: 'DOC_'
+			},
+			{
+				formElement: 'imageNameResult',
+				prefix: 'IMG_'
+			},
+			{
+				formElement: 'gifNameResult',
+				prefix: 'GIF_'
+			},
+			{
+				formElement: 'videoNameResult',
+				prefix: 'VID_'
+			},
+			{
+				formElement: 'tableNameResult',
+				prefix: 'TAB_'
+			},
+			{
 				formElement: 'emailNameResult',
-				prefix: ''
+				prefix: 'EML_'
 			},
 			{
-				formElement: 'deNameResult',
-				prefix: 'DE_'
+				formElement: 'podcastNameResult',
+				prefix: 'POD_'
 			},
 			{
-				formElement: 'filterNameResult',
-				prefix: 'FILTER_'
+				formElement: 'infographicNameResult',
+				prefix: 'INF_'
 			},
-			{
-				formElement: 'sqlNameResult',
-				prefix: 'SQL_'
-			},
-			{
-				formElement: 'automationNameResult',
-				prefix: 'AUT_'
-			},
-			{
-				formElement: 'importNameResult',
-				prefix: 'IMPORT_'
-			},
-			{
-				formElement: 'dataExtractNameResult',
-				prefix: 'DATA_EXT_'
-			},
-			{
-				formElement: 'fileTransferNameResult',
-				prefix: 'FT_'
-			}
 		];
 	}
 
@@ -108,6 +111,7 @@ class NamePattern {
 			const newInput = 							select.classList.contains('new-input');
 			const newInputOptional = 			select.classList.contains('new-input-optional');
 			const onlyDropdownOptional = 	select.classList.contains('only-dropdown-optional');
+			const textOptional = 					select.classList.contains('text-optional');
 			const hasNewDiv = obj.hasOwnProperty('newDiv');
 			const valueIsNew = 				(select.value === 'Novo');
 			const valueIsNotNew = 		(select.value !== 'Novo');
@@ -132,6 +136,10 @@ class NamePattern {
 			if (onlyDropdownOptional) {
 				if (valueIsNotEmpty) result += `${select.value}_`;
 			}
+
+			if (textOptional) {
+				if (valueIsNotEmpty) result += `${select.value}_`;
+			}
 		});
 		
 		result = result.replace(/_+$/, '');
@@ -143,10 +151,10 @@ class NamePattern {
 	
 	showFeatureNameWithDate(result) {
 		const date = new Date();
-		const year = String(date.getFullYear()).slice(-2);
-		const month = String(date.getMonth() + 1).padStart(2, '0');
 		const day = String(date.getDate()).padStart(2, '0');
-		result += `-${year}${month}${day}`;
+		const month = date.toLocaleString('en-US', { month: 'long' });
+		const year = String(date.getFullYear());
+		result += `-${day}${month}${year}`;
 		return result.toUpperCase().trim().replaceAll(' ', '-');
 	}
 	
@@ -165,7 +173,7 @@ class NamePattern {
 						emptyCheckerArray.push(true);
 					} else {
 						emptyWarningDiv.style.display = 'none';
-						newDivInput.style.border = 'none';
+						newDivInput.style.border = '1px solid white';
 						emptyCheckerArray.push(false);
 					}
 				}
@@ -198,4 +206,4 @@ class NamePattern {
 	}
 }
 
-new NamePattern('#signup').init();
+new FilePattern('#signup').init();
