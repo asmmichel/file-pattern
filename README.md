@@ -10,7 +10,7 @@ The HTML of the file is composed of a form that contains three main parts: input
 
 ### Inputs
 
-![inputs](./imgsreadme/inputs.jpg)
+![inputs](./imgsreadme/inputs.png)
 
 The inputs can be of five types:
 
@@ -22,7 +22,7 @@ The inputs can be of five types:
 
 ### Buttons
 
-![buttons](./imgsreadme/buttons.jpg)
+![buttons](./imgsreadme/buttons.png)
 
 Next, there are two buttons to concatenate the inputs:
 
@@ -31,7 +31,7 @@ Next, there are two buttons to concatenate the inputs:
 
 ### Outputs
 
-![outputs](./imgsreadme/outputs.jpg)
+![outputs](./imgsreadme/outputs.png)
 
 The outputs will show the result of the concatenation with a prefix of the eight types of files that should be standardized in this company. It is up to the user to copy the generated text of the file type it contains and standardize it with that text now.
 
