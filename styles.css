@@ -1,46 +1,86 @@
-body {
-  background-color: #d1e2d8;
-  font-size:16px;
-  }
-
-button:first-child {
-  background-color:#d1e2d8;
-  border: 1px solid #000000;
-  color: #000000
+:root {
+  --grey: #333;
 }
 
-#sub-category  option:last-child,
-#pos-signup-journey option:last-child,
-#content-type  option:last-child {
+body {
+  background-color: var(--grey);
+  font-size:16px;
+  color: #FFFFFF;
+  }
+
+.btn-primary {
+  padding: 5px 50px !important;
+  }
+
+button:first-child,
+.btn-secondary {
+  background-color:var(--grey);
+  border: 1px solid #444;
+  color: #FFFFFF;
+  padding: 10px 10px;
+  box-shadow: 3px 3px 5px #000;
+}
+button:first-child:hover,
+.btn-secondary:hover {
+  background-color: #444;
+  border: 1px solid #FFFFFF;
+}
+button:first-child:focus,
+button:first-child:active,
+.btn-secondary:focus,
+.btn-secondary:active {
+  background-color: #555 !important;
+  border: 1px solid #FFFFFF !important;
+  box-shadow: 2px 2px 4px #000 !important;
+}
+
+.btn-secondary {
+  font-size: .8rem;
+  padding: 3px;
+  margin-top: 10px;
+}
+
+.container select,
+.container input,
+.container .form-control {
+  background-color: var(--grey);
+  color: #FFFFFF;
+}
+
+#lead-source option:last-child,
+#related-event option:last-child,
+#product-category option:last-child {
   font-weight: bold;
 }
 
-.sub-category-new,
-.pos-signup-journey-new,
-.content-type-new {
+.lead-source-new,
+.related-event-new,
+.product-category-new {
   display: none;
+  border-color: #FFFFFF !important;
 }
 
-.sub-category-new span,
-.pos-signup-journey-new span {
+.lead-source-new span,
+.related-event-new span {
   font-size: 0.7rem;
-  color: #000000;
-  border: 2px solid #ffd700;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
   border-radius: 5px;
   padding: 10px;
   margin-right: 5px;
   z-index: 9999;
-  background-color: #ffffff;
+  background-color: #444;
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
   animation: fadeIn .3s ease-in-out;
+  box-shadow: 3px 3px 5px #000;
 }
 
-.sub-category-new span::before,
-.pos-signup-journey-new span::before {
-  content: 'ATENÇÃO: ';
+.lead-source-new span::before,
+.related-event-new span::before {
+  content: 'ATENTION: ';
   color: red;
   font-weight: bold;
 }
@@ -56,25 +96,9 @@ button:first-child {
   }
 }
 
-.sub-category-new .empty-warning,
-.pos-signup-journey-new .empty-warning {
+.lead-source-new .empty-warning,
+.related-event-new .empty-warning {
   color: red;
   font-size: .7rem;
   display: none;
-}
-
-.btn-secondary {
-  font-size: .8rem;
-  padding: 3px;
-  margin-top: 3px;
-}
-.btn-secondary:hover {
-  background-color: #FF6600;
-}
-.btn-secondary:active {
-  background-color: #FF6600;
-}
-.btn-secondary:focus,
-.btn-secondary:active {
-  box-shadow: 0 0 0 0.2rem #FFA07A;
 }
