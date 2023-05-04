@@ -17,9 +17,11 @@ The inputs can be of five types:
 - Dropdown only: This input has only fixed responses and cannot be customized.
 - Dropdown with an option to write a custom input: This input has fixed responses, but its last option, when selected, opens a text input to receive a custom response. 
 
+![inputs](./imgsreadme/dropdown-custom-input.png)
 
 - Optional dropdown with an option to write a custom input: This input performs the same actions, but its concatenation is not mandatory, so it starts with an empty field.
 
+![inputs](./imgsreadme/dropdown-optional-input.png)
 
 - Optional dropdown only: This input has only fixed responses but also does not have mandatory concatenation.
 - Custom free-form input: This input is text-based and not mandatory.
