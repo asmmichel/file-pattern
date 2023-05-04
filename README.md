@@ -15,7 +15,7 @@ The HTML of the file is composed of a form that contains three main parts: input
 The inputs can be of five types:
 
 - Dropdown only: This input has only fixed responses and cannot be customized.
-- Dropdown with an option to write a custom input: This input has fixed responses, but its last option, when selected, opens a text input to receive a custom response.
+- Dropdown with an option to write a custom input: This input has fixed responses, but its last option, when selected, opens a text input to receive a custom response. 
 
 ![inputs](./imgsreadme/dropdown-custom-input.png)
 
