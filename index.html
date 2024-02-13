@@ -1,223 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>File Pattern</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<link rel="stylesheet" href="styles.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<title>Name Pattern Teste</title>
+          <link rel="stylesheet" href="styles.css">
+          <script src="script.js"></script>
 	</head>
 
-
 	<body>
-		<div class="container">
-			<form action="" method="post" id="signup">
 
-				<div class="form-row">
 
-					<div class="form-group col-12 col-md-4">
-						<label for="customer-type">Customer Type</label>
-									<select id="customer-type" class="form-control only-dropdown">
-											<option value="B2B">B2B</option>
-											<option value="B2">B2</option>
-											<option value="SMB">SMB</option>
-									</select>
-					</div>
-
-					<div class="form-group col-12 col-md-4">
-						<label for="sales-cycle-stage">Sales Cycle Stage</label>
-									<select id="sales-cycle-stage" class="form-control only-dropdown">
-											<option value="PRO">Prospecting</option>
-											<option value="QUA">Qualifying</option>
-											<option value="PRO">Proposing</option>
-									</select>
-					</div>
-
-					<div class="form-group col-12 col-md-4">
-						<label for="customer-interest">Customer Interest</label>
-									<select id="customer-interest" class="form-control only-dropdown">
-											<option value="PRX">Product X</option>
-											<option value="FEY">Feature Y</option>
-											<option value="DIS">Discount Z</option>
-									</select>
-					</div>
-
-					<div class="form-group col-12 col-md-4">
-						<label for="lead-source">Lead Source</label>
-									<select id="lead-source" class="form-control new-input">
-											<option value="Website">Website</option>
-											<option value="Referral">Referral</option>
-											<option value="Trade">Trade Show</option>
-											<option value="Novo">New Type of Lead</option>
-									</select>
-					</div>
-
-					<div class="form-group col-12 col-md-4">
-						<label for="related-event">Related Event</label>
-									<select id="related-event" class="form-control new-input">
-											<option value="Conference">Conference</option>
-											<option value="Show">Show</option>
-											<option value="Webinar">Webinar</option>
-							<option value="Novo">New Related Event</option>
-									</select>
-					</div>
-
-					<div class="form-group col-12 col-md-4">
-						<label for="product-category">Product Category</label>
-									<select id="product-category" class="form-control new-input-optional">
-											<option value=""></option>
-											<option value="Software">Software</option>
-											<option value="Hardware">Hardware</option>
-											<option value="Services">Services</option>
-											<option value="Novo">New Product Category</option>
-									</select>
-					</div>
-
-					<div class="form-group col-12 col-md-4">
-						<label for="engagement-level">Engagement Level</label>
-									<select id="engagement-level" class="form-control only-dropdown-optional">
-											<option value=""></option>
-											<option value="HIG">High</option>
-											<option value="MED">Medium</option>
-											<option value="LOW">Low</option>
-									</select>
-					</div>
-
-					<div class="form-group col-12 col-md-4">
-						<label for="time-sensitivity">Time Sensitivity</label>
-									<select id="time-sensitivity" class="form-control only-dropdown-optional">
-											<option value=""></option>
-											<option value="URG">Urgent</option>
-											<option value="FOL">Follow-up</option>
-											<option value="LON">Long-term</option>
-									</select>
-					</div>
-
-					<div class="form-group col-12 col-md-4 sales-rep">
-						<label for="sales-rep">Sales Rep</label>
-						<input type="text" class="form-control text-optional" id="sales-rep" name="sales-rep" placeholder="Who is the sales rep?" />
-					</div>
-
-					<div class="form-group col-12 col-md-4 lead-source-new">
-						<label for="lead-source-new">New Type of Lead</label>
-						<input type="text" class="form-control never-empty" name="lead-source-new" placeholder="Insert the new lead" />
-						<span>Send a message to
-							<a class="email-chat" href="mailto:person@provider.com" aria-label="https://www.google.com">person@provider.com</a>
-							informing about the new item so that we can put in the options!</span>
-						<div class="empty-warning">It is not allowed to leave the field blank, please write something or choose a fixed option!
-
-						</div>
-						</div>					  
-
-					<div class="form-group col-12 col-md-4 related-event-new">
-						<label for="related-event-new">New Related Event</label>
-						<input type="text" class="form-control never-empty" name="related-event-new" placeholder="Insert the new event" />
-						<span>Send a message to
-							<a class="email-chat" href="mailto:person@provider.com" aria-label="https://www.google.com">person@provider.com</a>
-							informing about the new item so that we can put in the options!</span>
-						<div class="empty-warning">It is not allowed to leave the field blank, please write something or choose a fixed option!
-
-						</div>
-					</div>
-
-					<div class="form-group col-12 col-md-4 product-category-new">
-						<label for="product-category-new">New Product Category</label>
-						<input type="text" class="form-control" name="product-category-new" placeholder="Insert the new product" />
-					</div>
+		<form id="meuFormDinamico" action="#" method="POST"></form>
 
 
 
-				</div>
+        <!-- <label for="nomeCampanhaNovo">Novo Nome da Campanha</label><br>
+        <input type="text" id="nomeCampanhaNovo" name="nomeCampanhaNovo"> -->
 
-				<div class="form-row row flex-column">
-					<div class="col-12 text-center mb-6">
-							<button type="submit" class="btn btn-primary" name="main">Generate</button>
-					</div>
-					<div class="col-12 text-center mb-6">
-							<button type="submit" class="btn btn-secondary" name="date">Generate with Date</button>
-					</div>
-			</div>
-			
-				<hr>
-
-				<div class="form-group">
-
-					<div class="form-row col-6 col-md-12">
-						<label class="col-sm-2 col-form-label" for="documentNameResult">Document</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" disabled="true" id="documentNameResult" name="documentNameResult" />
-						</div>
-					</div>
-
-					<br/>
-
-					<div class="form-row col-6 col-md-12">
-						<label class="col-sm-2 col-form-label" for="imageNameResult">Image</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" disabled="true" id="imageNameResult" name="imageNameResult" />
-						</div>
-					</div>
-
-					<br/>
-
-					<div class="form-row col-6 col-md-12">
-						<label class="col-sm-2 col-form-label" for="gifNameResult">Gif</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" disabled="true" id="gifNameResult" name="gifNameResult" />
-						</div>
-					</div>
-
-					<br/>
-
-					<div class="form-row col-6 col-md-12">
-						<label class="col-sm-2 col-form-label" for="videoNameResult">Video</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" disabled="true" id="videoNameResult" name="videoNameResult" />
-						</div>
-					</div>
-
-					<br/>
-
-					<div class="form-row col-6 col-md-12">
-						<label class="col-sm-2 col-form-label" for="tableNameResult">Table</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" disabled="true" id="tableNameResult" name="tableNameResult" />
-						</div>
-					</div>
-
-					<br/>
-
-					<div class="form-row col-6 col-md-12">
-						<label class="col-sm-2 col-form-label" for="emailNameResult">Email</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" disabled="true" id="emailNameResult" name="emailNameResult" />
-						</div>
-					</div>
-
-					<br/>
-
-					<div class="form-row col-6 col-md-12">
-						<label class="col-sm-2 col-form-label" for="podcastNameResult">Podcast</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" disabled="true" id="podcastNameResult" name="podcastNameResult" />
-						</div>
-					</div>
-
-					<br/>
-
-					<div class="form-row col-6 col-md-12">
-						<label class="col-sm-2 col-form-label" for="infographicNameResult">Infographic</label>
-						<div class="col-sm-10">
-							<input class="form-control" type="text" disabled="true" id="infographicNameResult" name="infographicNameResult" />
-						</div>
-					</div>
-
-				</div>
-
-			</form>	
-		</div>
-		<script src="script.js"></script>
 	</body>
+
 </html>
+
+
+
