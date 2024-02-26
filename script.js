@@ -1,88 +1,111 @@
-const objDadosDoMeuFormDinamico = [
+const arrayObjsDoMeuFormDinamico = [
     {
         textoDoLabel: "OFFICE",
         nameDoSelect: "office",
-        opcoes: [
-            { valorDaOpcao: "BR", textoDaOpcao: "Brazil"  },
-            { valorDaOpcao: "AM", textoDaOpcao: "Amsterdam" },
-            { valorDaOpcao: "ES", textoDaOpcao: "Spain"  }
+        options: [
+            { valorDaOption: "BR", textoDaOption: "Brazil"  },
+            { valorDaOption: "AM", textoDaOption: "Amsterdam" },
+            { valorDaOption: "ES", textoDaOption: "Spain"  }
         ]
     },
     {
         textoDoLabel: "TIPO DE CAMPANHA",
         nameDoSelect: "tipoCampanha",
-        opcoes: [
-            { valorDaOpcao: "ADH", textoDaOpcao: "ADHOC" },
-            { valorDaOpcao: "JOR", textoDaOpcao: "Journey" },
-            { valorDaOpcao: "TRAN", textoDaOpcao: "Transactional" }
+        options: [
+            { valorDaOption: "ADH", textoDaOption: "ADHOC" },
+            { valorDaOption: "JOR", textoDaOption: "Journey" },
+            { valorDaOption: "TRAN", textoDaOption: "Transactional" }
         ]
     },
     {
         textoDoLabel: "NOME DA CAMPANHA",
         nameDoSelect: "nomeCampanha",
-        opcoes: [
-            { valorDaOpcao: "SML", textoDaOpcao: "Produtor SML" },
-            { valorDaOpcao: "PROD_INI", textoDaOpcao: "Produtor Iniciante" },
-            { valorDaOpcao: "AFI_LADEIRINHA", textoDaOpcao: "Afiliado Ladeirinha" },
-            { valorDaOpcao: "NOVO", textoDaOpcao: "Novo" }
+        options: [
+            { valorDaOption: "SML", textoDaOption: "Produtor SML" },
+            { valorDaOption: "PROD_INI", textoDaOption: "Produtor Iniciante" },
+            { valorDaOption: "AFI_LADEIRINHA", textoDaOption: "Afiliado Ladeirinha" },
+            { valorDaOption: "NOVO", textoDaOption: "Novo" }
         ]
     },
     {
         textoDoLabel: "PSICOLOGIA DO EMAIL",
         nameDoSelect: "psicologia",
-        opcoes: [
-            { valorDaOpcao: "VAZIO", textoDaOpcao: "" },
-            { valorDaOpcao: "NEUTRO", textoDaOpcao: "Neutro" },
-            { valorDaOpcao: "POSIT", textoDaOpcao: "Positivo" },
-            { valorDaOpcao: "NEGAT", textoDaOpcao: "Negativo" },
-            { valorDaOpcao: "NOVO", textoDaOpcao: "Novo" }
+        options: [
+            { valorDaOption: "VAZIO", textoDaOption: "" },
+            { valorDaOption: "NEUTRO", textoDaOption: "Neutro" },
+            { valorDaOption: "POSIT", textoDaOption: "Positivo" },
+            { valorDaOption: "NEGAT", textoDaOption: "Negativo" },
+            { valorDaOption: "NOVO", textoDaOption: "Novo" }
         ]
     },
     {
         textoDoLabel: "TIPO CONTEUDO",
         nameDoSelect: "tipoConteudo",
-        opcoes: [
-            { valorDaOpcao: "VAZIO", textoDaOpcao: "" },
-            { valorDaOpcao: "EBOOK", textoDaOpcao: "Ebook" },
-            { valorDaOpcao: "LP", textoDaOpcao: "Landing Page" },
-            { valorDaOpcao: "WEBINAR", textoDaOpcao: "Webinario" }
+        options: [
+            { valorDaOption: "VAZIO", textoDaOption: "" },
+            { valorDaOption: "EBOOK", textoDaOption: "Ebook" },
+            { valorDaOption: "LP", textoDaOption: "Landing Page" },
+            { valorDaOption: "WEBINAR", textoDaOption: "Webinario" }
         ]
     },
 ];
 
 
 
-function gerarTodosOsInputsESuasCaracteristicas() {
-    criarEpopularOsInputsDeDropdown();
-    
-    //verificarECriarOsInputsNovos();
+function criarInputsEOutputs() {
+    criarInputs();
 }
 
-
-
-function criarEpopularOsInputsDeDropdown() {
+function criarInputs() {
     const meuFormDinamico = document.querySelector('#meuFormDinamico');
 
-    objDadosDoMeuFormDinamico.forEach(cadaInputDeDropdown => {
-		const elementoLabel = document.createElement('label');
-		elementoLabel.setAttribute("for", cadaInputDeDropdown.nameDoSelect);
-		elementoLabel.textContent = cadaInputDeDropdown.textoDoLabel;
-		
-		const elementoSelect = document.createElement('select');
-		elementoSelect.setAttribute("id", cadaInputDeDropdown.nameDoSelect);
-		elementoSelect.setAttribute("name", cadaInputDeDropdown.nameDoSelect);
-	
-		meuFormDinamico.appendChild(elementoLabel);
-		meuFormDinamico.appendChild(elementoSelect);
-	
-		cadaInputDeDropdown.opcoes.forEach(cadaOpcao => {
-			const elementoOption = document.createElement('option');
-			elementoOption.value = cadaOpcao.valorDaOpcao;
-			elementoOption.textContent = cadaOpcao.textoDaOpcao;
-			elementoSelect.appendChild(elementoOption);
-		});
+    arrayObjsDoMeuFormDinamico.forEach(cadaObjDeInput => {
+        criarInput(cadaObjDeInput, meuFormDinamico);
     });
 }
+
+function criarInput(cadaObjDeInput, meuFormDinamico) {
+    const elementoLabel = criarElementoLabel(cadaObjDeInput);
+    const elementoSelect = criarElementoSelect(cadaObjDeInput);
+
+    cadaObjDeInput.options.forEach(cadaObjDeOption => {
+        const elementoOption = criarElementoOption(cadaObjDeOption);
+        elementoSelect.appendChild(elementoOption);
+    });
+
+    meuFormDinamico.appendChild(elementoLabel);
+    meuFormDinamico.appendChild(elementoSelect);
+}
+
+function criarElementoLabel(cadaObjDeInput) {
+    const elementoLabel = document.createElement('label');
+    elementoLabel.setAttribute("for", cadaObjDeInput.nameDoSelect);
+    elementoLabel.textContent = cadaObjDeInput.textoDoLabel;
+    return elementoLabel;
+}
+
+function criarElementoSelect(cadaObjDeInput) {
+    const elementoSelect = document.createElement('select');
+    elementoSelect.setAttribute("id", cadaObjDeInput.nameDoSelect);
+    elementoSelect.setAttribute("name", cadaObjDeInput.nameDoSelect);
+    return elementoSelect;
+}
+
+function criarElementoOption(cadaObjDeOption) {
+    const elementoOption = document.createElement('option');
+    elementoOption.value = cadaObjDeOption.valorDaOption;
+    elementoOption.textContent = cadaObjDeOption.textoDaOption;
+    return elementoOption;
+}
+
+
+
+window.onload = criarInputsEOutputs;
+
+
+
+
+
 
 
 
@@ -128,17 +151,3 @@ function criarEpopularOsInputsDeDropdown() {
 //     });
 
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-window.onload = gerarTodosOsInputsESuasCaracteristicas;
