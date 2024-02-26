@@ -52,107 +52,93 @@ const objDadosDoMeuFormDinamico = [
 
 
 
-
 function gerarTodosOsInputsESuasCaracteristicas() {
-    popularOsInputsDeDropdown();
-    verificarOsInputsEspeciais();
+    criarEpopularOsInputsDeDropdown();
+    
+    //verificarECriarOsInputsNovos();
 }
 
 
 
-//CRIACAO DOS INPUTS DROPDOWN PADROES
-
-function popularOsInputsDeDropdown() {
+function criarEpopularOsInputsDeDropdown() {
     const meuFormDinamico = document.querySelector('#meuFormDinamico');
 
     objDadosDoMeuFormDinamico.forEach(cadaInputDeDropdown => {
-        criarUmInputDeDropdown(meuFormDinamico, cadaInputDeDropdown)
+		const elementoLabel = document.createElement('label');
+		elementoLabel.setAttribute("for", cadaInputDeDropdown.nameDoSelect);
+		elementoLabel.textContent = cadaInputDeDropdown.textoDoLabel;
+		
+		const elementoSelect = document.createElement('select');
+		elementoSelect.setAttribute("id", cadaInputDeDropdown.nameDoSelect);
+		elementoSelect.setAttribute("name", cadaInputDeDropdown.nameDoSelect);
+	
+		meuFormDinamico.appendChild(elementoLabel);
+		meuFormDinamico.appendChild(elementoSelect);
+	
+		cadaInputDeDropdown.opcoes.forEach(cadaOpcao => {
+			const elementoOption = document.createElement('option');
+			elementoOption.value = cadaOpcao.valorDaOpcao;
+			elementoOption.textContent = cadaOpcao.textoDaOpcao;
+			elementoSelect.appendChild(elementoOption);
+		});
     });
 }
 
 
 
-function criarUmInputDeDropdown(meuFormDinamico, cadaInputDeDropdown) {
-    const elementoLabel = document.createElement('label');
-    elementoLabel.setAttribute("for", cadaInputDeDropdown.nameDoSelect);
-    elementoLabel.textContent = cadaInputDeDropdown.textoDoLabel;
-    
-    const elementoSelect = document.createElement('select');
-    elementoSelect.setAttribute("id", cadaInputDeDropdown.nameDoSelect);
-    elementoSelect.setAttribute("name", cadaInputDeDropdown.nameDoSelect);
+// function verificarECriarOsInputsNovos() {
+//     objDadosDoMeuFormDinamico.forEach(cadaInputDeDropdown => {
+// 		cadaInputDeDropdown.opcoes.forEach(cadaOpcao => {
+// 			if(cadaOpcao.valorDaOpcao === 'NOVO') {
+// 				const nameDoSelectNovo = `${cadaInputDeDropdown.nameDoSelect}Novo`;
+// 				const textoDoLabelNovo = `NOVO(A) ${cadaInputDeDropdown.textoDoLabel}`;
+			
+// 				const elementoLabel = document.createElement('label');
+// 				elementoLabel.setAttribute("for", nameDoSelectNovo);
+// 				elementoLabel.textContent = textoDoLabelNovo;
+// 				elementoLabel.setAttribute("class", 'novo'); 
+				
+// 				const elementoInput = document.createElement('input');
+// 				elementoInput.setAttribute("type", 'text')
+// 				elementoInput.setAttribute("id", nameDoSelectNovo);
+// 				elementoInput.setAttribute("name", nameDoSelectNovo);
+// 				elementoInput.setAttribute("class", 'novo'); 
+			
+// 				meuFormDinamico.appendChild(elementoLabel);
+// 				meuFormDinamico.appendChild(elementoInput);
 
+//                 const selectComNovo = document.querySelector(`#${cadaInputDeDropdown.nameDoSelect}`);
 
-    cadaInputDeDropdown.opcoes.forEach(cadaOpcao => {
-        criarUmaOpcaoDoMeuInputDeDropdown(elementoSelect, cadaOpcao)
-    });
-    
-    meuFormDinamico.appendChild(elementoLabel);
-    meuFormDinamico.appendChild(elementoSelect);
-}
+//                 selectComNovo.addEventListener('change', () => {
+//                     const todasAsOpcoesDoSelectComNovo = selectComNovo.options;
+//                     const indexDaOpcaoEscolhida = selectComNovo.selectedIndex
+//                     const opcaoSelecionada = todasAsOpcoesDoSelectComNovo[indexDaOpcaoEscolhida];
+//                     const valorDaOpcaoSelecionada = opcaoSelecionada.value
+            
+//                     if(valorDaOpcaoSelecionada === 'NOVO') {
+//                         elementoLabel.classList.add('ativo')
+//                         elementoInput.classList.add('ativo')
+//                     } else if(valorDaOpcaoSelecionada != 'NOVO') {
+//                         elementoLabel.classList.remove('ativo')
+//                         elementoInput.classList.remove('ativo')
+//                     }
+//                 })
+// 			}
+// 		});
+//     });
 
-
-
-function criarUmaOpcaoDoMeuInputDeDropdown(elementoSelect, cadaOpcao) {
-    const elementoOption = document.createElement('option');
-    elementoOption.value = cadaOpcao.valorDaOpcao;
-    elementoOption.textContent = cadaOpcao.textoDaOpcao;
-    elementoSelect.appendChild(elementoOption);
-}
-
-
-
-//ANALISE E CRIACAO DOS INPUTS NOVOS E VAZIOS
-
-function verificarOsInputsEspeciais() {
-    objDadosDoMeuFormDinamico.forEach(cadaInputDeDropdown => {
-        verificarSeUmInputTemOValueNovo(cadaInputDeDropdown)
-    });
-
-}
-
-
-
-function verificarSeUmInputTemOValueNovo(cadaInputDeDropdown) {
-    cadaInputDeDropdown.opcoes.forEach(cadaOpcao => {
-        if(cadaOpcao.valorDaOpcao === 'NOVO') {
-            //console.log(`Dentro do input ${cadaInputDeDropdown.textoDoLabel} achei o value ${cadaOpcao.valorDaOpcao}`);
-            criarInputDeTextoDoValueNovo(cadaInputDeDropdown);
-        }
-    });
-}
+// }
 
 
 
-function criarInputDeTextoDoValueNovo(cadaInputDeDropdown) {
 
-    // console.log(cadaInputDeDropdown.nameDoSelect+'Novo');
 
-    const nameDoSelectNovo = `${cadaInputDeDropdown.nameDoSelect}Novo`;
-    const textoDoLabelNovo = `NOVO(A) ${cadaInputDeDropdown.textoDoLabel}`;
 
-    const elementoLabel = document.createElement('label');
-    elementoLabel.setAttribute("for", nameDoSelectNovo);
-    elementoLabel.textContent = textoDoLabelNovo;
-    
-    const elementoInput = document.createElement('input');
-    elementoInput.setAttribute("type", 'text')
-    elementoInput.setAttribute("id", nameDoSelectNovo);
-    elementoInput.setAttribute("name", nameDoSelectNovo);
 
-    meuFormDinamico.appendChild(elementoLabel);
-    meuFormDinamico.appendChild(elementoInput);
-}
+
+
 
 
 
 
 window.onload = gerarTodosOsInputsESuasCaracteristicas;
-
-
-
-//agora temos que criar a logica dos labels de texto ficarem escondidos, e apenas aparecerem quando o usuario escolher a opcao "Novo"
-//como fazer o add event listener pra um evento de form?
-//como fazer para os 2 especificos? usando a mesma verificacao que fizemos pra achar o 'Novo' na funcao verificarSeUmInputTemOValueNovo
-
-//primeiro passo, esconder os labels
-//segundo passo, identificar a escolha do usuario nesse valor especifico 'Novo'
