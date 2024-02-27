@@ -1,3 +1,86 @@
+function criarInputsEOutputs() {
+    criarInputs();
+    meuBotao();
+}
+
+function criarInputs() {
+    const meuFormDinamico = document.querySelector('#meuFormDinamico');
+
+    arrayObjsDoMeuFormDinamico.forEach(cadaObjDeInput => {
+        criarInput(cadaObjDeInput, meuFormDinamico);
+    });
+}
+
+function criarInput(cadaObjDeInput, meuFormDinamico) {
+    const elementoLabel = criarElementoLabel(cadaObjDeInput);
+    const elementoSelect = criarElementoSelect(cadaObjDeInput);
+
+    cadaObjDeInput.options.forEach(cadaObjDeOption => {
+        const elementoOption = criarElementoOption(cadaObjDeOption);
+        elementoSelect.appendChild(elementoOption);
+    });
+
+    meuFormDinamico.appendChild(elementoLabel);
+    meuFormDinamico.appendChild(elementoSelect);
+}
+
+function criarElementoLabel(cadaObjDeInput) {
+    const elementoLabel = document.createElement('label');
+    elementoLabel.setAttribute("for", cadaObjDeInput.nameDoSelect);
+    elementoLabel.textContent = cadaObjDeInput.textoDoLabel;
+    return elementoLabel;
+}
+
+function criarElementoSelect(cadaObjDeInput) {
+    const elementoSelect = document.createElement('select');
+    elementoSelect.setAttribute("id", cadaObjDeInput.nameDoSelect);
+    elementoSelect.setAttribute("name", cadaObjDeInput.nameDoSelect);
+    return elementoSelect;
+}
+
+function criarElementoOption(cadaObjDeOption) {
+    const elementoOption = document.createElement('option');
+    elementoOption.value = cadaObjDeOption.valorDaOption;
+    elementoOption.textContent = cadaObjDeOption.textoDaOption;
+    return elementoOption;
+}
+
+
+function meuBotao() {
+    const botaoGerarCampanha = document.querySelector("#botaoGerarCampanha");
+    botaoGerarCampanha.addEventListener("click", fazerAcaoDoBotao);
+}
+
+function fazerAcaoDoBotao() {
+    let valoresDeSelectsJuntos = ''; 
+    const todosOsMeusSelects = meuFormDinamico.querySelectorAll('select')
+
+    todosOsMeusSelects.forEach(cadaSelect => {
+         const valorDoSelect = cadaSelect.value
+         valoresDeSelectsJuntos += `${valorDoSelect}_`
+    })
+
+    valoresDeSelectsJuntos = valoresDeSelectsJuntos.slice(0, -1);
+    mostrarNomeDaCampanha(valoresDeSelectsJuntos);
+}
+
+
+
+function mostrarNomeDaCampanha(valoresDeSelectsJuntos) {
+    let elementoParagrafo = document.querySelector('#output p');
+    if (!elementoParagrafo) {
+        const divDoOutput = document.querySelector('#output')
+        elementoParagrafo = document.createElement('p');
+        divDoOutput.appendChild(elementoParagrafo);
+    }
+    elementoParagrafo.textContent = '';
+    elementoParagrafo.textContent = valoresDeSelectsJuntos;
+}
+
+
+
+
+
 const arrayObjsDoMeuFormDinamico = [
     {
         textoDoLabel: "OFFICE",
@@ -49,56 +132,6 @@ const arrayObjsDoMeuFormDinamico = [
         ]
     },
 ];
-
-
-
-function criarInputsEOutputs() {
-    criarInputs();
-}
-
-function criarInputs() {
-    const meuFormDinamico = document.querySelector('#meuFormDinamico');
-
-    arrayObjsDoMeuFormDinamico.forEach(cadaObjDeInput => {
-        criarInput(cadaObjDeInput, meuFormDinamico);
-    });
-}
-
-function criarInput(cadaObjDeInput, meuFormDinamico) {
-    const elementoLabel = criarElementoLabel(cadaObjDeInput);
-    const elementoSelect = criarElementoSelect(cadaObjDeInput);
-
-    cadaObjDeInput.options.forEach(cadaObjDeOption => {
-        const elementoOption = criarElementoOption(cadaObjDeOption);
-        elementoSelect.appendChild(elementoOption);
-    });
-
-    meuFormDinamico.appendChild(elementoLabel);
-    meuFormDinamico.appendChild(elementoSelect);
-}
-
-function criarElementoLabel(cadaObjDeInput) {
-    const elementoLabel = document.createElement('label');
-    elementoLabel.setAttribute("for", cadaObjDeInput.nameDoSelect);
-    elementoLabel.textContent = cadaObjDeInput.textoDoLabel;
-    return elementoLabel;
-}
-
-function criarElementoSelect(cadaObjDeInput) {
-    const elementoSelect = document.createElement('select');
-    elementoSelect.setAttribute("id", cadaObjDeInput.nameDoSelect);
-    elementoSelect.setAttribute("name", cadaObjDeInput.nameDoSelect);
-    return elementoSelect;
-}
-
-function criarElementoOption(cadaObjDeOption) {
-    const elementoOption = document.createElement('option');
-    elementoOption.value = cadaObjDeOption.valorDaOption;
-    elementoOption.textContent = cadaObjDeOption.textoDaOption;
-    return elementoOption;
-}
-
-
 
 window.onload = criarInputsEOutputs;
 
