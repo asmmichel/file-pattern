@@ -1,186 +1,191 @@
-function criarInputsEOutputs() {
-    criarInputs();
-    meuBotao();
-}
+class FormDinamico {
+    constructor(idDoFormDinamico, arrayObjsDoMeuFormDinamico) {
+        this.meuFormDinamico = document.querySelector(`#${idDoFormDinamico}`);
+        this.arrayObjsDoMeuFormDinamico = arrayObjsDoMeuFormDinamico;
+        this.iniciar();
+    }
 
-function criarInputs() {
-    const meuFormDinamico = document.querySelector('#meuFormDinamico');
+    iniciar() {
+        this.criarInputs();
+        this.criarBotao();
+        this.criarOutput();
+    }
 
-    arrayObjsDoMeuFormDinamico.forEach(cadaObjDeInput => {
-        criarInput(cadaObjDeInput, meuFormDinamico);
-    });
-}
+    criarInputs() {
+        this.criarDivDoInput();
+        this.arrayObjsDoMeuFormDinamico.forEach(cadaObjDeInput => {
+            this.criarInput(cadaObjDeInput);
+        });
+    }
 
-function criarInput(cadaObjDeInput, meuFormDinamico) {
-    const elementoLabel = criarElementoLabel(cadaObjDeInput);
-    const elementoSelect = criarElementoSelect(cadaObjDeInput);
+    criarBotao() {
+        this.criarDivDoBotao();
+        this.criarElementoButton();
+        this.adicionarEventoNoButton();
+    }
 
-    cadaObjDeInput.options.forEach(cadaObjDeOption => {
-        const elementoOption = criarElementoOption(cadaObjDeOption);
-        elementoSelect.appendChild(elementoOption);
-    });
+    criarOutput() {
+        this.criarDivDoOutput();
+        this.criarElementoParagrafo();
+    }
 
-    meuFormDinamico.appendChild(elementoLabel);
-    meuFormDinamico.appendChild(elementoSelect);
-}
+    criarDivDoInput() {
+        const divDosInputs = document.createElement('div');
+        divDosInputs.setAttribute('id', 'input');
+        this.meuFormDinamico.appendChild(divDosInputs);
+    }
 
-function criarElementoLabel(cadaObjDeInput) {
-    const elementoLabel = document.createElement('label');
-    elementoLabel.setAttribute("for", cadaObjDeInput.nameDoSelect);
-    elementoLabel.textContent = cadaObjDeInput.textoDoLabel;
-    return elementoLabel;
-}
+    criarInput(cadaObjDeInput) {
+        const elementoLabel = this.criarElementoLabel(cadaObjDeInput);
+        const elementoSelect = this.criarElementoSelect(cadaObjDeInput);
+    
+        cadaObjDeInput.options.forEach(cadaObjDeOption => {
+            const elementoOption = this.criarElementoOption(cadaObjDeOption);
+            elementoSelect.appendChild(elementoOption);
+        });
+        
+        const divDosInputs = document.querySelector('#input')
 
-function criarElementoSelect(cadaObjDeInput) {
-    const elementoSelect = document.createElement('select');
-    elementoSelect.setAttribute("id", cadaObjDeInput.nameDoSelect);
-    elementoSelect.setAttribute("name", cadaObjDeInput.nameDoSelect);
-    return elementoSelect;
-}
+        divDosInputs.appendChild(elementoLabel);
+        divDosInputs.appendChild(elementoSelect);
+    }
 
-function criarElementoOption(cadaObjDeOption) {
-    const elementoOption = document.createElement('option');
-    elementoOption.value = cadaObjDeOption.valorDaOption;
-    elementoOption.textContent = cadaObjDeOption.textoDaOption;
-    return elementoOption;
-}
+    criarElementoLabel(cadaObjDeInput) {
+        const elementoLabel = document.createElement('label');
+        elementoLabel.setAttribute("for", cadaObjDeInput.nameDoSelect);
+        elementoLabel.textContent = cadaObjDeInput.textoDoLabel;
+        return elementoLabel;
+    }
+    
+    criarElementoSelect(cadaObjDeInput) {
+        const elementoSelect = document.createElement('select');
+        elementoSelect.setAttribute("id", cadaObjDeInput.nameDoSelect);
+        elementoSelect.setAttribute("name", cadaObjDeInput.nameDoSelect);
+        return elementoSelect;
+    }
+    
+    criarElementoOption(cadaObjDeOption) {
+        const elementoOption = document.createElement('option');
+        elementoOption.value = cadaObjDeOption.valorDaOption;
+        elementoOption.textContent = cadaObjDeOption.textoDaOption;
+        return elementoOption;
+    }
 
+    criarDivDoBotao() {
+        const divDoBotao= document.createElement('div');
+        divDoBotao.setAttribute('id', 'botao');
+        this.meuFormDinamico.appendChild(divDoBotao);
+    }
 
-function meuBotao() {
-    const botaoGerarCampanha = document.querySelector("#botaoGerarCampanha");
-    botaoGerarCampanha.addEventListener("click", fazerAcaoDoBotao);
-}
+    criarElementoButton() {
+        const botaoGerarCampanha = document.createElement('button');
+        botaoGerarCampanha.textContent = 'Gerar Campanha';
+        botaoGerarCampanha.setAttribute('id', 'botaoGerarCampanha');
+        botaoGerarCampanha.setAttribute('type', 'button');
+        const divDoBotao = document.querySelector('#botao')
+        divDoBotao.appendChild(botaoGerarCampanha);
+    }
 
-function fazerAcaoDoBotao() {
-    let valoresDeSelectsJuntos = ''; 
-    const todosOsMeusSelects = meuFormDinamico.querySelectorAll('select')
+    adicionarEventoNoButton() {
+        const botaoGerarCampanha = document.querySelector('#botaoGerarCampanha')
+        botaoGerarCampanha.addEventListener('click', this.gerarCampanha.bind(this));
+    }
 
-    todosOsMeusSelects.forEach(cadaSelect => {
-         const valorDoSelect = cadaSelect.value
-         valoresDeSelectsJuntos += `${valorDoSelect}_`
-    })
+    gerarCampanha() {
+        const valoresDeSelectsJuntos = this.concatenarValoresDoInput();
+        this.mostrarNomeDaCampanha(valoresDeSelectsJuntos);
+    }
 
-    valoresDeSelectsJuntos = valoresDeSelectsJuntos.slice(0, -1);
-    mostrarNomeDaCampanha(valoresDeSelectsJuntos);
-}
+    concatenarValoresDoInput() {
+        let valoresDeSelectsJuntos = ''; 
+        const todosOsMeusSelects = this.meuFormDinamico.querySelectorAll('select')
+    
+        todosOsMeusSelects.forEach(cadaSelect => {
+            //funcao que verifica se o valor é novo pra mudar o dado
+            //funcao que verifica se o valor é vazio pra mudar o dado
+             const valorDoSelect = cadaSelect.value
+             valoresDeSelectsJuntos += `${valorDoSelect}_`
+        })
+    
+        return valoresDeSelectsJuntos.slice(0, -1);
+    }
 
+    mostrarNomeDaCampanha(valoresDeSelectsJuntos) {
+        let elementoParagrafo = document.querySelector('#output p');    
+        elementoParagrafo.textContent = valoresDeSelectsJuntos;
+    }
 
+    criarDivDoOutput() {
+        const divDoOutput = document.createElement('div');
+        divDoOutput.setAttribute('id', 'output');
+        this.meuFormDinamico.appendChild(divDoOutput);
+    }
 
-function mostrarNomeDaCampanha(valoresDeSelectsJuntos) {
-    let elementoParagrafo = document.querySelector('#output p');
-    if (!elementoParagrafo) {
-        const divDoOutput = document.querySelector('#output')
-        elementoParagrafo = document.createElement('p');
+    criarElementoParagrafo() {
+        const elementoParagrafo = document.createElement('p');
+        const divDoOutput = document.querySelector('#output');
         divDoOutput.appendChild(elementoParagrafo);
     }
-    elementoParagrafo.textContent = '';
-    elementoParagrafo.textContent = valoresDeSelectsJuntos;
 }
 
 
 
 
 
-const arrayObjsDoMeuFormDinamico = [
-    {
-        textoDoLabel: "OFFICE",
-        nameDoSelect: "office",
-        options: [
-            { valorDaOption: "BR", textoDaOption: "Brazil"  },
-            { valorDaOption: "AM", textoDaOption: "Amsterdam" },
-            { valorDaOption: "ES", textoDaOption: "Spain"  }
+
+window.onload = () => {
+    new FormDinamico(
+        'meuFormDinamico', 
+        [
+            {
+                textoDoLabel: "OFFICE",
+                nameDoSelect: "office",
+                options: [
+                    { valorDaOption: "BR", textoDaOption: "Brazil"  },
+                    { valorDaOption: "AM", textoDaOption: "Amsterdam" },
+                    { valorDaOption: "ES", textoDaOption: "Spain"  }
+                ]
+            },
+            {
+                textoDoLabel: "TIPO DE CAMPANHA",
+                nameDoSelect: "tipoCampanha",
+                options: [
+                    { valorDaOption: "ADH", textoDaOption: "ADHOC" },
+                    { valorDaOption: "JOR", textoDaOption: "Journey" },
+                    { valorDaOption: "TRAN", textoDaOption: "Transactional" }
+                ]
+            },
+            {
+                textoDoLabel: "NOME DA CAMPANHA",
+                nameDoSelect: "nomeCampanha",
+                options: [
+                    { valorDaOption: "SML", textoDaOption: "Produtor SML" },
+                    { valorDaOption: "PROD_INI", textoDaOption: "Produtor Iniciante" },
+                    { valorDaOption: "AFI_LADEIRINHA", textoDaOption: "Afiliado Ladeirinha" },
+                    { valorDaOption: "NOVO", textoDaOption: "Novo" }
+                ]
+            },
+            {
+                textoDoLabel: "PSICOLOGIA DO EMAIL",
+                nameDoSelect: "psicologia",
+                options: [
+                    { valorDaOption: "VAZIO", textoDaOption: "" },
+                    { valorDaOption: "NEUTRO", textoDaOption: "Neutro" },
+                    { valorDaOption: "POSIT", textoDaOption: "Positivo" },
+                    { valorDaOption: "NEGAT", textoDaOption: "Negativo" },
+                    { valorDaOption: "NOVO", textoDaOption: "Novo" }
+                ]
+            },
+            {
+                textoDoLabel: "TIPO CONTEUDO",
+                nameDoSelect: "tipoConteudo",
+                options: [
+                    { valorDaOption: "VAZIO", textoDaOption: "" },
+                    { valorDaOption: "EBOOK", textoDaOption: "Ebook" },
+                    { valorDaOption: "LP", textoDaOption: "Landing Page" },
+                    { valorDaOption: "WEBINAR", textoDaOption: "Webinario" }
+                ]
+            },
         ]
-    },
-    {
-        textoDoLabel: "TIPO DE CAMPANHA",
-        nameDoSelect: "tipoCampanha",
-        options: [
-            { valorDaOption: "ADH", textoDaOption: "ADHOC" },
-            { valorDaOption: "JOR", textoDaOption: "Journey" },
-            { valorDaOption: "TRAN", textoDaOption: "Transactional" }
-        ]
-    },
-    {
-        textoDoLabel: "NOME DA CAMPANHA",
-        nameDoSelect: "nomeCampanha",
-        options: [
-            { valorDaOption: "SML", textoDaOption: "Produtor SML" },
-            { valorDaOption: "PROD_INI", textoDaOption: "Produtor Iniciante" },
-            { valorDaOption: "AFI_LADEIRINHA", textoDaOption: "Afiliado Ladeirinha" },
-            { valorDaOption: "NOVO", textoDaOption: "Novo" }
-        ]
-    },
-    {
-        textoDoLabel: "PSICOLOGIA DO EMAIL",
-        nameDoSelect: "psicologia",
-        options: [
-            { valorDaOption: "VAZIO", textoDaOption: "" },
-            { valorDaOption: "NEUTRO", textoDaOption: "Neutro" },
-            { valorDaOption: "POSIT", textoDaOption: "Positivo" },
-            { valorDaOption: "NEGAT", textoDaOption: "Negativo" },
-            { valorDaOption: "NOVO", textoDaOption: "Novo" }
-        ]
-    },
-    {
-        textoDoLabel: "TIPO CONTEUDO",
-        nameDoSelect: "tipoConteudo",
-        options: [
-            { valorDaOption: "VAZIO", textoDaOption: "" },
-            { valorDaOption: "EBOOK", textoDaOption: "Ebook" },
-            { valorDaOption: "LP", textoDaOption: "Landing Page" },
-            { valorDaOption: "WEBINAR", textoDaOption: "Webinario" }
-        ]
-    },
-];
-
-window.onload = criarInputsEOutputs;
-
-
-
-
-
-
-
-
-// function verificarECriarOsInputsNovos() {
-//     objDadosDoMeuFormDinamico.forEach(cadaInputDeDropdown => {
-// 		cadaInputDeDropdown.opcoes.forEach(cadaOpcao => {
-// 			if(cadaOpcao.valorDaOpcao === 'NOVO') {
-// 				const nameDoSelectNovo = `${cadaInputDeDropdown.nameDoSelect}Novo`;
-// 				const textoDoLabelNovo = `NOVO(A) ${cadaInputDeDropdown.textoDoLabel}`;
-			
-// 				const elementoLabel = document.createElement('label');
-// 				elementoLabel.setAttribute("for", nameDoSelectNovo);
-// 				elementoLabel.textContent = textoDoLabelNovo;
-// 				elementoLabel.setAttribute("class", 'novo'); 
-				
-// 				const elementoInput = document.createElement('input');
-// 				elementoInput.setAttribute("type", 'text')
-// 				elementoInput.setAttribute("id", nameDoSelectNovo);
-// 				elementoInput.setAttribute("name", nameDoSelectNovo);
-// 				elementoInput.setAttribute("class", 'novo'); 
-			
-// 				meuFormDinamico.appendChild(elementoLabel);
-// 				meuFormDinamico.appendChild(elementoInput);
-
-//                 const selectComNovo = document.querySelector(`#${cadaInputDeDropdown.nameDoSelect}`);
-
-//                 selectComNovo.addEventListener('change', () => {
-//                     const todasAsOpcoesDoSelectComNovo = selectComNovo.options;
-//                     const indexDaOpcaoEscolhida = selectComNovo.selectedIndex
-//                     const opcaoSelecionada = todasAsOpcoesDoSelectComNovo[indexDaOpcaoEscolhida];
-//                     const valorDaOpcaoSelecionada = opcaoSelecionada.value
-            
-//                     if(valorDaOpcaoSelecionada === 'NOVO') {
-//                         elementoLabel.classList.add('ativo')
-//                         elementoInput.classList.add('ativo')
-//                     } else if(valorDaOpcaoSelecionada != 'NOVO') {
-//                         elementoLabel.classList.remove('ativo')
-//                         elementoInput.classList.remove('ativo')
-//                     }
-//                 })
-// 			}
-// 		});
-//     });
-
-// }
+    );
+};
