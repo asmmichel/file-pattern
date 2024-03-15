@@ -105,17 +105,21 @@ class FormDinamico {
     }
 
     concatenarValoresDosSelects() {
-        let valoresDosSelectsConcatenados = ''; 
+        let valoresDosSelectsConcatenados = '';
         const todosOsMeusSelects = this.meuFormDinamico.querySelectorAll('select')
     
         todosOsMeusSelects.forEach(cadaSelect => {
-            //funcao que verifica se o valor é novo pra mudar o dado
-            //funcao que verifica se o valor é vazio pra mudar o dado
-             const valorDoSelect = cadaSelect.value
-             valoresDosSelectsConcatenados += `${valorDoSelect}_`
+            const valorDoSelect = cadaSelect.value
+             if (valorDoSelect !== 'VAZIO') {
+                valoresDosSelectsConcatenados += `${valorDoSelect}_`;
+            }
         })
+
+        if (valoresDosSelectsConcatenados.endsWith('_')) {
+            valoresDosSelectsConcatenados = valoresDosSelectsConcatenados.slice(0, -1);
+        }
     
-        return valoresDosSelectsConcatenados.slice(0, -1);
+        return valoresDosSelectsConcatenados;
     }
 
     mostrarNomeDaCampanha(valoresDosSelectsConcatenados) {
