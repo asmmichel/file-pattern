@@ -3,10 +3,16 @@ body {
   color: #FFFFFF;
   }
 
-  .novo {
-    display: none;
-  }
+.input {
+  padding-bottom: 10px;
+}
 
-  .novo.ativo {
-    display: block;
-  }
+
+
+.novo {
+  display: none;
+}
+
+.novo.ativo {
+  display: block;
+}

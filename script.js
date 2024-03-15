@@ -12,7 +12,7 @@ class FormDinamico {
     }
 
     criarInputs() {
-        this.criarDivDoInput();
+        this.criarDivDosInputs();
         this.arrayObjsDoMeuFormDinamico.forEach(cadaObjDeInput => {
             this.criarInput(cadaObjDeInput);
         });
@@ -29,13 +29,20 @@ class FormDinamico {
         this.criarElementoParagrafo();
     }
 
-    criarDivDoInput() {
+    criarDivDosInputs() {
         const divDosInputs = document.createElement('div');
-        divDosInputs.setAttribute('id', 'input');
+        divDosInputs.setAttribute('id', 'inputs');
         this.meuFormDinamico.appendChild(divDosInputs);
     }
 
+    criarDivDoInput() {
+        const divDoInput = document.createElement('div');
+        divDoInput.setAttribute('class', 'input');
+        return divDoInput;
+    }
+
     criarInput(cadaObjDeInput) {
+        const divDoInput = this.criarDivDoInput();
         const elementoLabel = this.criarElementoLabel(cadaObjDeInput);
         const elementoSelect = this.criarElementoSelect(cadaObjDeInput);
     
@@ -43,11 +50,12 @@ class FormDinamico {
             const elementoOption = this.criarElementoOption(cadaObjDeOption);
             elementoSelect.appendChild(elementoOption);
         });
-        
-        const divDosInputs = document.querySelector('#input')
 
-        divDosInputs.appendChild(elementoLabel);
-        divDosInputs.appendChild(elementoSelect);
+        divDoInput.appendChild(elementoLabel);
+        divDoInput.appendChild(elementoSelect);
+        
+        const divDosInputs = document.querySelector('#inputs')
+        divDosInputs.appendChild(divDoInput);
     }
 
     criarElementoLabel(cadaObjDeInput) {
@@ -92,27 +100,27 @@ class FormDinamico {
     }
 
     gerarCampanha() {
-        const valoresDeSelectsJuntos = this.concatenarValoresDoInput();
-        this.mostrarNomeDaCampanha(valoresDeSelectsJuntos);
+        const valoresDosSelectsConcatenados = this.concatenarValoresDosSelects();
+        this.mostrarNomeDaCampanha(valoresDosSelectsConcatenados);
     }
 
-    concatenarValoresDoInput() {
-        let valoresDeSelectsJuntos = ''; 
+    concatenarValoresDosSelects() {
+        let valoresDosSelectsConcatenados = ''; 
         const todosOsMeusSelects = this.meuFormDinamico.querySelectorAll('select')
     
         todosOsMeusSelects.forEach(cadaSelect => {
             //funcao que verifica se o valor é novo pra mudar o dado
             //funcao que verifica se o valor é vazio pra mudar o dado
              const valorDoSelect = cadaSelect.value
-             valoresDeSelectsJuntos += `${valorDoSelect}_`
+             valoresDosSelectsConcatenados += `${valorDoSelect}_`
         })
     
-        return valoresDeSelectsJuntos.slice(0, -1);
+        return valoresDosSelectsConcatenados.slice(0, -1);
     }
 
-    mostrarNomeDaCampanha(valoresDeSelectsJuntos) {
+    mostrarNomeDaCampanha(valoresDosSelectsConcatenados) {
         let elementoParagrafo = document.querySelector('#output p');    
-        elementoParagrafo.textContent = valoresDeSelectsJuntos;
+        elementoParagrafo.textContent = valoresDosSelectsConcatenados;
     }
 
     criarDivDoOutput() {
@@ -127,6 +135,10 @@ class FormDinamico {
         divDoOutput.appendChild(elementoParagrafo);
     }
 }
+
+
+
+
 
 
 
