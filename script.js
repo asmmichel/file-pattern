@@ -114,10 +114,9 @@ class FormDinamico {
     }
 
     criarElementoLabelNovo() {
-            const elementoLabelNovo = this.criarElementoLabel({
-            textoDoLabel: `NOVO(A) ${this.objDoForm.textoDoLabel}`,
-            nameDoSelect: `new_${this.objDoForm.nameDoSelect}`
-        });
+        const elementoLabelNovo = this.criarElementoLabel();
+        elementoLabelNovo.setAttribute("for", `new_${this.objDoForm.nameDoSelect}`);
+        elementoLabelNovo.textContent = `NOVO(A) ${this.objDoForm.textoDoLabel}`;
         return elementoLabelNovo;
     }
 
