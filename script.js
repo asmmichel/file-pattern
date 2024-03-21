@@ -1,7 +1,9 @@
 class FormDinamico {
-    constructor(idDoFormDinamico, arrayObjsDoMeuFormDinamico) {
-        this.meuFormDinamico = document.querySelector(`#${idDoFormDinamico}`);
-        this.arrayObjsDoMeuFormDinamico = arrayObjsDoMeuFormDinamico;
+    constructor(idDoForm, arrayObjsDoForm) {
+        this.meuFormDinamico = document.querySelector(`#${idDoForm}`);
+        this.arrayObjsDoForm = arrayObjsDoForm;
+        this.objDoForm = {};
+        this.objDeOption = {};
         this.iniciar();
     }
 
@@ -13,9 +15,10 @@ class FormDinamico {
 
     criarInputs() {
         this.criarDivDosInputs();
-        this.arrayObjsDoMeuFormDinamico.forEach(cadaObjDeInput => {
-            this.criarInput(cadaObjDeInput);
-            this.criarInputTipoNovo(cadaObjDeInput);
+        this.arrayObjsDoForm.forEach(cadaObjDeInput => {
+            this.objDoForm = cadaObjDeInput;
+            this.criarInput();
+            this.criarInputTipoNovo();
         });
     }
 
@@ -42,13 +45,14 @@ class FormDinamico {
         return divDoInput;
     }
 
-    criarInput(cadaObjDeInput) {
+    criarInput() {
         const divDoInput = this.criarDivDoInput();
-        const elementoLabel = this.criarElementoLabel(cadaObjDeInput);
-        const elementoSelect = this.criarElementoSelect(cadaObjDeInput);
+        const elementoLabel = this.criarElementoLabel();
+        const elementoSelect = this.criarElementoSelect();
     
-        cadaObjDeInput.options.forEach(cadaObjDeOption => {
-            const elementoOption = this.criarElementoOption(cadaObjDeOption);
+        this.objDoForm.options.forEach(cadaObjDeOption => {
+            this.objDeOption = cadaObjDeOption;
+            const elementoOption = this.criarElementoOption();
             elementoSelect.appendChild(elementoOption);
         });
 
@@ -59,34 +63,34 @@ class FormDinamico {
         divDosInputs.appendChild(divDoInput);
     }
 
-    criarElementoLabel(cadaObjDeInput) {
+    criarElementoLabel() {
         const elementoLabel = document.createElement('label');
-        elementoLabel.setAttribute("for", cadaObjDeInput.nameDoSelect);
-        elementoLabel.textContent = cadaObjDeInput.textoDoLabel;
+        elementoLabel.setAttribute("for", this.objDoForm.nameDoSelect);
+        elementoLabel.textContent = this.objDoForm.textoDoLabel;
         return elementoLabel;
     }
     
-    criarElementoSelect(cadaObjDeInput) {
+    criarElementoSelect() {
         const elementoSelect = document.createElement('select');
-        elementoSelect.setAttribute("id", cadaObjDeInput.nameDoSelect);
-        elementoSelect.setAttribute("name", cadaObjDeInput.nameDoSelect);
+        elementoSelect.setAttribute("id", this.objDoForm.nameDoSelect);
+        elementoSelect.setAttribute("name", this.objDoForm.nameDoSelect);
         return elementoSelect;
     }
     
-    criarElementoOption(cadaObjDeOption) {
+    criarElementoOption() {
         const elementoOption = document.createElement('option');
-        elementoOption.value = cadaObjDeOption.valorDaOption;
-        elementoOption.textContent = cadaObjDeOption.textoDaOption;
+        elementoOption.value = this.objDeOption.valorDaOption;
+        elementoOption.textContent = this.objDeOption.textoDaOption;
         return elementoOption;
     }
 
-    criarInputTipoNovo(cadaObjDeInput) {
-        const temOpcaoNovo = this.verificarSeInputTipoNovoExiste(cadaObjDeInput);
+    criarInputTipoNovo() {
+        const temOpcaoNovo = this.verificarSeInputTipoNovoExiste();
 
         if(temOpcaoNovo) {
             const divDoInputNovo = this.criarDivDoInputNovo();
-            const elementoLabelNovo = this.criarElementoLabelNovo(cadaObjDeInput);
-            const elementoInputTextoNovo = this.criarElementoInputTextoNovo(cadaObjDeInput);
+            const elementoLabelNovo = this.criarElementoLabelNovo();
+            const elementoInputTextoNovo = this.criarElementoInputTextoNovo();
 
             divDoInputNovo.appendChild(elementoLabelNovo);
             divDoInputNovo.appendChild(elementoInputTextoNovo);
@@ -96,8 +100,8 @@ class FormDinamico {
         }
     }
 
-    verificarSeInputTipoNovoExiste(cadaObjDeInput) {
-        const cadaOpcaoDosObjs = cadaObjDeInput.options
+    verificarSeInputTipoNovoExiste() {
+        const cadaOpcaoDosObjs = this.objDoForm.options
         const temOpcaoNovo = cadaOpcaoDosObjs.some(opcao => opcao.valorDaOption === "NOVO");
         return temOpcaoNovo;
     }
@@ -109,18 +113,18 @@ class FormDinamico {
         return divDoInputTipoNovo;
     }
 
-    criarElementoLabelNovo(cadaObjDeInput) {
+    criarElementoLabelNovo() {
             const elementoLabelNovo = this.criarElementoLabel({
-            textoDoLabel: `NOVO(A) ${cadaObjDeInput.textoDoLabel}`,
-            nameDoSelect: `new_${cadaObjDeInput.nameDoSelect}`
+            textoDoLabel: `NOVO(A) ${this.objDoForm.textoDoLabel}`,
+            nameDoSelect: `new_${this.objDoForm.nameDoSelect}`
         });
         return elementoLabelNovo;
     }
 
-    criarElementoInputTextoNovo(cadaObjDeInput) {
+    criarElementoInputTextoNovo() {
         const elementoInputTextoNovo = document.createElement('input');
-        elementoInputTextoNovo.setAttribute("id", `new_${cadaObjDeInput.nameDoSelect}`);
-        elementoInputTextoNovo.setAttribute("name", `new_${cadaObjDeInput.nameDoSelect}`);
+        elementoInputTextoNovo.setAttribute("id", `new_${this.objDoForm.nameDoSelect}`);
+        elementoInputTextoNovo.setAttribute("name", `new_${this.objDoForm.nameDoSelect}`);
         return elementoInputTextoNovo;
     }
 
