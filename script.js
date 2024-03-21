@@ -15,6 +15,7 @@ class FormDinamico {
         this.criarDivDosInputs();
         this.arrayObjsDoMeuFormDinamico.forEach(cadaObjDeInput => {
             this.criarInput(cadaObjDeInput);
+            this.criarInputTipoNovo(cadaObjDeInput);
         });
     }
 
@@ -77,6 +78,50 @@ class FormDinamico {
         elementoOption.value = cadaObjDeOption.valorDaOption;
         elementoOption.textContent = cadaObjDeOption.textoDaOption;
         return elementoOption;
+    }
+
+    criarInputTipoNovo(cadaObjDeInput) {
+        const temOpcaoNovo = this.verificarSeInputTipoNovoExiste(cadaObjDeInput);
+
+        if(temOpcaoNovo) {
+            const divDoInputNovo = this.criarDivDoInputNovo();
+            const elementoLabelNovo = this.criarElementoLabelNovo(cadaObjDeInput);
+            const elementoInputTextoNovo = this.criarElementoInputTextoNovo(cadaObjDeInput);
+
+            divDoInputNovo.appendChild(elementoLabelNovo);
+            divDoInputNovo.appendChild(elementoInputTextoNovo);
+
+            const divDosInputs = document.querySelector('#inputs')
+            divDosInputs.appendChild(divDoInputNovo);
+        }
+    }
+
+    verificarSeInputTipoNovoExiste(cadaObjDeInput) {
+        const cadaOpcaoDosObjs = cadaObjDeInput.options
+        const temOpcaoNovo = cadaOpcaoDosObjs.some(opcao => opcao.valorDaOption === "NOVO");
+        return temOpcaoNovo;
+    }
+
+    criarDivDoInputNovo() {
+        const divDoInputTipoNovo = this.criarDivDoInput();
+        divDoInputTipoNovo.style.display = 'none';
+        divDoInputTipoNovo.classList.add('new');
+        return divDoInputTipoNovo;
+    }
+
+    criarElementoLabelNovo(cadaObjDeInput) {
+            const elementoLabelNovo = this.criarElementoLabel({
+            textoDoLabel: `NOVO(A) ${cadaObjDeInput.textoDoLabel}`,
+            nameDoSelect: `new_${cadaObjDeInput.nameDoSelect}`
+        });
+        return elementoLabelNovo;
+    }
+
+    criarElementoInputTextoNovo(cadaObjDeInput) {
+        const elementoInputTextoNovo = document.createElement('input');
+        elementoInputTextoNovo.setAttribute("id", `new_${cadaObjDeInput.nameDoSelect}`);
+        elementoInputTextoNovo.setAttribute("name", `new_${cadaObjDeInput.nameDoSelect}`);
+        return elementoInputTextoNovo;
     }
 
     criarDivDoBotao() {
