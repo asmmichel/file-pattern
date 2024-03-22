@@ -91,6 +91,7 @@ class FormDinamico {
             const divDoInputNovo = this.criarDivDoInputNovo();
             const elementoLabelNovo = this.criarElementoLabelNovo();
             const elementoInputTextoNovo = this.criarElementoInputTextoNovo();
+            this.adicionarEventoNoSelectComNovo(divDoInputNovo);
 
             divDoInputNovo.appendChild(elementoLabelNovo);
             divDoInputNovo.appendChild(elementoInputTextoNovo);
@@ -107,10 +108,10 @@ class FormDinamico {
     }
 
     criarDivDoInputNovo() {
-        const divDoInputTipoNovo = this.criarDivDoInput();
-        divDoInputTipoNovo.style.display = 'none';
-        divDoInputTipoNovo.classList.add('new');
-        return divDoInputTipoNovo;
+        const divDoInputNovo = this.criarDivDoInput();
+        divDoInputNovo.style.display = 'none';
+        divDoInputNovo.classList.add('new');
+        return divDoInputNovo;
     }
 
     criarElementoLabelNovo() {
@@ -125,6 +126,18 @@ class FormDinamico {
         elementoInputTextoNovo.setAttribute("id", `new_${this.objDoForm.nameDoSelect}`);
         elementoInputTextoNovo.setAttribute("name", `new_${this.objDoForm.nameDoSelect}`);
         return elementoInputTextoNovo;
+    }
+
+    adicionarEventoNoSelectComNovo(divDoInputNovo) {
+        const nameDoSelect = this.objDoForm.nameDoSelect;
+        const elementoSelect = document.querySelector(`select[name="${nameDoSelect}"]`);
+        elementoSelect.addEventListener('change', () => {
+            if (elementoSelect.value === 'NOVO') {
+                divDoInputNovo.style.display = 'block';
+            } else {
+                divDoInputNovo.style.display = 'none';
+            }
+        });
     }
 
     criarDivDoBotao() {
