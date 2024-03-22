@@ -15,8 +15,8 @@ class FormDinamico {
 
     criarInputs() {
         this.criarDivDosInputs();
-        this.arrayObjsDoForm.forEach(cadaObjDeInput => {
-            this.objDoForm = cadaObjDeInput;
+        this.arrayObjsDoForm.forEach(objDoForm => {
+            this.objDoForm = objDoForm;
             this.criarInput();
             this.criarInputTipoNovo();
         });
@@ -50,8 +50,8 @@ class FormDinamico {
         const elementoLabel = this.criarElementoLabel();
         const elementoSelect = this.criarElementoSelect();
     
-        this.objDoForm.options.forEach(cadaObjDeOption => {
-            this.objDeOption = cadaObjDeOption;
+        this.objDoForm.options.forEach(objDeOption => {
+            this.objDeOption = objDeOption;
             const elementoOption = this.criarElementoOption();
             elementoSelect.appendChild(elementoOption);
         });
@@ -102,8 +102,8 @@ class FormDinamico {
     }
 
     verificarSeInputTipoNovoExiste() {
-        const cadaOpcaoDosObjs = this.objDoForm.options
-        const temOpcaoNovo = cadaOpcaoDosObjs.some(opcao => opcao.valorDaOption === "NOVO");
+        const opcaoDoObj = this.objDoForm.options
+        const temOpcaoNovo = opcaoDoObj.some(opcao => opcao.valorDaOption === "NOVO");
         return temOpcaoNovo;
     }
 
@@ -169,18 +169,28 @@ class FormDinamico {
         let valoresDosSelectsConcatenados = '';
         const todosOsMeusSelects = this.meuFormDinamico.querySelectorAll('select')
     
-        todosOsMeusSelects.forEach(cadaSelect => {
-            const valorDoSelect = cadaSelect.value
-             if (valorDoSelect !== 'VAZIO') {
-                valoresDosSelectsConcatenados += `${valorDoSelect}_`;
-            }
+        todosOsMeusSelects.forEach(select => {
+            let valorDoSelect = select.value;
+            if (valorDoSelect === 'NOVO') valorDoSelect = this.pegarValorDoInputDeTextoNovo(select);
+            if (valorDoSelect !== '') valoresDosSelectsConcatenados += `${valorDoSelect}_`;
         })
 
-        if (valoresDosSelectsConcatenados.endsWith('_')) {
-            valoresDosSelectsConcatenados = valoresDosSelectsConcatenados.slice(0, -1);
-        }
-    
+        if (valoresDosSelectsConcatenados.endsWith('_')) valoresDosSelectsConcatenados = valoresDosSelectsConcatenados.slice(0, -1);
+        
         return valoresDosSelectsConcatenados;
+    }
+
+    pegarValorDoInputDeTextoNovo(select) { 
+            console.log(select);
+        const nameDoSelect = select.name;
+            console.log(nameDoSelect);
+        const inputDeTextoNovo = document.querySelector(`input[name="new_${nameDoSelect}"]`);
+            console.log(inputDeTextoNovo);
+        let valorDoInputDeTextoNovo = inputDeTextoNovo.value;
+            console.log(valorDoInputDeTextoNovo);
+        valorDoInputDeTextoNovo = valorDoInputDeTextoNovo.toUpperCase();
+        console.log(valorDoInputDeTextoNovo);
+        return valorDoInputDeTextoNovo;
     }
 
     mostrarNomeDaCampanha(valoresDosSelectsConcatenados) {
@@ -246,7 +256,7 @@ window.onload = () => {
                 textoDoLabel: "PSICOLOGIA DO EMAIL",
                 nameDoSelect: "psicologia",
                 options: [
-                    { valorDaOption: "VAZIO", textoDaOption: "" },
+                    { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "NEUTRO", textoDaOption: "Neutro" },
                     { valorDaOption: "POSIT", textoDaOption: "Positivo" },
                     { valorDaOption: "NEGAT", textoDaOption: "Negativo" },
@@ -257,7 +267,7 @@ window.onload = () => {
                 textoDoLabel: "TIPO CONTEUDO",
                 nameDoSelect: "tipoConteudo",
                 options: [
-                    { valorDaOption: "VAZIO", textoDaOption: "" },
+                    { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "EBOOK", textoDaOption: "Ebook" },
                     { valorDaOption: "LP", textoDaOption: "Landing Page" },
                     { valorDaOption: "WEBINAR", textoDaOption: "Webinario" }
