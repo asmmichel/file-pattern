@@ -85,7 +85,8 @@ class FormDinamico {
     }
 
     criarInputTipoNovo() {
-        const temOpcaoNovo = this.verificarSeInputTipoNovoExiste();
+        const temOpcaoNovo = this.verificarSeOpcaoNovoExiste();
+        const temOpcaoVazio = this.verificarSeOpcaoVazioExiste();
 
         if(temOpcaoNovo) {
             const divDoInputNovo = this.criarDivDoInputNovo();
@@ -98,13 +99,24 @@ class FormDinamico {
 
             const divDosInputs = document.querySelector('#inputs')
             divDosInputs.appendChild(divDoInputNovo);
+
+            if(temOpcaoNovo && !temOpcaoVazio) {
+                const elementoSpanDeErro = this.criarElementoSpanDeErro();
+                divDoInputNovo.appendChild(elementoSpanDeErro);
+            }
         }
     }
 
-    verificarSeInputTipoNovoExiste() {
+    verificarSeOpcaoNovoExiste() {
         const opcaoDoObj = this.objDoForm.options
         const temOpcaoNovo = opcaoDoObj.some(opcao => opcao.valorDaOption === "NOVO");
         return temOpcaoNovo;
+    }
+
+    verificarSeOpcaoVazioExiste() {
+        const opcaoDoObj = this.objDoForm.options
+        const temOpcaoVazio = opcaoDoObj.some(opcao => opcao.valorDaOption === "");
+        return temOpcaoVazio;
     }
 
     criarDivDoInputNovo() {
@@ -113,7 +125,7 @@ class FormDinamico {
         divDoInputNovo.classList.add('new');
         return divDoInputNovo;
     }
-
+ 
     criarElementoLabelNovo() {
         const elementoLabelNovo = this.criarElementoLabel();
         elementoLabelNovo.setAttribute("for", `new_${this.objDoForm.nameDoSelect}`);
@@ -138,6 +150,32 @@ class FormDinamico {
                 divDoInputNovo.style.display = 'none';
             }
         });
+    }
+
+    criarElementoSpanDeErro() {
+        const elementoSpanDeErro = document.createElement('span');
+        const textoDoLabelFormatado = this.formatarOTextoDoLabel();
+        elementoSpanDeErro.setAttribute("id", `span_erro_campo_vazio`);
+        elementoSpanDeErro.setAttribute("class", `new_${this.objDoForm.nameDoSelect}`);
+        elementoSpanDeErro.textContent = `${textoDoLabelFormatado} não pode estar vazio!`;
+        elementoSpanDeErro.style.display = 'none';
+        return elementoSpanDeErro;
+    } 
+
+    formatarOTextoDoLabel() {
+        const textoDoLabelEmMinusculo = this.objDoForm.textoDoLabel.toLowerCase();
+        const palavrasDoTextoDoLabel = textoDoLabelEmMinusculo.split(' ');
+
+        palavrasDoTextoDoLabel.forEach((palavra, index) => {
+            const temMaisQueTresLetras = palavra.length > 3;
+            if(temMaisQueTresLetras) {
+                const primeiraLetraMaiuscula = palavra.charAt(0).toUpperCase();
+                const restoDaPalavra = palavra.slice(1);
+                palavrasDoTextoDoLabel[index] = `${primeiraLetraMaiuscula}${restoDaPalavra}`;
+            }
+        })
+        const textoDoLabelFormatado = palavrasDoTextoDoLabel.join(' ');
+        return textoDoLabelFormatado;
     }
 
     criarDivDoBotao() {
@@ -171,27 +209,29 @@ class FormDinamico {
     
         todosOsMeusSelects.forEach(select => {
             let valorDoSelect = select.value;
-            if (valorDoSelect === 'NOVO') valorDoSelect = this.pegarValorDoInputDeTextoNovo(select);
-            if (valorDoSelect !== '') valoresDosSelectsConcatenados += `${valorDoSelect}_`;
+            if (valorDoSelect === 'NOVO') {
+                valorDoSelect = this.pegarValorDoInputDeTextoNovo(select);
+            }
+            if (valorDoSelect !== '') {
+                valoresDosSelectsConcatenados += `${valorDoSelect}_`;
+            }
         })
 
-        if (valoresDosSelectsConcatenados.endsWith('_')) valoresDosSelectsConcatenados = valoresDosSelectsConcatenados.slice(0, -1);
-        
+        if (valoresDosSelectsConcatenados.endsWith('_')) {
+            valoresDosSelectsConcatenados = valoresDosSelectsConcatenados.slice(0, -1);
+        }
+
         return valoresDosSelectsConcatenados;
     }
 
     pegarValorDoInputDeTextoNovo(select) { 
-            console.log(select);
         const nameDoSelect = select.name;
-            console.log(nameDoSelect);
         const inputDeTextoNovo = document.querySelector(`input[name="new_${nameDoSelect}"]`);
-            console.log(inputDeTextoNovo);
         let valorDoInputDeTextoNovo = inputDeTextoNovo.value;
-            console.log(valorDoInputDeTextoNovo);
         valorDoInputDeTextoNovo = valorDoInputDeTextoNovo.toUpperCase();
-        console.log(valorDoInputDeTextoNovo);
         return valorDoInputDeTextoNovo;
     }
+
 
     mostrarNomeDaCampanha(valoresDosSelectsConcatenados) {
         let elementoParagrafo = document.querySelector('#output p');    
