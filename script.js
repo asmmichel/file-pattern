@@ -199,8 +199,45 @@ class FormDinamico {
     }
 
     gerarCampanha() {
+        const valoresObrigatoriosEstaoPreenchidos = this.verificarSeValoresObrigatoriosEstaoPreenchidos();
+        const todosOsValoresObrigatoriosEstaoPreenchidos = valoresObrigatoriosEstaoPreenchidos.every(valor => valor === true);
+
+        if(todosOsValoresObrigatoriosEstaoPreenchidos) {
+            this.mostrarNomeDaCampanha();
+        } else {
+            this.limparStringConcatenadaDoOuput();
+        }
+    }
+
+    verificarSeValoresObrigatoriosEstaoPreenchidos() {
+        const todosOsMeusSelects = this.meuFormDinamico.querySelectorAll('select');
+        let valoresObrigatoriosEstaoPreenchidos = [];
+        
+        todosOsMeusSelects.forEach(select => {
+            const elementoSpan = this.acharElementoSpanDeErro(select)
+            let valorDoSelect = select.value;
+
+            if(elementoSpan) {
+                elementoSpan.style.display = 'none';
+                valoresObrigatoriosEstaoPreenchidos.push(true);
+            }
+
+            if (valorDoSelect === 'NOVO') {
+                valorDoSelect = this.pegarValorDoInputDeTextoNovo(select);
+                if(valorDoSelect === '' && elementoSpan) {
+                    elementoSpan.style.display = 'block';
+                    valoresObrigatoriosEstaoPreenchidos.push(false);
+                } 
+            }
+        })
+
+        return valoresObrigatoriosEstaoPreenchidos;
+    }
+
+    mostrarNomeDaCampanha() {
         const valoresDosSelectsConcatenados = this.concatenarValoresDosSelects();
-        this.mostrarNomeDaCampanha(valoresDosSelectsConcatenados);
+        let elementoParagrafo = document.querySelector('#output p');    
+        elementoParagrafo.textContent = valoresDosSelectsConcatenados;
     }
 
     concatenarValoresDosSelects() {
@@ -224,18 +261,24 @@ class FormDinamico {
         return valoresDosSelectsConcatenados;
     }
 
+    limparStringConcatenadaDoOuput() {
+        let paragrafoDoOutput = document.querySelector('#output p');
+        paragrafoDoOutput.textContent = '';
+    }
+
+    acharElementoSpanDeErro(select) {
+        const nameDoSelect = select.name;
+        const identificadorDoSpan = `#span_erro_campo_vazio.new_${nameDoSelect}`
+        const elementoSpan = this.meuFormDinamico.querySelector(identificadorDoSpan)
+        return elementoSpan;
+    }
+
     pegarValorDoInputDeTextoNovo(select) { 
         const nameDoSelect = select.name;
         const inputDeTextoNovo = document.querySelector(`input[name="new_${nameDoSelect}"]`);
         let valorDoInputDeTextoNovo = inputDeTextoNovo.value;
         valorDoInputDeTextoNovo = valorDoInputDeTextoNovo.toUpperCase();
         return valorDoInputDeTextoNovo;
-    }
-
-
-    mostrarNomeDaCampanha(valoresDosSelectsConcatenados) {
-        let elementoParagrafo = document.querySelector('#output p');    
-        elementoParagrafo.textContent = valoresDosSelectsConcatenados;
     }
 
     criarDivDoOutput() {
@@ -289,6 +332,14 @@ window.onload = () => {
                     { valorDaOption: "SML", textoDaOption: "Produtor SML" },
                     { valorDaOption: "PROD_INI", textoDaOption: "Produtor Iniciante" },
                     { valorDaOption: "AFI_LADEIRINHA", textoDaOption: "Afiliado Ladeirinha" },
+                    { valorDaOption: "NOVO", textoDaOption: "Novo" }
+                ]
+            },
+            {
+                textoDoLabel: "CAMPO TESTE",
+                nameDoSelect: "campoTeste",
+                options: [
+                    { valorDaOption: "TESTE", textoDaOption: "Teste Qualquer" },
                     { valorDaOption: "NOVO", textoDaOption: "Novo" }
                 ]
             },
