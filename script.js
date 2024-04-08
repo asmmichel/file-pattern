@@ -47,6 +47,7 @@ class FormDinamico {
     criarDivDoInput() {
         const divDoInput = document.createElement('div');
         divDoInput.setAttribute('class', 'input');
+        divDoInput.setAttribute("id", `input_${this.objDoForm.nameDoSelect}`);
         return divDoInput;
     }
 
@@ -99,13 +100,13 @@ class FormDinamico {
             const divDoInputNovo = this.criarDivDoInputNovo();
             const elementoLabelNovo = this.criarElementoLabelNovo();
             const elementoInputTextoNovo = this.criarElementoInputTextoNovo();
-            this.adicionarEventoNoSelectComNovo(divDoInputNovo);
 
             divDoInputNovo.appendChild(elementoLabelNovo);
             divDoInputNovo.appendChild(elementoInputTextoNovo);
-
+            
             const divDosInputs = document.querySelector('#inputs')
             divDosInputs.appendChild(divDoInputNovo);
+            this.adicionarEventoNoSelectComNovo();
 
             const elementoSpanDeAviso = this.criarElementoSpanDeAviso();
             divDoInputNovo.appendChild(elementoSpanDeAviso);
@@ -134,6 +135,7 @@ class FormDinamico {
         const divDoInputNovo = this.criarDivDoInput();
         divDoInputNovo.style.display = 'none';
         divDoInputNovo.classList.add('new');
+        divDoInputNovo.setAttribute("id", `input_new_${this.objDoForm.nameDoSelect}`);
         return divDoInputNovo;
     }
  
@@ -152,9 +154,10 @@ class FormDinamico {
         return elementoInputTextoNovo;
     }
 
-    adicionarEventoNoSelectComNovo(divDoInputNovo) {
-        const nameDoSelect = this.objDoForm.nameDoSelect;
-        const elementoSelect = document.querySelector(`select[name="${nameDoSelect}"]`);
+    adicionarEventoNoSelectComNovo() {
+        const elementoSelect = document.querySelector(`select[name="${this.objDoForm.nameDoSelect}"]`);
+        const divDoInputNovo = document.querySelector(`#input_new_${this.objDoForm.nameDoSelect}`);
+
         elementoSelect.addEventListener('change', () => {
             if (elementoSelect.value === 'NOVO') {
                 divDoInputNovo.style.display = 'block';
@@ -167,8 +170,8 @@ class FormDinamico {
     criarElementoSpanDeErro() {
         const elementoSpanDeErro = document.createElement('span');
         const textoDoLabelFormatado = this.formatarOTextoDoLabel();
-        elementoSpanDeErro.setAttribute("id", `span_erro_campo_vazio`);
-        elementoSpanDeErro.setAttribute("class", `new_${this.objDoForm.nameDoSelect}`);
+        elementoSpanDeErro.setAttribute("id", `span_erro_campo_vazio_new_${this.objDoForm.nameDoSelect}`);
+        elementoSpanDeErro.setAttribute("class", `span_erro_campo_vazio_new`);
         elementoSpanDeErro.textContent = `${textoDoLabelFormatado} não pode estar vazio!`;
         elementoSpanDeErro.style.display = 'none';
         return elementoSpanDeErro;
@@ -193,21 +196,17 @@ class FormDinamico {
     criarElementoSpanDeAviso() {
         const elementoSpanDeAviso = document.createElement('span');
         const textoDoLabelFormatado = this.formatarOTextoDoLabel();
-        elementoSpanDeAviso.setAttribute("id", `span_aviso_informar_novo_termo`);
-        elementoSpanDeAviso.setAttribute("class", `new_${this.objDoForm.nameDoSelect}`);
+        elementoSpanDeAviso.setAttribute("id", `span_aviso_informar_novo_termo_new_${this.objDoForm.nameDoSelect}`);
+        elementoSpanDeAviso.setAttribute("class", `span_aviso_informar_novo_termo`);
         elementoSpanDeAviso.textContent = `Atenção! Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com
-                                            informando o(a) novo(a) ${textoDoLabelFormatado} para podermos mensurar nos Dashboards!`;
+                                            informando o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`;
         elementoSpanDeAviso.style.display = 'none';
         return elementoSpanDeAviso;
     }
 
     adicionarEventoNoElementoInputTextoNovo() {
-        const nameDoSelect = this.objDoForm.nameDoSelect;
-        const identificadorDoSpanDeAviso = `#span_aviso_informar_novo_termo.new_${nameDoSelect}`
-        const elementoSpanDeAviso = this.meuFormDinamico.querySelector(identificadorDoSpanDeAviso)
-
-        const identificadorDoInputTextoNovo = `input#new_${nameDoSelect}`
-        const elementoInputTextoNovo = this.meuFormDinamico.querySelector(identificadorDoInputTextoNovo)
+        const elementoInputTextoNovo = this.meuFormDinamico.querySelector(`input#new_${this.objDoForm.nameDoSelect}`);
+        const elementoSpanDeAviso = this.meuFormDinamico.querySelector(`#span_aviso_informar_novo_termo_new_${this.objDoForm.nameDoSelect}`);
 
         elementoInputTextoNovo.addEventListener('mouseover', () => {
             elementoSpanDeAviso.style.display = 'block';
@@ -217,6 +216,7 @@ class FormDinamico {
             elementoSpanDeAviso.style.display = 'none';
         });
     }
+
 
 
 
@@ -258,18 +258,17 @@ class FormDinamico {
         let valoresObrigatoriosEstaoPreenchidos = [];
         
         todosOsMeusSelects.forEach(select => {
-            const elementoSpan = this.acharElementoSpanDeErro(select)
-            let valorDoSelect = select.value;
+            const elementoSpanDeErro = this.meuFormDinamico.querySelector(`#span_erro_campo_vazio_new_${select.name}`)
 
-            if(elementoSpan) {
-                elementoSpan.style.display = 'none';
+            if(elementoSpanDeErro) {
+                elementoSpanDeErro.style.display = 'none';
                 valoresObrigatoriosEstaoPreenchidos.push(true);
             }
 
-            if (valorDoSelect === 'NOVO') {
-                valorDoSelect = this.pegarValorDoInputDeTextoNovo(select);
-                if(valorDoSelect === '' && elementoSpan) {
-                    elementoSpan.style.display = 'block';
+            if (select.value === 'NOVO') {
+                const valorDoInputDeTextoNovo = this.pegarValorDoInputDeTextoNovo(select);
+                if(valorDoInputDeTextoNovo === '' && elementoSpanDeErro) {
+                    elementoSpanDeErro.style.display = 'block';
                     valoresObrigatoriosEstaoPreenchidos.push(false);
                 } 
             }
@@ -289,12 +288,13 @@ class FormDinamico {
         const todosOsMeusSelects = this.meuFormDinamico.querySelectorAll('select')
     
         todosOsMeusSelects.forEach(select => {
-            let valorDoSelect = select.value;
-            if (valorDoSelect === 'NOVO') {
-                valorDoSelect = this.pegarValorDoInputDeTextoNovo(select);
+            let valorInicialDoSelect = select.value;
+            if (valorInicialDoSelect === 'NOVO') {
+                const valorDoInputDeTextoNovo = this.pegarValorDoInputDeTextoNovo(select);
+                valorInicialDoSelect = valorDoInputDeTextoNovo;
             }
-            if (valorDoSelect !== '') {
-                valoresDosSelectsConcatenados += `${valorDoSelect}_`;
+            if (valorInicialDoSelect !== '') {
+                valoresDosSelectsConcatenados += `${valorInicialDoSelect}_`;
             }
         })
 
@@ -310,18 +310,9 @@ class FormDinamico {
         paragrafoDoOutput.textContent = '';
     }
 
-    acharElementoSpanDeErro(select) {
-        const nameDoSelect = select.name;
-        const identificadorDoSpan = `#span_erro_campo_vazio.new_${nameDoSelect}`
-        const elementoSpan = this.meuFormDinamico.querySelector(identificadorDoSpan)
-        return elementoSpan;
-    }
-
     pegarValorDoInputDeTextoNovo(select) { 
-        const nameDoSelect = select.name;
-        const inputDeTextoNovo = document.querySelector(`input[name="new_${nameDoSelect}"]`);
-        let valorDoInputDeTextoNovo = inputDeTextoNovo.value;
-        valorDoInputDeTextoNovo = valorDoInputDeTextoNovo.toUpperCase();
+        const inputDeTextoNovo = document.querySelector(`input[name="new_${select.name}"]`);
+        const valorDoInputDeTextoNovo = inputDeTextoNovo.value.toUpperCase();
         return valorDoInputDeTextoNovo;
     }
 
