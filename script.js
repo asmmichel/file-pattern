@@ -100,6 +100,10 @@ class FormDinamico {
             const divDosInputs = document.querySelector('#inputs')
             divDosInputs.appendChild(divDoInputNovo);
 
+            const elementoSpanDeAviso = this.criarElementoSpanDeAviso();
+            divDoInputNovo.appendChild(elementoSpanDeAviso);
+            this.adicionarEventoNoElementoInputTextoNovo();
+
             if(temOpcaoNovo && !temOpcaoVazio) {
                 const elementoSpanDeErro = this.criarElementoSpanDeErro();
                 divDoInputNovo.appendChild(elementoSpanDeErro);
@@ -137,6 +141,7 @@ class FormDinamico {
         const elementoInputTextoNovo = document.createElement('input');
         elementoInputTextoNovo.setAttribute("id", `new_${this.objDoForm.nameDoSelect}`);
         elementoInputTextoNovo.setAttribute("name", `new_${this.objDoForm.nameDoSelect}`);
+        
         return elementoInputTextoNovo;
     }
 
@@ -176,6 +181,34 @@ class FormDinamico {
         })
         const textoDoLabelFormatado = palavrasDoTextoDoLabel.join(' ');
         return textoDoLabelFormatado;
+    }
+
+    criarElementoSpanDeAviso() {
+        const elementoSpanDeAviso = document.createElement('span');
+        const textoDoLabelFormatado = this.formatarOTextoDoLabel();
+        elementoSpanDeAviso.setAttribute("id", `span_aviso_informar_novo_termo`);
+        elementoSpanDeAviso.setAttribute("class", `new_${this.objDoForm.nameDoSelect}`);
+        elementoSpanDeAviso.textContent = `Atenção! Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com
+                                            informando o(a) novo(a) ${textoDoLabelFormatado} para podermos mensurar nos Dashboards!`;
+        elementoSpanDeAviso.style.display = 'none';
+        return elementoSpanDeAviso;
+    }
+
+    adicionarEventoNoElementoInputTextoNovo() {
+        const nameDoSelect = this.objDoForm.nameDoSelect;
+        const identificadorDoSpanDeAviso = `#span_aviso_informar_novo_termo.new_${nameDoSelect}`
+        const elementoSpanDeAviso = this.meuFormDinamico.querySelector(identificadorDoSpanDeAviso)
+
+        const identificadorDoInputTextoNovo = `input#new_${nameDoSelect}`
+        const elementoInputTextoNovo = this.meuFormDinamico.querySelector(identificadorDoInputTextoNovo)
+
+        elementoInputTextoNovo.addEventListener('mouseover', () => {
+            elementoSpanDeAviso.style.display = 'block';
+        });
+
+        elementoInputTextoNovo.addEventListener('mouseout', () => {
+            elementoSpanDeAviso.style.display = 'none';
+        });
     }
 
     criarDivDoBotao() {
