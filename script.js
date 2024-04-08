@@ -7,6 +7,7 @@ class FormDinamico {
         this.iniciar();
     }
 
+    //principais metodos
     iniciar() {
         this.criarInputs();
         this.criarBotao();
@@ -33,6 +34,10 @@ class FormDinamico {
         this.criarElementoParagrafo();
     }
 
+
+
+
+    //metodos dos inputs basicos
     criarDivDosInputs() {
         const divDosInputs = document.createElement('div');
         divDosInputs.setAttribute('id', 'inputs');
@@ -84,6 +89,8 @@ class FormDinamico {
         return elementoOption;
     }
 
+
+    //metodos dos inputs com tipo "Novo"
     criarInputTipoNovo() {
         const temOpcaoNovo = this.verificarSeOpcaoNovoExiste();
         const temOpcaoVazio = this.verificarSeOpcaoVazioExiste();
@@ -211,6 +218,10 @@ class FormDinamico {
         });
     }
 
+
+
+
+    //metodos do botao
     criarDivDoBotao() {
         const divDoBotao= document.createElement('div');
         divDoBotao.setAttribute('id', 'botao');
@@ -314,6 +325,10 @@ class FormDinamico {
         return valorDoInputDeTextoNovo;
     }
 
+
+
+
+    //metodos do output
     criarDivDoOutput() {
         const divDoOutput = document.createElement('div');
         divDoOutput.setAttribute('id', 'output');
@@ -331,11 +346,7 @@ class FormDinamico {
 
 
 
-
-
-
-
-
+//chamada da classe e objeto principal
 window.onload = () => {
     new FormDinamico(
         'meuFormDinamico', 
