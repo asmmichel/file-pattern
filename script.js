@@ -133,7 +133,6 @@ class FormDinamico {
 
     criarDivDoInputNovo() {
         const divDoInputNovo = this.criarDivDoInput();
-        divDoInputNovo.style.display = 'none';
         divDoInputNovo.classList.add('new');
         divDoInputNovo.setAttribute("id", `input_new_${this.objDoForm.nameDoSelect}`);
         return divDoInputNovo;
@@ -160,9 +159,9 @@ class FormDinamico {
 
         elementoSelect.addEventListener('change', () => {
             if (elementoSelect.value === 'NOVO') {
-                divDoInputNovo.style.display = 'block';
+                divDoInputNovo.classList.add('ativo');
             } else {
-                divDoInputNovo.style.display = 'none';
+                divDoInputNovo.classList.remove('ativo');
             }
         });
     }
@@ -171,9 +170,8 @@ class FormDinamico {
         const elementoSpanDeErro = document.createElement('span');
         const textoDoLabelFormatado = this.formatarOTextoDoLabel();
         elementoSpanDeErro.setAttribute("id", `span_erro_campo_vazio_new_${this.objDoForm.nameDoSelect}`);
-        elementoSpanDeErro.setAttribute("class", `span_erro_campo_vazio_new`);
+        elementoSpanDeErro.setAttribute("class", `span_erro_campo_vazio`);
         elementoSpanDeErro.textContent = `${textoDoLabelFormatado} não pode estar vazio!`;
-        elementoSpanDeErro.style.display = 'none';
         return elementoSpanDeErro;
     } 
 
@@ -200,7 +198,6 @@ class FormDinamico {
         elementoSpanDeAviso.setAttribute("class", `span_aviso_informar_novo_termo`);
         elementoSpanDeAviso.textContent = `Atenção! Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com
                                             informando o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`;
-        elementoSpanDeAviso.style.display = 'none';
         return elementoSpanDeAviso;
     }
 
@@ -209,11 +206,11 @@ class FormDinamico {
         const elementoSpanDeAviso = this.meuFormDinamico.querySelector(`#span_aviso_informar_novo_termo_new_${this.objDoForm.nameDoSelect}`);
 
         elementoInputTextoNovo.addEventListener('mouseover', () => {
-            elementoSpanDeAviso.style.display = 'block';
+            elementoSpanDeAviso.classList.add('ativo');
         });
 
         elementoInputTextoNovo.addEventListener('mouseout', () => {
-            elementoSpanDeAviso.style.display = 'none';
+            elementoSpanDeAviso.classList.remove('ativo');
         });
     }
 
@@ -261,14 +258,14 @@ class FormDinamico {
             const elementoSpanDeErro = this.meuFormDinamico.querySelector(`#span_erro_campo_vazio_new_${select.name}`)
 
             if(elementoSpanDeErro) {
-                elementoSpanDeErro.style.display = 'none';
+                elementoSpanDeErro.classList.remove('ativo');
                 valoresObrigatoriosEstaoPreenchidos.push(true);
             }
 
             if (select.value === 'NOVO') {
                 const valorDoInputDeTextoNovo = this.pegarValorDoInputDeTextoNovo(select);
                 if(valorDoInputDeTextoNovo === '' && elementoSpanDeErro) {
-                    elementoSpanDeErro.style.display = 'block';
+                    elementoSpanDeErro.classList.add('ativo');
                     valoresObrigatoriosEstaoPreenchidos.push(false);
                 } 
             }

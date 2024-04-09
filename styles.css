@@ -7,12 +7,26 @@ body {
   padding-bottom: 10px;
 }
 
-
-
-.novo {
+.input.new {
   display: none;
 }
 
-.novo.ativo {
+.input.new.ativo {
+  display: block;
+}
+
+.span_erro_campo_vazio {
+  display: none;
+}
+
+.span_erro_campo_vazio.ativo {
+  display: block;
+}
+
+.span_aviso_informar_novo_termo {
+  display: none;
+}
+
+.span_aviso_informar_novo_termo.ativo {
   display: block;
 }
