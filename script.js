@@ -4,6 +4,9 @@ class FormDinamico {
         this.arrayObjsDoForm = arrayObjsDoForm;
         this.objDoForm = {};
         this.objDeOption = {};
+        this.stringDoValorVazio = '';
+        this.stringDoValorNovo = 'NOVO';
+        this.stringDeElementAtivo = 'ativo'
         this.iniciar();
     }
 
@@ -121,7 +124,7 @@ class FormDinamico {
 
     verificarSeOpcaoNovoExiste() {
         const opcaoDoObj = this.objDoForm.options
-        const temOpcaoNovo = opcaoDoObj.some(opcao => opcao.valorDaOption === "NOVO");
+        const temOpcaoNovo = opcaoDoObj.some(opcao => opcao.valorDaOption === this.stringDoValorNovo);
         return temOpcaoNovo;
     }
 
@@ -158,10 +161,10 @@ class FormDinamico {
         const divDoInputNovo = document.querySelector(`#input_new_${this.objDoForm.nameDoSelect}`);
 
         elementoSelect.addEventListener('change', () => {
-            if (elementoSelect.value === 'NOVO') {
-                divDoInputNovo.classList.add('ativo');
+            if (elementoSelect.value === this.stringDoValorNovo) {
+                divDoInputNovo.classList.add(this.stringDeElementAtivo);
             } else {
-                divDoInputNovo.classList.remove('ativo');
+                divDoInputNovo.classList.remove(this.stringDeElementAtivo);
             }
         });
     }
@@ -206,11 +209,11 @@ class FormDinamico {
         const elementoSpanDeAviso = this.meuFormDinamico.querySelector(`#span_aviso_informar_novo_termo_new_${this.objDoForm.nameDoSelect}`);
 
         elementoInputTextoNovo.addEventListener('mouseover', () => {
-            elementoSpanDeAviso.classList.add('ativo');
+            elementoSpanDeAviso.classList.add(this.stringDeElementAtivo);
         });
 
         elementoInputTextoNovo.addEventListener('mouseout', () => {
-            elementoSpanDeAviso.classList.remove('ativo');
+            elementoSpanDeAviso.classList.remove(this.stringDeElementAtivo);
         });
     }
 
@@ -258,14 +261,14 @@ class FormDinamico {
             const elementoSpanDeErro = this.meuFormDinamico.querySelector(`#span_erro_campo_vazio_new_${select.name}`)
 
             if(elementoSpanDeErro) {
-                elementoSpanDeErro.classList.remove('ativo');
+                elementoSpanDeErro.classList.remove(this.stringDeElementAtivo);
                 valoresObrigatoriosEstaoPreenchidos.push(true);
             }
 
-            if (select.value === 'NOVO') {
+            if (select.value === this.stringDoValorNovo) {
                 const valorDoInputDeTextoNovo = this.pegarValorDoInputDeTextoNovo(select);
-                if(valorDoInputDeTextoNovo === '' && elementoSpanDeErro) {
-                    elementoSpanDeErro.classList.add('ativo');
+                if(valorDoInputDeTextoNovo === this.stringDoValorVazio && elementoSpanDeErro) {
+                    elementoSpanDeErro.classList.add(this.stringDeElementAtivo);
                     valoresObrigatoriosEstaoPreenchidos.push(false);
                 } 
             }
@@ -286,11 +289,11 @@ class FormDinamico {
     
         todosOsMeusSelects.forEach(select => {
             let valorInicialDoSelect = select.value;
-            if (valorInicialDoSelect === 'NOVO') {
+            if (valorInicialDoSelect === this.stringDoValorNovo) {
                 const valorDoInputDeTextoNovo = this.pegarValorDoInputDeTextoNovo(select);
                 valorInicialDoSelect = valorDoInputDeTextoNovo;
             }
-            if (valorInicialDoSelect !== '') {
+            if (valorInicialDoSelect !== this.stringDoValorVazio) {
                 valoresDosSelectsConcatenados += `${valorInicialDoSelect}_`;
             }
         })
