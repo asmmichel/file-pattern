@@ -1,0 +1,473 @@
+-------------------------
+primeira parte, pensando em como identificar os campos que não podem ser vazios
+
+
+
+Bom, agora temos que começar a pensar em como vamos tratar caso o usuário tente colocar um valor novo vazio, em campos que não podem ter valores vazios
+
+A primeira coisa é saber como identificar esses campos que tem a opção novo mas não podem ser vazios
+
+Pela lógica, vamos considerar que caso o campo tenha tanto a opção vazia e a opção novo, está permitido o input de texto vazio
+
+Agora, caso o campo tenha apenas a opção Novo, então não é permitido essa opção nova ficar vazia
+
+E o que vamos fazer quando identificarmos esse campo? Nós temos que selecionar ele e colocar um span de erro, avisando que o campo não pode ficar vazio quando o usuario clicar no botão
+
+Porem, assim como a logica da div de input novo, nós não precisamos esperar o cara clicar no botão para gerar esse span
+
+Entao nos podemos já ir adiantando a logica de identificar esses campos e criar os spans deles, deixando eles escondidos depois, e caso o usuario clicar no botão, eles aparecem
+
+
+
+
+
+
+------------
+segunda parte, pensando em onde vamos colocar essa verificao e criacao do span do campo que nao pode ser vazio
+
+
+Agora a questão é, em que momento vamos fazer o processo de identificar esses campos e preparar os spans neles?
+
+O ideial seria usar como sempre, alguma função que está em um fluxo onde ela identifica todos esses campos com a opção "Novo"
+
+Isso seria o if(temOpcaoNovo) da funcao criarInputTipoNovo()
+
+Dentro desse if, podemos ter um if interno, que vai verificar esse nosso caso que queremos, que é quando tiver apenas a opção "Novo"
+
+Ou seja, vamos criar um método que verifica se existe a opção "Vazio", exatamente da mesma forma que temos o metodo que verifica se existe a opcao novo
+
+E assim como ele, vamos retornar um true ou false disso, para colocar na nova variavel temOpcaoVazio
+
+Isso porque agora no nosso if interno podemos fazer a seguinte verificacao
+
+if(temOpcaoNovo && !temOpcaoVazio)
+
+E ai dessa forma vamos selecionar exatamente os campos que queremos para criar o span
+
+
+
+------------
+terceira parte, criacao do span e pensando em como identificar ele para ativa-lo depois
+
+
+
+Vamos separar esse processo em uma função criarElementoSpanDeErro
+
+O nosso span deve ser criado com uma classe dinamica, porque a ativação dele vai ser feita em um outro estado do codigo, atraves do botao
+
+Ou seja, vamos perder a referencia do span quando o codigo estiver nesse estado, e precisamos dela de volta, como conseguimos a referencia do span especifico que devemos ativar? colocando o nameDoSelect especifico na hora de criar o span como classe
+
+dessa forma, podemos acessar o span de volta puxando o nome da classe com o new na frente, assim como fazemos para mostrar a div do "Novo"
+
+Ai nos podemos também deixar a mensagem do span dinamica, colocando o texto do label formatado no inicio da mensagem, mas temos que formatar esse label, que é um codigo a parte que vou explicar
+
+
+Por fim, escondemos o span e retornamos ele para a funcao pai, para ele ser colocado como filho da div "Novo" em especifico
+
+
+
+Entao resumindo até aqui, na funcao criarInputTipoNovo fazemos um if interno if(temOpcaoNovo && !temOpcaoVazio)
+no if(temOpcaoNovo), isso vai filtrar apenas os campos "Novos" que tem apenas essa opcao
+
+achando eles, criamos um span que vai ser marcado com o nome dessa div novo de forma dinamica
+
+e por fim colocamos ela como filho da div novo
+
+
+
+
+------------
+quarta parte, explicando como tratamos o label no span
+
+
+explicacao do tratamento do texto do label
+
+na nossa funcao para criar o span, temos uma funcao que formata o texto do label, para aparecer sem estar em caps lock na mensagem
+
+como fazemos isso?
+
+primeiro colocamos tudo em minusculo, e depois queremos colocar a 1ª letra maiuscula apenas nas lpalavras grandes
+
+entao separamos cada palavra, verificamos cada uma, e se tem mais de 3 letras, tratamos a palavra
+
+por fim juntamos tudo e devolvemos para a funcao do span
+
+
+
+
+
+--------------------------
+quinta parte, pensando agora no processo de ativacao desse span no momento do clique no botao
+
+
+aqui nos tivemos uma dificuldade forte para pensar na logica e separar as funcoes
+
+a primeira coisa que garramos, foi que tentamos "barrar" a concatenação caso o select do novo estivesse vazio, mas isso teve um erro de logica forte, pois era muito mais dificil de tratar
+
+depois percebemos que antes de sair concatenando, poderiamos verificar todos os campos antes, e se algum desses obrigatorios estivessem vazio, ai nos nem iriamos começar a concatenar nada, evitando assim tambem o tratamento da string, ja que nem teriamos a chamada do metodo de concatenar
+
+ou seja, no metodo "gerarCampanha", nos começamos a fazer a logica, pois ao inves de ja chamar a funcao de concatenar, nos podemos fazer um IF dentro dele
+esse IF verifica atraves de uma variavel booleana se todas as strings estão corretas, se estiverem, ai sim mostramos o nome da campanha (jogamos o metodo de concatenar dentro dela)
+agora se nao estiverem, ai vamos limpar a string, caso ela ja tenha sido rodada alguma vez
+
+depois disso, temos que pensar em como exatamente fazer essa variavel de true e false, qual é a logica dentro dela?
+
+nos temos que pensar em 2 coisas então, como identificar de forma dinamica que esses campos obrigatorios estão vazios, e como lidar com o span deles, aparecendo e sumindo, de forma dinamica tambem
+
+vamos fazer a funcao verificarSeValoresObrigatoriosEstaoPreenchidos então
+
+ela vai rodar antes do IF ELSE de gerar campanha, e ela que vai gerar a nossa variavel boolean
+
+para verificar se o campo nao pode ser vazio, basicamente nao precisamos fazer a mesma verificao do input, onde usamos aquela logica de olhar as opcoes para criar o span
+isso porque o span de erro é o resultado dessa logica, e podemos basicamente saber se o campo nao pode ser vazio vendo se ele tem algum elemento span dentro dele
+
+ou seja, nos temos que fazer um forEach em cada select, para ver qual deles tem o campo span
+
+para achar o campo especifico de cada select, vamos separar um metodo acharElementoSpanDeErro, que vai buscar elementos spans atraves do nameDoSelect em especifico, mas tambem com o id do span
+
+depois, temos que fazer uma logica repetida aqui, onde vamos verificar se o campo novo foi selecionado, e depois verificar se o campo do novo esta vazio
+
+se passar dessas 2 verificações, vemos se ele tem o campo span, se tiver, ai devemos mostrar o span e barrar a concatenacao
+
+como fazer isso? primeiramente pensamos em uma variavel simples que receberia false ou true, e essa variavel seria o boolean passado para o "gerarCampanha"
+
+porem, estavamos olhando apenas o cenario de 1 campo obrigatorio
+
+caso tivessemos 2 campos, o true de 1 poderia sobrescrever o false de outro, liberando no metodo "gerarCampanha" a funcao que mostraria a string
+
+entao colocamos um campo de teste obrigatorio para ver esse cenario, e descobrir como tratar ele
+
+a forma de tratar ele foi atraves de um array de booleans, onde nos vamos liberar a impressão da string apenas se todos os campos receberem "true"
+
+dessa forma, caso qualquer campo receber false, toda a string é barrada
+
+
+agora temos que tratar o "concerto do usuario", ou seja, quando ele faz uma ação onde o campo obrigatorio esta correto, e ele deve receber true e "none" no span agora
+
+como fazer isso?
+
+como são varios cenarios que podem acontecer para que o span suma dos inputs (como usuario marcando opcao fixa, usuario concertando o campo digitando algo, etc), a melhor forma de englobar todos esses cenarios é no inicio do metodo, antes de começar a fazer a verificacao do block, colocar todos como true e "none"
+
+ai depois o IF do cenario errado apenas que vai lidar como o span e o block
+
+
+
+no fim disso tudo, voltando pro gerarCampanha, usamos um "every", ou seja, como falei, apenas se todos os campos forem true, que o nome da campanha é mostrado
+
+
+
+RESUMINDO
+
+Verificamos todos os campos obrigatorios antes de começar a concatenar
+
+Achamos esses campos obrigatorios atraves do span deles, e ja que temos o span deles, aproveitamos para tratar o block e none de cada cenario
+
+A funcao de verificacao vai retornar um array de booleans, onde cada boolean representa se o campo obrigatorio esta correto ou nao
+
+Caso 1 deles nao esteja correto, toda a concatenacao é barrada pelo IF ELSE
+
+Caso o usuario trate o campo, isso tambem vai ser englobado, porque no começo da verificação, colocamos primeiro todos os campos como true e escondemos os spans
+
+Ou seja, em qualquer cenario "correto" a verificação vai corrigir o click do usuario dessa forma, e apenas no cenario errado especifico que ela mostra o span e retorna false no boolean
+
+
+
+
+POR AQUI ACABOU A PARTE DO TRATAMENTO DE CAMPO QUE NAO PODE SER VAZIO
+
+
+
+NOVA FEATURE, COLOCANDO AVISO NOS CAMPOS NOVOS
+-----------------------------------
+primeira parte - pensando na logica para inserir o span de aviso, e em qual metodo vamos adicionar essa chamada
+
+precisamos colocar uma caixinha nos campos que podem ter valor novos, pedindo pra avisar pro alfredo
+
+a ideia é que ao usuario abrir o campo Novo, e passar o mouse na caixa, aparece o aviso, se ele tirar o mouse, o aviso some
+
+ou seja, pensando na logica ja
+
+os avisos que devem ter isso devem ser os que tem o campo "NOVO"
+
+podemos assim como o span, ja pegar cada um desses campos para criar esse aviso
+
+é um evento que nao precisa do contexto do botao para ser ativado, mas sim do contexto de cada caixa do span, atraves do hover dela
+
+OU SEJA
+
+primeiro passo é pensar em qual funcao é a correta para criar esses avisos
+
+percebemos que, no metodo criarInputTipoNovo, temos a criacao do spanDeErro, porem dentro de um IF mais especifico
+
+como essa funcao esta pegando todos os inputs Novos, podemos aproveitar ela, assim como aproveitamos o spanDeErro, para criar o spanDeAviso
+
+
+basicamente ela vai ter a mesma logica do span de erro, vai chamar uma funcao que cria esse span de forma isolada, e depois inserir esse span na divDoInputNovo
+
+e aqui temos que ter um cuidado, queremos inserir o span na div do input, e nao no input, porque por mais que o evento vai acontecer com o mouse sendo passado no input, nao necessariamente esse span precisa ser um filho do input, ate porque isso nao existe, element input com filho
+
+por fim, vamos fazer esse metodo criarElementoSpanDeAviso que esta sendo chamado
+ele vai ser parecido com o metodo de criar o de erro, nada muito diferente
+entao ele cria o elemento, coloca um id, classe, um texto pegando de forma dinamica o nome do label formatado, e retorna o span escondido
+
+
+
+-----------------------------------
+segunda parte - criando o evento para fazer o span de aviso aparecer ou sumir 
+
+Bom, agora temos o span de aviso pronto e escondido, precisamos agora pensar no trigger que faz ele aparecer, e no trigger que faz ele esconder
+
+assim como colocamos a chamada de um evento no select, para quando o usuario clicar na opcao "Novo" aparecer o input, podemos colocar naquele mesmo metodo a chamada de um evento nos inputs novos
+
+entao vamos chamar 
+
+this.adicionarEventoNoElementoInputTextoNovo();
+
+e agora vamos ver o que esse metodo faz
+
+o metodo basicamente tem que selecionar primeiro o elemento de input e o span em especifico, conseguimos fazer isso pegando os IDs de forma dinamica
+
+agora, podemos colocar um evento de mouseover e mouseout, ou seja, colocou o mouse no input, span aparece, e se o mouse esta fora, span some
+
+e é basicamente isso, fim
+
+
+-----------------------------------
+terceira parte - entendendo porque nao colocamos a chamada do evento dentro do metodo de criar o input
+
+podemos pensar assim: mas se o evento é do input, porque nao colocar o metodo de evento dentro dele? ao inves de colocar no criarInputTipoNovo?
+
+porque pra o evento funcionar, ele precisa ter a referencia do span, para fazer um display block no elemento span
+
+e o element span de aviso esta sendo criado depois do element input novo
+
+ou seja, em 
+
+        elementoInputTextoNovo.addEventListener('mouseover', () => {
+            elementoSpanDeAviso.style.display = 'block';
+        });
+
+
+nao iria existir elementoSpanDeAviso porque ele vai ser criado depois
+
+e porque nao criar esse span antes entao?
+
+porque precisamos que o elemento span esteja abaixo esse input, senao ele vai aparecer entre o label e o input
+
+ou seja, nao da pra criar dentro do criarInputTipoNovo porque o elemento span ainda nao existe
+
+
+RESUMINDO
+
+precisamos criar os spans de aviso nos inputs que tem a opcao NOVO, sendo elas obrigatorias ou nao
+
+entao aproveitamos a funcao criarInputTipoNovo, para criar abaixo dos inputs esse span e deixar ele escondido
+
+depois assim como a chamada do evento do select, podemos chamar o evento dele na mesma funcao, que é basicamente fazer um mouseover ou mouseout listener no elemento input, fazendo o span dar block ou none
+
+
+
+
+
+
+NOVA FEATURE, ORGANIZANDO CERTAS PARTES DO CODIGO
+-----------------------------------
+
+primeiro organizamos os metodos, tentamos separar cada "agrupamento deles"
+
+
+depois, limpamos todos os metodos de "achar" para o codigo ficar menor, podemos resumir esse metodo inteiro em um querySelector "complicado", mas fica melhor no fim
+
+depois, limpamos toda aquela bobagem de fazer uma varaivel "nameDoSelect" só pra receber o select.name
+
+
+tambem fizemos isso para o "valorDoSelect", limpamos todos eles
+
+OBS: melhoramos o codigo limpando esses "valorDoSelect", isso porque no metodo verificarSeValoresObrigatoriosEstaoPreenchidos, o retorno da funcao pegarValorDoInputDeTextoNovo estava caindo direto no "valorDoSelect"
+
+tentamos fazer entao de forma forçada colocar retorno desse metodo em "select.value", e estava dando erro, porque nao podemos colocar forçado um valor novo direto no select, ele é uma propriedade apenas de leitura
+
+ai que melhoramos o codigo, porque o pegarValorDoInputDeTextoNovo retorna um valorDoInputDeTextoNovo, e estava equisito retornar direto para o valorDoSelect
+
+ai ficou ate mais claro no if abaixo, que é agora faz mais sentido
+
+if(valorDoInputDeTextoNovo === '' && elementoSpan) 
+
+
+Agora nao podemos repetir isso na logica do concatenarValoresDosSelects, porque ele usa a variavel para pegar o valor do select em um momento apenas, e fica trabalhando com ela a partir disso
+
+ou seja, alteramos no 1º IF a variavel valorDoSelect, e depois no 2º e 3º if, queremos trabalhar com essas alterações
+
+se pegarmos direto o select.value, ele sempre vai pegar o valor estatico no input, e nao esse que estamos alterando
+
+para ficar menos confuso e nao parecer redundante então, mudamos o nome para "valorInicialDoSelect"
+
+
+falar sobre troca do span
+
+
+depois disso, tentamos limpar 2 metodos que estavam com parametros, o 
+pegarValorDoInputDeTextoNovo(select)
+e o
+adicionarEventoNoSelectComNovo(divDoInputNovo)
+
+
+
+
+o 1º não podemos tirar o parametro, porque ele esta em um contexto onde o select é..???
+
+
+
+
+
+
+
+agora o 2º conseguimos tirar o divDoInputNovo fazendo algo que fizemos no metodo
+adicionarEventoNoElementoInputTextoNovo()
+
+como todos estão no contexto do 1º forEach, da criacao das divs, então a div nova que esta sendo criada sempre vai ser a exata para se colocar um evento também
+
+então podemos pegar atraves do querySelector essas divs em especifico, mas para pegar as exatas, precisamos que elas tenham pelos menos um nome do objeto para conseguirmos encontra-la, então assim como o label, id, span etc, nos vamos dar IDs dinamicos para essas divs
+
+Entao na funcao criarDivDoInput e criarDivDoInputNovo, pegamos o nome do objeto para colocar no id
+
+dessa forma agora não precisamos mais do parametro na funcao, podemos pegar atraves do query selector
+
+
+porem, a funcao criarInputTipoNovo estava criando a div, e estava chamando o evento para ser aplicado logo apos sua criacao, passando ela como parametro, então estava funcionando
+
+            const divDoInputNovo = this.criarDivDoInputNovo();
+            const elementoLabelNovo = this.criarElementoLabelNovo();
+            const elementoInputTextoNovo = this.criarElementoInputTextoNovo();
+            this.adicionarEventoNoSelectComNovo(divDoInputNovo); //estava aqui
+
+            divDoInputNovo.appendChild(elementoLabelNovo);
+            divDoInputNovo.appendChild(elementoInputTextoNovo);
+            
+
+            const divDosInputs = document.querySelector('#inputs')
+            divDosInputs.appendChild(divDoInputNovo);
+
+
+se agora mudarmos em adicionarEventoNoSelectComNovo, usando o querySelect
+
+const divDoInputNovo = document.querySelector(`#input_new_${this.objDoForm.nameDoSelect}`);
+
+todas as divs, por mais que estejam com a sintaxe correta, vão retornar null
+
+isso é porque a chamada do evento está sendo feita antes da div ter um "append" no body, ou seja, o query selector nao consegue achar a referencia das divs, porque elas ainda estão apenas dentro de variaveis
+
+colocando essa chamada do evento depois do append, ai vai funcionar
+
+            const divDoInputNovo = this.criarDivDoInputNovo();
+            const elementoLabelNovo = this.criarElementoLabelNovo();
+            const elementoInputTextoNovo = this.criarElementoInputTextoNovo();
+            
+
+            divDoInputNovo.appendChild(elementoLabelNovo);
+            divDoInputNovo.appendChild(elementoInputTextoNovo);
+            
+
+            const divDosInputs = document.querySelector('#inputs')
+            divDosInputs.appendChild(divDoInputNovo);
+            this.adicionarEventoNoSelectComNovo(); //deixamos ele aqui
+
+e dessa forma tiramos o parametro do metodo, e colocamos IDs especificos para cada div também
+
+
+
+
+
+
+
+agora vamos fazer o seguinte, precisamos tirar esses sets de CSS dentro do script, porque isso é errado
+
+precisamos fazer isso no CSS
+
+entao vamos começar pelo estilo padrão dos elementos, na criação deles
+
+procuramos pela palavra chave "none" então, e ao inves de colocar direto no script, nos vamos pegar a classe generica desses elementos, e colocar o display none por la
+
+depois disso, vamos achar os metodos que tem os eventos, trocando para none ou block, aqui que vamos adicionar ou remover a palavra "ativo", que vai fazer a magica
+
+
+.input.new {
+  display: none;
+}
+
+.input.new.ativo {
+  display: block;
+}
+
+.span_erro_campo_vazio {
+  display: none;
+}
+
+.span_erro_campo_vazio.ativo {
+  display: block;
+}
+
+.span_aviso_informar_novo_termo {
+  display: none;
+}
+
+.span_aviso_informar_novo_termo.ativo {
+  display: block;
+}
+
+
+ou seja, basicamente colocando esse CSS, e colocando nos eventos o add ou remove "ativo", temos a mesma funcionalidade
+
+
+dessa forma, pudemos limpar todos esses nones e blocks do codigo
+
+
+
+
+
+agora fizemos uma alteração bem simples, mas muito importante
+
+o nosso codigo esta cheio de strings repetidas, como o "ativo" acima, o "NOVO", o " "
+e caso no objeto o valor que representa o "NOVO" ou vazio mudar, vamos ter que ir caçando no codigo essas strings pra mudar
+o mesmo vale para caso o nome da casse "ativo" mudar
+
+então o que fizemos foi colocar como propriedades da classe essas strings, e chamar elas nas verificacoes do codigo, ao inves de uma string direto
+
+dessa forma, caso o "NOVO" mude por exemplo, mudamos apenas na propriedade da classe
+
+
+
+
+agora fizemos uma alteração bem importante
+
+o codigo estava confuso, porque estavamos chamando o conjunto da div, tendo select e labels como filhos, ou label e input de texto como filhos, de "inputs"
+
+isso estava ficando confuso, porque também estavamos de certa forma chamando o input de texto de "input"
+
+então trocamos esse nome "input" para "escolha"
+
+foi importante porque vamos usar no codigo varias vezes a palavra "input", e queremos que essa palavra lembre apenas o input de texto
+
+quando for sobre os outros, vamos usar "escolhas" ou "escolha", porque ai vamos lembrar desse conjunto
+
+e ai para deixar tudo em portugues, trocamos "new" para "nova" também
+
+de resto, trocamos também "output" por "saida"
+
+e trocamos varios nomes de metodos, tirando a palavra "elemento" dos metodos, deixando os nomes dos metodos iguais, etc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
