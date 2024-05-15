@@ -4,9 +4,10 @@ class FormDinamico {
         this.arrayObjsDoForm = arrayObjsDoForm;
         this.objDoForm = {};
         this.objDeOptionDoForm = {};
-        this.stringDoValorVazio ="";
+        this.stringDoValorVazio ='';
         this.stringDoValorNovo = 'NOVO';
         this.stringDeElementAtivo = 'ativo'
+        this.botaoClicado = ''
         this.iniciar();
     }
 
@@ -28,8 +29,10 @@ class FormDinamico {
 
     criarBotoes() {
         this.criarDivDeTodosOsBotoes();
-        this.criarBotao();
+        this.criarBotaoDeGerarCampanha();
+        this.criarBotaoDeGerarComData();
         this.adicionarEventoNoBotaoGerarCampanha();
+        this.adicionarEventoNoBotaoGerarComData();
     }
 
     criarSaidas() {
@@ -226,14 +229,25 @@ class FormDinamico {
         divDoBotao.setAttribute('id', 'botao');
         this.meuFormDinamico.appendChild(divDoBotao);
     }
-
-    criarBotao() {
+    
+    criarBotaoDeGerarCampanha() {
         const botaoGerarCampanha = document.createElement('button');
         botaoGerarCampanha.textContent = 'Gerar Campanha';
         botaoGerarCampanha.setAttribute('id', 'botaoGerarCampanha');
+        botaoGerarCampanha.setAttribute('class', 'botaoGerador');
         botaoGerarCampanha.setAttribute('type', 'button');
-        const divDoBotao = document.querySelector('#botao')
+        const divDoBotao = document.querySelector('#botao');
         divDoBotao.appendChild(botaoGerarCampanha);
+    }
+
+    criarBotaoDeGerarComData() {
+        const botaoDeGerarComData = document.createElement('button');
+        botaoDeGerarComData.textContent = 'Gerar com Data';
+        botaoDeGerarComData.setAttribute('id', 'botaoDeGerarComData');
+        botaoDeGerarComData.setAttribute('class', 'botaoGerador');
+        botaoDeGerarComData.setAttribute('type', 'button');
+        const divDoBotao = document.querySelector('#botao')
+        divDoBotao.appendChild(botaoDeGerarComData);
     }
 
     adicionarEventoNoBotaoGerarCampanha() {
@@ -241,7 +255,14 @@ class FormDinamico {
         botaoGerarCampanha.addEventListener('click', this.gerarCampanha.bind(this));
     }
 
-    gerarCampanha() {
+    adicionarEventoNoBotaoGerarComData() {
+        const botaoDeGerarComData = document.querySelector('#botaoDeGerarComData')
+        botaoDeGerarComData.addEventListener('click', this.gerarCampanha.bind(this));
+    }
+
+
+    gerarCampanha(event) {
+        this.botaoClicado = event.target.id;
         const valoresObrigatoriosEstaoPreenchidos = this.verificarSeValoresObrigatoriosEstaoPreenchidos();
         const todosOsValoresObrigatoriosEstaoPreenchidos = valoresObrigatoriosEstaoPreenchidos.every(valor => valor === true);
 
@@ -301,7 +322,28 @@ class FormDinamico {
             valoresDosSelectsConcatenados = valoresDosSelectsConcatenados.slice(0, -1);
         }
 
+        if(this.botaoClicado === 'botaoDeGerarComData') {
+            const dataAtual = this.pegarDataAtualInvertida();
+            valoresDosSelectsConcatenados = `${valoresDosSelectsConcatenados}_${dataAtual}`;
+            //console.log(`${valoresDosSelectsConcatenados}_${dataAtual}`);
+        }
+
         return valoresDosSelectsConcatenados;
+    }
+
+    pegarDataAtualInvertida() {
+        let dataAtual = new Date();
+        let dia = dataAtual.getDate();
+        let mes = dataAtual.getMonth() + 1;
+        let ano = dataAtual.getFullYear();
+
+        dia = dia < 10 ? `0${dia}` : dia;
+        mes = mes < 10 ? `0${mes}` : mes;
+        ano = ano.toString().slice(-2);
+
+        dataAtual = `${ano}${mes}${dia}`;
+
+        return dataAtual;
     }
 
     limparStringConcatenadaDaSaida() {
