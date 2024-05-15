@@ -30,3 +30,8 @@ body {
 .span_aviso_informar_termo.ativo {
   display: block;
 }
+
+.botaoGerador {
+  display: block;
+  margin-bottom: 10px;
+}

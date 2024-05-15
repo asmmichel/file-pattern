@@ -29,10 +29,8 @@ class FormDinamico {
 
     criarBotoes() {
         this.criarDivDeTodosOsBotoes();
-        this.criarBotaoDeGerarCampanha();
-        this.criarBotaoDeGerarComData();
-        this.adicionarEventoNoBotaoGerarCampanha();
-        this.adicionarEventoNoBotaoGerarComData();
+        this.criarBotoesComEvento('Gerar Campanha', 'botaoGerarCampanha');
+        this.criarBotoesComEvento('Gerar com Data', 'botaoDeGerarComData');
     }
 
     criarSaidas() {
@@ -229,37 +227,17 @@ class FormDinamico {
         divDoBotao.setAttribute('id', 'botao');
         this.meuFormDinamico.appendChild(divDoBotao);
     }
-    
-    criarBotaoDeGerarCampanha() {
-        const botaoGerarCampanha = document.createElement('button');
-        botaoGerarCampanha.textContent = 'Gerar Campanha';
-        botaoGerarCampanha.setAttribute('id', 'botaoGerarCampanha');
-        botaoGerarCampanha.setAttribute('class', 'botaoGerador');
-        botaoGerarCampanha.setAttribute('type', 'button');
+
+    criarBotoesComEvento(textoDoBotao, idDoBotao) {
+        const botaoGerador = document.createElement('button');
+        botaoGerador.textContent = textoDoBotao;
+        botaoGerador.setAttribute('id', idDoBotao);
+        botaoGerador.setAttribute('class', 'botaoGerador');
+        botaoGerador.setAttribute('type', 'button');
         const divDoBotao = document.querySelector('#botao');
-        divDoBotao.appendChild(botaoGerarCampanha);
+        divDoBotao.appendChild(botaoGerador);
+        botaoGerador.addEventListener('click', this.gerarCampanha.bind(this));
     }
-
-    criarBotaoDeGerarComData() {
-        const botaoDeGerarComData = document.createElement('button');
-        botaoDeGerarComData.textContent = 'Gerar com Data';
-        botaoDeGerarComData.setAttribute('id', 'botaoDeGerarComData');
-        botaoDeGerarComData.setAttribute('class', 'botaoGerador');
-        botaoDeGerarComData.setAttribute('type', 'button');
-        const divDoBotao = document.querySelector('#botao')
-        divDoBotao.appendChild(botaoDeGerarComData);
-    }
-
-    adicionarEventoNoBotaoGerarCampanha() {
-        const botaoGerarCampanha = document.querySelector('#botaoGerarCampanha')
-        botaoGerarCampanha.addEventListener('click', this.gerarCampanha.bind(this));
-    }
-
-    adicionarEventoNoBotaoGerarComData() {
-        const botaoDeGerarComData = document.querySelector('#botaoDeGerarComData')
-        botaoDeGerarComData.addEventListener('click', this.gerarCampanha.bind(this));
-    }
-
 
     gerarCampanha(event) {
         this.botaoClicado = event.target.id;
