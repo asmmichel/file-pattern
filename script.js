@@ -23,7 +23,9 @@ class FormDinamico {
     }
 
     criarEscolhas() {
-        this.criarDivDeTodasAsEscolhas();
+        //this.criarDivDeTodasAsEscolhas();
+        const divDasEscolhas = this.criarUmElemento('div','escolhas');
+        this.meuFormDinamico.appendChild(divDasEscolhas);
         this.arrayObjsDoForm.forEach(objDoForm => {
             this.objDoForm = objDoForm;
             this.criarEscolha();
@@ -32,14 +34,23 @@ class FormDinamico {
     }
 
     criarBotoes() {
-        this.criarDivDeTodosOsBotoes();
+        //this.criarDivDeTodosOsBotoes();
+        const divDoBotao = this.criarUmElemento('div','botao');
+        this.meuFormDinamico.appendChild(divDoBotao);
         this.criarBotoesComEvento('Gerar Campanha', 'botaoGerarCampanha');
         this.criarBotoesComEvento('Gerar com Data', 'botaoDeGerarComData');
     }
 
     criarSaidas() {
-        this.criarDivDeTodasAsSaidas();
-        this.criarParagrafos();
+        //this.criarDivDeTodasAsSaidas();
+        const divDoOutput = this.criarUmElemento('div','saidas');
+        this.meuFormDinamico.appendChild(divDoOutput);
+        //this.criarParagrafos();
+        this.arrayDePrefixos.forEach((prefixo) => {
+            const elementoParagrafo = this.criarUmElemento('p', `prefixo_${prefixo}`, ['saida']);
+            const divDoOutput = document.querySelector('#saidas');
+            divDoOutput.appendChild(elementoParagrafo);
+        })
     }
 
 
@@ -68,12 +79,6 @@ class FormDinamico {
 
 
     //metodos das escolhas basicos
-    criarDivDeTodasAsEscolhas() { //FOI
-        const divDasEscolhas = this.criarUmElemento('div','escolhas');
-        //const divDasEscolhas = document.createElement('div');
-        //divDasEscolhas.setAttribute('id', 'escolhas');
-        this.meuFormDinamico.appendChild(divDasEscolhas);
-    }
 
     formatarOLabelDoSelect() {
         let textoDoLabelFormatado = this.objDoForm.textoDoLabel.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c');
@@ -278,12 +283,6 @@ class FormDinamico {
 
 
     //metodos do botao
-    criarDivDeTodosOsBotoes() { //FOI
-        const divDoBotao = this.criarUmElemento('div','botao');
-        //const divDoBotao= document.createElement('div');
-        //divDoBotao.setAttribute('id', 'botao');
-        this.meuFormDinamico.appendChild(divDoBotao);
-    }
 
     criarBotoesComEvento(textoDoBotao, idDoBotao) { //FOI (podemos fazer mais?)
         const botaoGerador = this.criarUmElemento('button', idDoBotao, ['botaoGerador'], { "type": "button" });
@@ -422,24 +421,6 @@ class FormDinamico {
     }
 
 
-    //metodos das saidas
-    criarDivDeTodasAsSaidas() { //FOI
-        const divDoOutput = this.criarUmElemento('div','saidas');
-        //const divDoOutput = document.createElement('div');
-        //divDoOutput.setAttribute('id', 'saidas');
-        this.meuFormDinamico.appendChild(divDoOutput);
-    }
-
-    criarParagrafos() { //FOI
-        this.arrayDePrefixos.forEach((prefixo) => {
-            const elementoParagrafo = this.criarUmElemento('p', `prefixo_${prefixo}`, ['saida']);
-            //const elementoParagrafo = document.createElement('p');
-            //elementoParagrafo.setAttribute("id", `prefixo_${prefixo}`);
-            //elementoParagrafo.setAttribute('class', 'saida');
-            const divDoOutput = document.querySelector('#saidas');
-            divDoOutput.appendChild(elementoParagrafo);
-        })
-    }
 }
 
 
