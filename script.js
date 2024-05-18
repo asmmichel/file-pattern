@@ -183,14 +183,14 @@ class FormDinamico {
         return temOpcao;
     }
 
-    criarDivDaEscolhaNova() { 
+    criarDivDaEscolhaNova() {  // esta usando o criarDivDaEscolha()
         const divDaEscolhaNova = this.criarDivDaEscolha();
         divDaEscolhaNova.classList.add('nova');
         divDaEscolhaNova.setAttribute("id", `escolha_nova_${this.objDoForm.nameDoSelect}`);
         return divDaEscolhaNova;
     }
  
-    criarLabelNovo() {
+    criarLabelNovo() { //esta usando o criarLabel()
         const elementoLabelNovo = this.criarLabel();
         elementoLabelNovo.setAttribute("for", `nova_${this.objDoForm.nameDoSelect}`);
         elementoLabelNovo.textContent = `NOVO(A) ${this.objDoForm.textoDoLabel}`;
