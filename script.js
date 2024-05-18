@@ -46,10 +46,32 @@ class FormDinamico {
 
 
 
+    criarUmElemento(tipoDoElemento, idDoElemento, classesDoElemento = [], atributosDoElemento = {}) {
+        const meuElemento = document.createElement(tipoDoElemento);
+        
+        if (idDoElemento) {
+            meuElemento.setAttribute('id', idDoElemento);
+        }
+        if (classesDoElemento.length > 0) {
+            meuElemento.classList.add(...classesDoElemento);
+        }
+        for (let atributo in atributosDoElemento) {
+            meuElemento.setAttribute(atributo, atributosDoElemento[atributo]);
+        }
+    
+        return meuElemento;
+    }
+
+    
+
+
+
+
     //metodos das escolhas basicos
-    criarDivDeTodasAsEscolhas() {
-        const divDasEscolhas = document.createElement('div');
-        divDasEscolhas.setAttribute('id', 'escolhas');
+    criarDivDeTodasAsEscolhas() { //FOI
+        const divDasEscolhas = this.criarUmElemento('div','escolhas');
+        //const divDasEscolhas = document.createElement('div');
+        //divDasEscolhas.setAttribute('id', 'escolhas');
         this.meuFormDinamico.appendChild(divDasEscolhas);
     }
 
@@ -74,11 +96,12 @@ class FormDinamico {
         this.objDoForm.nameDoSelect = nameDoSelect;
     }
 
-    criarDivDaEscolha() {
+    criarDivDaEscolha() { //FOI
         this.formatarOLabelDoSelect();
-        const divDaEscolha = document.createElement('div');
-        divDaEscolha.setAttribute('class', 'escolha');
-        divDaEscolha.setAttribute("id", `escolha_${this.objDoForm.nameDoSelect}`);
+        const divDaEscolha = this.criarUmElemento('div',`escolha_${this.objDoForm.nameDoSelect}`, ['escolha']);
+        //const divDaEscolha = document.createElement('div');
+        //divDaEscolha.setAttribute("id", `escolha_${this.objDoForm.nameDoSelect}`);
+        //divDaEscolha.setAttribute('class', 'escolha');
         return divDaEscolha;
     }
 
@@ -99,22 +122,25 @@ class FormDinamico {
         divDasEscolhas.appendChild(divDaEscolha);
     }
 
-    criarLabel() {
-        const elementoLabel = document.createElement('label');
-        elementoLabel.setAttribute("for", this.objDoForm.nameDoSelect);
+    criarLabel() { //FOI, mas pode mudar mais
+        const elementoLabel = this.criarUmElemento('label', null, [], { "for": this.objDoForm.nameDoSelect });
+        //const elementoLabel = document.createElement('label');
+        //elementoLabel.setAttribute("for", this.objDoForm.nameDoSelect);
         elementoLabel.textContent = this.objDoForm.textoDoLabel;
         return elementoLabel;
     }
     
-    criarSelect() {
-        const elementoSelect = document.createElement('select');
-        elementoSelect.setAttribute("id", this.objDoForm.nameDoSelect);
-        elementoSelect.setAttribute("name", this.objDoForm.nameDoSelect);
+    criarSelect() { //FOI
+        const elementoSelect = this.criarUmElemento('select', this.objDoForm.nameDoSelect, [], { "name": this.objDoForm.nameDoSelect });
+        //const elementoSelect = document.createElement('select');
+        //elementoSelect.setAttribute("id", this.objDoForm.nameDoSelect);
+        //elementoSelect.setAttribute("name", this.objDoForm.nameDoSelect);
         return elementoSelect;
     }
     
-    criarOption() {
-        const elementoOption = document.createElement('option');
+    criarOption() { //Foi, mas pode mudar mais?
+        const elementoOption = this.criarUmElemento('option');
+        //const elementoOption = document.createElement('option');
         const valorDaOptionFormatado = this.objDeOptionDoForm.valorDaOption.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c').replace(/[\s-]/g, '_');
         elementoOption.value = valorDaOptionFormatado;
         elementoOption.textContent = this.objDeOptionDoForm.textoDaOption;
@@ -127,7 +153,7 @@ class FormDinamico {
     }
 
     //metodos das escolhas com tipo "Novo"
-    criarEscolhaNova() {
+    criarEscolhaNova() { //entender como vai funcionar aqui a criacao de elementos dinamico
         const temOpcaoNovo = this.verificarSeOpcaoExiste(this.stringDoValorNovo);
         const temOpcaoVazio = this.verificarSeOpcaoExiste(this.stringDoValorVazio);
 
@@ -161,7 +187,8 @@ class FormDinamico {
     }
 
     criarDivDaEscolhaNova() {
-        const divDaEscolhaNova = this.criarDivDaEscolha();
+        
+        const divDaEscolhaNova = this.criarDivDaEscolha(); //e ai, mudamos?
         divDaEscolhaNova.classList.add('nova');
         divDaEscolhaNova.setAttribute("id", `escolha_nova_${this.objDoForm.nameDoSelect}`);
         return divDaEscolhaNova;
@@ -174,10 +201,11 @@ class FormDinamico {
         return elementoLabelNovo;
     }
 
-    criarInputDeTextoNovo() {
-        const elementoInputDeTextoNovo = document.createElement('input');
-        elementoInputDeTextoNovo.setAttribute("id", `nova_${this.objDoForm.nameDoSelect}`);
-        elementoInputDeTextoNovo.setAttribute("name", `nova_${this.objDoForm.nameDoSelect}`);
+    criarInputDeTextoNovo() { //FOI
+        const elementoInputDeTextoNovo = this.criarUmElemento('input', `nova_${this.objDoForm.nameDoSelect}`, [], { "name": `nova_${this.objDoForm.nameDoSelect}` });
+        //const elementoInputDeTextoNovo = document.createElement('input');
+        //elementoInputDeTextoNovo.setAttribute("id", `nova_${this.objDoForm.nameDoSelect}`);
+        //elementoInputDeTextoNovo.setAttribute("name", `nova_${this.objDoForm.nameDoSelect}`);
         
         return elementoInputDeTextoNovo;
     }
@@ -195,11 +223,12 @@ class FormDinamico {
         });
     }
 
-    criarSpanDeErro() {
-        const elementoSpanDeErro = document.createElement('span');
+    criarSpanDeErro() { //FOI (estamos formatando o label, sera que da pra incluir?)
+        const elementoSpanDeErro = this.criarUmElemento('span', `span_erro_campo_vazio_nova_${this.objDoForm.nameDoSelect}`, ['span_erro_campo_vazio']);
+        //const elementoSpanDeErro = document.createElement('span');
+        //elementoSpanDeErro.setAttribute("id", `span_erro_campo_vazio_nova_${this.objDoForm.nameDoSelect}`);
+        //elementoSpanDeErro.setAttribute("class", `span_erro_campo_vazio`);
         const textoDoLabelFormatado = this.formatarOTextoDoLabel();
-        elementoSpanDeErro.setAttribute("id", `span_erro_campo_vazio_nova_${this.objDoForm.nameDoSelect}`);
-        elementoSpanDeErro.setAttribute("class", `span_erro_campo_vazio`);
         elementoSpanDeErro.textContent = `${textoDoLabelFormatado} não pode estar vazio!`;
         return elementoSpanDeErro;
     } 
@@ -220,11 +249,12 @@ class FormDinamico {
         return textoDoLabelFormatado;
     }
 
-    criarSpanDeAviso() {
-        const elementoSpanDeAviso = document.createElement('span');
+    criarSpanDeAviso() { //FOI (mesmo problema do text content aqui)
+        const elementoSpanDeAviso = this.criarUmElemento('span', `span_aviso_informar_termo_nova_${this.objDoForm.nameDoSelect}`, ['span_aviso_informar_termo']);
+        //const elementoSpanDeAviso = document.createElement('span');
+        //elementoSpanDeAviso.setAttribute("id", `span_aviso_informar_termo_nova_${this.objDoForm.nameDoSelect}`);
+        //elementoSpanDeAviso.setAttribute("class", `span_aviso_informar_termo`);
         const textoDoLabelFormatado = this.formatarOTextoDoLabel();
-        elementoSpanDeAviso.setAttribute("id", `span_aviso_informar_termo_nova_${this.objDoForm.nameDoSelect}`);
-        elementoSpanDeAviso.setAttribute("class", `span_aviso_informar_termo`);
         elementoSpanDeAviso.textContent = `Atenção! Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com
                                             informando o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`;
         return elementoSpanDeAviso;
@@ -248,18 +278,20 @@ class FormDinamico {
 
 
     //metodos do botao
-    criarDivDeTodosOsBotoes() {
-        const divDoBotao= document.createElement('div');
-        divDoBotao.setAttribute('id', 'botao');
+    criarDivDeTodosOsBotoes() { //FOI
+        const divDoBotao = this.criarUmElemento('div','botao');
+        //const divDoBotao= document.createElement('div');
+        //divDoBotao.setAttribute('id', 'botao');
         this.meuFormDinamico.appendChild(divDoBotao);
     }
 
-    criarBotoesComEvento(textoDoBotao, idDoBotao) {
-        const botaoGerador = document.createElement('button');
+    criarBotoesComEvento(textoDoBotao, idDoBotao) { //FOI (podemos fazer mais?)
+        const botaoGerador = this.criarUmElemento('button', idDoBotao, ['botaoGerador'], { "type": "button" });
+        //const botaoGerador = document.createElement('button');
+        //botaoGerador.setAttribute('id', idDoBotao);
+        //botaoGerador.setAttribute('class', 'botaoGerador');
+        //botaoGerador.setAttribute('type', 'button');
         botaoGerador.textContent = textoDoBotao;
-        botaoGerador.setAttribute('id', idDoBotao);
-        botaoGerador.setAttribute('class', 'botaoGerador');
-        botaoGerador.setAttribute('type', 'button');
         const divDoBotao = document.querySelector('#botao');
         divDoBotao.appendChild(botaoGerador);
         botaoGerador.addEventListener('click', this.gerarCampanha.bind(this));
@@ -391,17 +423,19 @@ class FormDinamico {
 
 
     //metodos das saidas
-    criarDivDeTodasAsSaidas() {
-        const divDoOutput = document.createElement('div');
-        divDoOutput.setAttribute('id', 'saidas');
+    criarDivDeTodasAsSaidas() { //FOI
+        const divDoOutput = this.criarUmElemento('div','saidas');
+        //const divDoOutput = document.createElement('div');
+        //divDoOutput.setAttribute('id', 'saidas');
         this.meuFormDinamico.appendChild(divDoOutput);
     }
 
-    criarParagrafos() {
+    criarParagrafos() { //FOI
         this.arrayDePrefixos.forEach((prefixo) => {
-            const elementoParagrafo = document.createElement('p');
-            elementoParagrafo.setAttribute('class', 'saida');
-            elementoParagrafo.setAttribute("id", `prefixo_${prefixo}`);
+            const elementoParagrafo = this.criarUmElemento('p', `prefixo_${prefixo}`, ['saida']);
+            //const elementoParagrafo = document.createElement('p');
+            //elementoParagrafo.setAttribute("id", `prefixo_${prefixo}`);
+            //elementoParagrafo.setAttribute('class', 'saida');
             const divDoOutput = document.querySelector('#saidas');
             divDoOutput.appendChild(elementoParagrafo);
         })
