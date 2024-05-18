@@ -286,30 +286,28 @@ class FormDinamico {
 
             if(prefixo === this.stringDoValorVazio) {
                 outputFinal = outputFinal.slice(1);
-                if(this.botaoClicado === 'botaoDeGerarComData') {
-                    const outputPartes = outputFinal.split('_');
-                    const data = outputPartes.pop();
-                    outputFinal = `${outputPartes.join('_')}_${this.stringDoEmail}_${data}`;
-                } else {
-                    outputFinal = `${outputFinal}_${this.stringDoEmail}`;
-                }
+                outputFinal = this.concertarOrdemDaDataNoOutput(outputFinal, this.stringDoEmail);
             }
 
             if(prefixo === this.prefixoDoWhatsApp) {
-                outputFinal = outputFinal.toLowerCase();
-
-                if(this.botaoClicado === 'botaoDeGerarComData') {
-                    const outputPartes = outputFinal.split('_');
-                    const data = outputPartes.pop();
-                    outputFinal = `${outputPartes.join('_')}_${this.stringDoWhatsApp}_${data}`;
-                } else {
-                    outputFinal = `${outputFinal}_${this.stringDoWhatsApp}`;
-                }
+                outputFinal = outputFinal.toLowerCase(); 
+                outputFinal = this.concertarOrdemDaDataNoOutput(outputFinal, this.stringDoWhatsApp);
             }
-            
+
             let elementoParagrafo = document.querySelector(`#prefixo_${prefixo}`);
             elementoParagrafo.textContent = outputFinal;
         })
+    }
+
+    concertarOrdemDaDataNoOutput(outputFinal, string) {
+        if(this.botaoClicado === 'botaoDeGerarComData') {
+            const outputPartes = outputFinal.split('_');
+            const data = outputPartes.pop();
+            outputFinal = `${outputPartes.join('_')}_${string}_${data}`;
+        } else {
+            outputFinal = `${outputFinal}_${string}`;
+        }
+        return outputFinal;
     }
 
     concatenarValoresDosSelects() {
@@ -470,7 +468,7 @@ window.onload = () => {
                 nameDoSelect: "tipoConteudo",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "E_BOOK", textoDaOption: "E-book" },
+                    { valorDaOption: "EBOOK", textoDaOption: "E-book" },
                     { valorDaOption: "LP", textoDaOption: "LP" },
                     { valorDaOption: "VIDEO", textoDaOption: "Video" },
                     { valorDaOption: "INFOGRÁFICO", textoDaOption: "Infográfico" },
