@@ -98,8 +98,8 @@ class FormDinamico {
 
     //metodos das escolhas com tipo "Novo"
     criarEscolhaNova() {
-        const temOpcaoNovo = this.verificarSeOpcaoNovoExiste();
-        const temOpcaoVazio = this.verificarSeOpcaoVazioExiste();
+        const temOpcaoNovo = this.verificarSeOpcaoExiste(this.stringDoValorNovo);
+        const temOpcaoVazio = this.verificarSeOpcaoExiste(this.stringDoValorVazio);
 
         if(temOpcaoNovo) {
             const divDaEscolhaNova = this.criarDivDaEscolhaNova();
@@ -124,16 +124,10 @@ class FormDinamico {
         }
     }
 
-    verificarSeOpcaoNovoExiste() {
-        const opcaoDoObj = this.objDoForm.options
-        const temOpcaoNovo = opcaoDoObj.some(opcao => opcao.valorDaOption === this.stringDoValorNovo);
-        return temOpcaoNovo;
-    }
-
-    verificarSeOpcaoVazioExiste() {
-        const opcaoDoObj = this.objDoForm.options
-        const temOpcaoVazio = opcaoDoObj.some(opcao => opcao.valorDaOption === this.stringDoValorVazio);
-        return temOpcaoVazio;
+    verificarSeOpcaoExiste(valor) {
+        const opcaoDoObj = this.objDoForm.options;
+        const temOpcao = opcaoDoObj.some(opcao => opcao.valorDaOption === valor);
+        return temOpcao;
     }
 
     criarDivDaEscolhaNova() {
