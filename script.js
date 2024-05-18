@@ -53,7 +53,7 @@ class FormDinamico {
 
 
 
-    criarUmElemento(tipoDoElemento, idDoElemento, classesDoElemento = [], atributosDoElemento = {}) {
+    criarUmElemento(tipoDoElemento, idDoElemento, classesDoElemento = [], atributosDoElemento = {}, textContentDoElemento) {
         const meuElemento = document.createElement(tipoDoElemento);
         
         if (idDoElemento) {
@@ -64,6 +64,10 @@ class FormDinamico {
         }
         for (let atributo in atributosDoElemento) {
             meuElemento.setAttribute(atributo, atributosDoElemento[atributo]);
+        }
+
+        if (textContentDoElemento) {
+            meuElemento.textContent = textContentDoElemento;
         }
     
         return meuElemento;
@@ -120,8 +124,8 @@ class FormDinamico {
     }
 
     criarLabel() { //tem .textContent e return
-        const elementoLabel = this.criarUmElemento('label', null, [], { "for": this.objDoForm.nameDoSelect });
-        elementoLabel.textContent = this.objDoForm.textoDoLabel;
+        const elementoLabel = this.criarUmElemento('label', null, [], { "for": this.objDoForm.nameDoSelect }, this.objDoForm.textoDoLabel);
+        //elementoLabel.textContent = this.objDoForm.textoDoLabel;
         return elementoLabel;
     }
     
@@ -131,10 +135,10 @@ class FormDinamico {
     }
     
     criarOption() { //tem .textContent e return
-        const elementoOption = this.criarUmElemento('option');
+        const elementoOption = this.criarUmElemento('option', null, [], {}, this.objDeOptionDoForm.textoDaOption);
         const valorDaOptionFormatado = this.objDeOptionDoForm.valorDaOption.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c').replace(/[\s-]/g, '_');
+        //elementoOption.textContent = this.objDeOptionDoForm.textoDaOption;
         elementoOption.value = valorDaOptionFormatado;
-        elementoOption.textContent = this.objDeOptionDoForm.textoDaOption;
 
         if(elementoOption.value === this.stringDoValorNovo) {
             elementoOption.style.fontWeight = 'bold';
@@ -142,6 +146,11 @@ class FormDinamico {
 
         return elementoOption;
     }
+
+
+
+
+
 
     //METODOS DAS ESCOLHAS COM TIPO "NOVO"
     criarEscolhaNova() {
@@ -210,9 +219,9 @@ class FormDinamico {
     }
 
     criarSpanDeErro() { //tem .textContent e return
-        const elementoSpanDeErro = this.criarUmElemento('span', `span_erro_campo_vazio_nova_${this.objDoForm.nameDoSelect}`, ['span_erro_campo_vazio']);
         const textoDoLabelFormatado = this.formatarOTextoDoLabel();
-        elementoSpanDeErro.textContent = `${textoDoLabelFormatado} não pode estar vazio!`;
+        const elementoSpanDeErro = this.criarUmElemento('span', `span_erro_campo_vazio_nova_${this.objDoForm.nameDoSelect}`, ['span_erro_campo_vazio'], {}, `${textoDoLabelFormatado} não pode estar vazio!`);
+        //elementoSpanDeErro.textContent = `${textoDoLabelFormatado} não pode estar vazio!`;
         return elementoSpanDeErro;
     } 
 
@@ -233,10 +242,18 @@ class FormDinamico {
     }
 
     criarSpanDeAviso() { //tem .textContent e return
-        const elementoSpanDeAviso = this.criarUmElemento('span', `span_aviso_informar_termo_nova_${this.objDoForm.nameDoSelect}`, ['span_aviso_informar_termo']);
         const textoDoLabelFormatado = this.formatarOTextoDoLabel();
-        elementoSpanDeAviso.textContent = `Atenção! Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com
-                                            informando o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`;
+        
+        const elementoSpanDeAviso = this.criarUmElemento(
+            'span',
+            `span_aviso_informar_termo_nova_${this.objDoForm.nameDoSelect}`,
+            ['span_aviso_informar_termo'],
+            {},
+            `Atenção! Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com informando 
+            o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`
+
+        );
+        //elementoSpanDeAviso.textContent = `Atenção! Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com informando o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`;
         return elementoSpanDeAviso;
     }
 
@@ -252,6 +269,14 @@ class FormDinamico {
             elementoSpanDeAviso.classList.remove(this.stringDeElementAtivo);
         });
     }
+
+
+
+
+
+
+
+
 
 
 
