@@ -1,7 +1,8 @@
 class FormDinamico {
-    constructor(idDoForm, arrayObjsDoForm) {
+    constructor(idDoForm, arrayObjsDoForm, arrayDePrefixos) {
         this.meuFormDinamico = document.querySelector(`#${idDoForm}`);
         this.arrayObjsDoForm = arrayObjsDoForm;
+        this.arrayDePrefixos = arrayDePrefixos;
         this.objDoForm = {};
         this.objDeOptionDoForm = {};
         this.stringDoValorVazio ='';
@@ -35,7 +36,7 @@ class FormDinamico {
 
     criarSaidas() {
         this.criarDivDeTodasAsSaidas();
-        this.criarParagrafo();
+        this.criarParagrafos();
     }
 
 
@@ -277,8 +278,15 @@ class FormDinamico {
 
     mostrarNomeDaCampanha() {
         const valoresDosSelectsConcatenados = this.concatenarValoresDosSelects();
-        let elementoParagrafo = document.querySelector('#saida p');    
-        elementoParagrafo.textContent = valoresDosSelectsConcatenados;
+        let outputFinal = ''
+        this.arrayDePrefixos.forEach((prefixo) => {
+            outputFinal = `${prefixo}_${valoresDosSelectsConcatenados}`
+            if(prefixo === this.stringDoValorVazio) {
+                outputFinal = outputFinal.slice(1);
+            }
+            let elementoParagrafo = document.querySelector(`#prefixo_${prefixo}`);
+            elementoParagrafo.textContent = outputFinal;
+        })
     }
 
     concatenarValoresDosSelects() {
@@ -325,8 +333,10 @@ class FormDinamico {
     }
 
     limparStringConcatenadaDaSaida() {
-        let paragrafoDoOutput = document.querySelector('#saida p');
-        paragrafoDoOutput.textContent = '';
+        this.arrayDePrefixos.forEach((prefixo) => {
+            let elementoParagrafo = document.querySelector(`#prefixo_${prefixo}`);
+            elementoParagrafo.textContent = '';
+        })
     }
 
     pegarValorDoInputDeTextoNovo(select) { 
@@ -336,19 +346,21 @@ class FormDinamico {
     }
 
 
-
-
     //metodos das saidas
     criarDivDeTodasAsSaidas() {
         const divDoOutput = document.createElement('div');
-        divDoOutput.setAttribute('id', 'saida');
+        divDoOutput.setAttribute('id', 'saidas');
         this.meuFormDinamico.appendChild(divDoOutput);
     }
 
-    criarParagrafo() {
-        const elementoParagrafo = document.createElement('p');
-        const divDoOutput = document.querySelector('#saida');
-        divDoOutput.appendChild(elementoParagrafo);
+    criarParagrafos() {
+        this.arrayDePrefixos.forEach((prefixo) => {
+            const elementoParagrafo = document.createElement('p');
+            elementoParagrafo.setAttribute('class', 'saida');
+            elementoParagrafo.setAttribute("id", `prefixo_${prefixo}`);
+            const divDoOutput = document.querySelector('#saidas');
+            divDoOutput.appendChild(elementoParagrafo);
+        })
     }
 }
 
@@ -418,6 +430,7 @@ window.onload = () => {
                     { valorDaOption: "WEBINAR", textoDaOption: "Webinario" }
                 ]
             },
-        ]
+        ],
+        ['','DE', 'FIL', 'AUT', 'JB', 'IMP', 'EXT', 'FT']
     );
 };
