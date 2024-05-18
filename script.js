@@ -44,78 +44,35 @@ class FormDinamico {
     }
 
 
-    formatarOLabelDosSelects() {
 
-        //console.log(this.objDoForm.textoDoLabel);
-        //"OFFICEÇA" "CATEGORIA" "NOME DISPARO" "TIPO CONTEÚDO" "FÚNIL"
-
-
-
-        let nameDoSelect2 = this.objDoForm.textoDoLabel.toLowerCase();
-
-        //console.log(nameDoSelect2);
-        //"officeça" "categoria" "nome disparo" "tipo conteúdo" "fúnil"
-
-        nameDoSelect2 = nameDoSelect2.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c');
-        //console.log(nameDoSelect2);
-        //"officeca" "categoria" "nome disparo" "tipo conteudo" "funil"
-
-        let arraynameDoSelect2 = nameDoSelect2.split(' ');
-
-        //console.log(arraynameDoSelect2);
-        //script.js:77 ['oficeca'] script.js:77 ['categoria'] script.js:77 (2) ['nome', 'disparo'] script.js:77 (2) ['tipo', 'conteudo'] script.js:77 ['funil']
-
-        let camelCaseString = '';
-
-
-        if(arraynameDoSelect2.length > 1) {
-            
-            //console.log(arraynameDoSelect2);
-            //script.js:85 (2) ['nome', 'disparo'] script.js:85 (2) ['tipo', 'conteudo']
-            
-
-
-            arraynameDoSelect2.forEach((palavra, i) => {
-                
-                //console.log(palavra);
-                //console.log(i);
-
-                if (i > 0) {
-                    //console.log(palavra);
-                    palavra = palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase();
-                    //console.log(palavra);
-                } else {
-                    palavra = palavra.toLowerCase();
-                }
-        
-                //console.log(camelCaseString);
-                camelCaseString += palavra;
-                //console.log(camelCaseString);
-            });
-
-            
-        } else {
-
-            camelCaseString = arraynameDoSelect2[0];
-
-        }
-
-        //console.log(camelCaseString);
-        //script.js:111 nomeDisparo script.js:111 tipoConteudo
-        //console.log(nameDoSelect2);
-
-        this.objDoForm.nameDoSelect = camelCaseString;
-        console.log(this.objDoForm.nameDoSelect);
-
-    }
-
-
+    
 
     //metodos das escolhas basicos
     criarDivDeTodasAsEscolhas() {
         const divDasEscolhas = document.createElement('div');
         divDasEscolhas.setAttribute('id', 'escolhas');
         this.meuFormDinamico.appendChild(divDasEscolhas);
+    }
+
+    formatarOLabelDosSelects() {
+        let textoDoLabelFormatado = this.objDoForm.textoDoLabel.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c');
+        let arraytextoDoLabelFormatado = textoDoLabelFormatado.split(' ');
+        let nameDoSelect = '';
+
+        if(arraytextoDoLabelFormatado.length > 1) {
+            arraytextoDoLabelFormatado.forEach((palavra, i) => {
+                if (i > 0) {
+                    palavra = palavra.charAt(0).toUpperCase() + palavra.slice(1).toLowerCase();
+                } else {
+                    palavra = palavra.toLowerCase();
+                }
+                nameDoSelect += palavra;
+            });
+        } else {
+            nameDoSelect = arraytextoDoLabelFormatado[0];
+        }
+
+        this.objDoForm.nameDoSelect = nameDoSelect;
     }
 
     criarDivDaEscolha() {
@@ -460,8 +417,7 @@ window.onload = () => {
         'meuFormDinamico', 
         [
             {
-                textoDoLabel: "OFFICEÇA",
-                //nameDoSelect: "office",
+                textoDoLabel: "OFFICE",
                 options: [
                     { valorDaOption: "BR", textoDaOption: "Brazil" },
                     { valorDaOption: "CO", textoDaOption: "Colombia" },
@@ -473,7 +429,6 @@ window.onload = () => {
             },
             {
                 textoDoLabel: "TIPO",
-                //nameDoSelect: "tipo",
                 options: [
                     { valorDaOption: "ADH", textoDaOption: "Adhoc" },
                     { valorDaOption: "JOR", textoDaOption: "Jornada" }
@@ -481,7 +436,6 @@ window.onload = () => {
             },
             {
                 textoDoLabel: "CATEGORIA",
-                //nameDoSelect: "categoria",
                 options: [
                     { valorDaOption: "POS", textoDaOption: "Pós" },
                     { valorDaOption: "PRE", textoDaOption: "Pré" },
@@ -501,7 +455,6 @@ window.onload = () => {
             },
             {
                 textoDoLabel: "SUBCATEGORIA",
-                //nameDoSelect: "subcategoria",
                 options: [
                     { valorDaOption: "COREX_LEAD_SOLUTIONS", textoDaOption: "CorEx-Lead Solutions" },
                     { valorDaOption: "COREX_PRODUTOS_FISICOS", textoDaOption: "CorEx-Produtos fisicos" },
@@ -523,7 +476,6 @@ window.onload = () => {
             },
             {
                 textoDoLabel: "NOME DISPARO",
-                //nameDoSelect: "nomeDisparo",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "NOVO", textoDaOption: "NOVO" }
@@ -531,7 +483,6 @@ window.onload = () => {
             },
             {
                 textoDoLabel: "TIPO CONTEÚDO",
-                //nameDoSelect: "tipoConteudo",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "EBOOK", textoDaOption: "E-book" },
@@ -547,7 +498,6 @@ window.onload = () => {
             },
             {
                 textoDoLabel: "PSICOLOGIA EMAIL",
-                //nameDoSelect: "psicologiaEmail",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "NEUTRO", textoDaOption: "Neutro" },
@@ -557,7 +507,6 @@ window.onload = () => {
             },
             {
                 textoDoLabel: "FUNIL",
-                //nameDoSelect: "funil",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "TOFU", textoDaOption: "ToFu" },
