@@ -92,9 +92,13 @@ class FormDinamico {
         const elementoOption = document.createElement('option');
         elementoOption.value = this.objDeOptionDoForm.valorDaOption;
         elementoOption.textContent = this.objDeOptionDoForm.textoDaOption;
+        
+        if(elementoOption.value === this.stringDoValorNovo) {
+            elementoOption.style.fontWeight = 'bold';
+        }
+
         return elementoOption;
     }
-
 
     //metodos das escolhas com tipo "Novo"
     criarEscolhaNova() {
@@ -411,7 +415,7 @@ window.onload = () => {
                     { valorDaOption: "ESG", textoDaOption: "ESG" },
                     { valorDaOption: "MPD_CORE", textoDaOption: "MPD_Core" },
                     { valorDaOption: "MPD_FSBU", textoDaOption: "MPD_FSBU" },
-                    { valorDaOption: "NOVO", textoDaOption: "Novo" }
+                    { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
             {
@@ -433,7 +437,7 @@ window.onload = () => {
                     { valorDaOption: "FSBU_ANTECIPAÇÃO", textoDaOption: "FSBU-Antecipação" },
                     { valorDaOption: "FSBU_CHECKOUT", textoDaOption: "FSBU-Checkout" },
                     { valorDaOption: "CROSS", textoDaOption: "Cross" },
-                    { valorDaOption: "NOVO", textoDaOption: "Novo" }
+                    { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
             {
@@ -441,7 +445,7 @@ window.onload = () => {
                 nameDoSelect: "nomeDisparo",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "NOVO", textoDaOption: "Novo" }
+                    { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
             {
@@ -457,7 +461,7 @@ window.onload = () => {
                     { valorDaOption: "AULA_NO_CLUB", textoDaOption: "Aula no club" },
                     { valorDaOption: "WEBINÁRIO", textoDaOption: "Webinário" },
                     { valorDaOption: "BLOGPOST", textoDaOption: "Blogpost" },
-                    { valorDaOption: "NOVO", textoDaOption: "Novo" }
+                    { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
             {
