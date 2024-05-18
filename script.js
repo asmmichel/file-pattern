@@ -65,7 +65,6 @@ class FormDinamico {
         for (let atributo in atributosDoElemento) {
             meuElemento.setAttribute(atributo, atributosDoElemento[atributo]);
         }
-
         if (textContentDoElemento) {
             meuElemento.textContent = textContentDoElemento;
         }
@@ -100,7 +99,7 @@ class FormDinamico {
         this.objDoForm.nameDoSelect = nameDoSelect;
     }
 
-    criarDivDaEscolha() { //tem return
+    criarDivDaEscolha() { //tem return, 2 metodos usando
         this.formatarOLabelDoSelect();
         const divDaEscolha = this.criarUmElemento('div',`escolha_${this.objDoForm.nameDoSelect}`, ['escolha']);
         return divDaEscolha;
@@ -123,21 +122,19 @@ class FormDinamico {
         divDasEscolhas.appendChild(divDaEscolha);
     }
 
-    criarLabel() { //tem .textContent e return
+    criarLabel() { //tem return, 2 metodos usando
         const elementoLabel = this.criarUmElemento('label', null, [], { "for": this.objDoForm.nameDoSelect }, this.objDoForm.textoDoLabel);
-        //elementoLabel.textContent = this.objDoForm.textoDoLabel;
         return elementoLabel;
     }
     
-    criarSelect() { //tem return
+    criarSelect() { //tem return, 1 metodo usando
         const elementoSelect = this.criarUmElemento('select', this.objDoForm.nameDoSelect, [], { "name": this.objDoForm.nameDoSelect });
         return elementoSelect;
     }
     
-    criarOption() { //tem .textContent e return
+    criarOption() { //tem return, 1 metodo usando
         const elementoOption = this.criarUmElemento('option', null, [], {}, this.objDeOptionDoForm.textoDaOption);
         const valorDaOptionFormatado = this.objDeOptionDoForm.valorDaOption.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c').replace(/[\s-]/g, '_');
-        //elementoOption.textContent = this.objDeOptionDoForm.textoDaOption;
         elementoOption.value = valorDaOptionFormatado;
 
         if(elementoOption.value === this.stringDoValorNovo) {
@@ -200,7 +197,7 @@ class FormDinamico {
         return elementoLabelNovo;
     }
 
-    criarInputDeTextoNovo() { //tem return
+    criarInputDeTextoNovo() { //tem return, 1 metodo usando
         const elementoInputDeTextoNovo = this.criarUmElemento('input', `nova_${this.objDoForm.nameDoSelect}`, [], { "name": `nova_${this.objDoForm.nameDoSelect}` });
         return elementoInputDeTextoNovo;
     }
@@ -218,10 +215,9 @@ class FormDinamico {
         });
     }
 
-    criarSpanDeErro() { //tem .textContent e return
+    criarSpanDeErro() { //tem return, 1 metodo usando
         const textoDoLabelFormatado = this.formatarOTextoDoLabel();
         const elementoSpanDeErro = this.criarUmElemento('span', `span_erro_campo_vazio_nova_${this.objDoForm.nameDoSelect}`, ['span_erro_campo_vazio'], {}, `${textoDoLabelFormatado} não pode estar vazio!`);
-        //elementoSpanDeErro.textContent = `${textoDoLabelFormatado} não pode estar vazio!`;
         return elementoSpanDeErro;
     } 
 
@@ -241,7 +237,7 @@ class FormDinamico {
         return textoDoLabelFormatado;
     }
 
-    criarSpanDeAviso() { //tem .textContent e return
+    criarSpanDeAviso() { //tem return, 1 metodo usando
         const textoDoLabelFormatado = this.formatarOTextoDoLabel();
         
         const elementoSpanDeAviso = this.criarUmElemento(
@@ -253,7 +249,6 @@ class FormDinamico {
             o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`
 
         );
-        //elementoSpanDeAviso.textContent = `Atenção! Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com informando o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`;
         return elementoSpanDeAviso;
     }
 
@@ -283,9 +278,8 @@ class FormDinamico {
 
 
     //METODOS DOS BOTÕES
-    criarBotoesComEvento(textoDoBotao, idDoBotao) { //tem .textContent
-        const botaoGerador = this.criarUmElemento('button', idDoBotao, ['botaoGerador'], { "type": "button" });
-        botaoGerador.textContent = textoDoBotao;
+    criarBotoesComEvento(textoDoBotao, idDoBotao) {
+        const botaoGerador = this.criarUmElemento('button', idDoBotao, ['botaoGerador'], { "type": "button" }, textoDoBotao);
         const divDoBotao = document.querySelector('#botao');
         divDoBotao.appendChild(botaoGerador);
         botaoGerador.addEventListener('click', this.gerarCampanha.bind(this));
