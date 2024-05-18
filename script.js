@@ -26,7 +26,6 @@ class FormDinamico {
         this.criarDivDeTodasAsEscolhas();
         this.arrayObjsDoForm.forEach(objDoForm => {
             this.objDoForm = objDoForm;
-            this.formatarOLabelDosSelects();
             this.criarEscolha();
             this.criarEscolhaNova();
         });
@@ -45,7 +44,7 @@ class FormDinamico {
 
 
 
-    
+
 
     //metodos das escolhas basicos
     criarDivDeTodasAsEscolhas() {
@@ -54,7 +53,7 @@ class FormDinamico {
         this.meuFormDinamico.appendChild(divDasEscolhas);
     }
 
-    formatarOLabelDosSelects() {
+    formatarOLabelDoSelect() {
         let textoDoLabelFormatado = this.objDoForm.textoDoLabel.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c');
         let arraytextoDoLabelFormatado = textoDoLabelFormatado.split(' ');
         let nameDoSelect = '';
@@ -76,6 +75,7 @@ class FormDinamico {
     }
 
     criarDivDaEscolha() {
+        this.formatarOLabelDoSelect();
         const divDaEscolha = document.createElement('div');
         divDaEscolha.setAttribute('class', 'escolha');
         divDaEscolha.setAttribute("id", `escolha_${this.objDoForm.nameDoSelect}`);
@@ -115,7 +115,8 @@ class FormDinamico {
     
     criarOption() {
         const elementoOption = document.createElement('option');
-        elementoOption.value = this.objDeOptionDoForm.valorDaOption;
+        const valorDaOptionFormatado = this.objDeOptionDoForm.valorDaOption.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c').replace(/[\s-]/g, '_');
+        elementoOption.value = valorDaOptionFormatado;
         elementoOption.textContent = this.objDeOptionDoForm.textoDaOption;
 
         if(elementoOption.value === this.stringDoValorNovo) {
@@ -437,18 +438,18 @@ window.onload = () => {
             {
                 textoDoLabel: "CATEGORIA",
                 options: [
-                    { valorDaOption: "POS", textoDaOption: "Pós" },
-                    { valorDaOption: "PRE", textoDaOption: "Pré" },
-                    { valorDaOption: "EDUCATION", textoDaOption: "Education" },
-                    { valorDaOption: "TRANSACIONAL", textoDaOption: "Transacional" },
-                    { valorDaOption: "INSTITUCIONAL", textoDaOption: "Institucional" },
+                    { valorDaOption: "Pós", textoDaOption: "Pós" },
+                    { valorDaOption: "Pré", textoDaOption: "Pré" },
+                    { valorDaOption: "Education", textoDaOption: "Education" },
+                    { valorDaOption: "Transacional", textoDaOption: "Transacional" },
+                    { valorDaOption: "Institucional", textoDaOption: "Institucional" },
                     { valorDaOption: "MPD", textoDaOption: "Marketing produto" },
-                    { valorDaOption: "EVENTO", textoDaOption: "Evento" },
-                    { valorDaOption: "NEWS", textoDaOption: "News" },
+                    { valorDaOption: "Evento", textoDaOption: "Evento" },
+                    { valorDaOption: "News", textoDaOption: "News" },
                     { valorDaOption: "CS", textoDaOption: "CS" },
-                    { valorDaOption: "WEBINAR", textoDaOption: "Webinar" },
+                    { valorDaOption: "Webinar", textoDaOption: "Webinar" },
                     { valorDaOption: "ESG", textoDaOption: "ESG" },
-                    { valorDaOption: "MPD_CORE", textoDaOption: "MPD_Core" },
+                    { valorDaOption: "MPD_Core", textoDaOption: "MPD_Core" },
                     { valorDaOption: "MPD_FSBU", textoDaOption: "MPD_FSBU" },
                     { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
@@ -456,21 +457,21 @@ window.onload = () => {
             {
                 textoDoLabel: "SUBCATEGORIA",
                 options: [
-                    { valorDaOption: "COREX_LEAD_SOLUTIONS", textoDaOption: "CorEx-Lead Solutions" },
-                    { valorDaOption: "COREX_PRODUTOS_FISICOS", textoDaOption: "CorEx-Produtos fisicos" },
-                    { valorDaOption: "COREX_HOTMART_PRO", textoDaOption: "CorEx-Hotmart Pro" },
-                    { valorDaOption: "COREX_PLAYER", textoDaOption: "CorEx-Player" },
-                    { valorDaOption: "COREX_CLOUD", textoDaOption: "CorEx-Cloud" },
-                    { valorDaOption: "CORE_CLUB", textoDaOption: "Core-Club" },
-                    { valorDaOption: "CORE_CREATORCOCKPIT", textoDaOption: "Core-CreatorCockpit" },
-                    { valorDaOption: "FSBU_COMMERCIALAGENT", textoDaOption: "FSBU-CommercialAgent" },
-                    { valorDaOption: "FSBU_BNPL", textoDaOption: "FSBU-BNPL" },
-                    { valorDaOption: "FSBU_ORDERBUMP", textoDaOption: "FSBU-Orderbump" },
-                    { valorDaOption: "FSBU_SMARTRECOVERY", textoDaOption: "FSBU-SmartRecovery" },
-                    { valorDaOption: "FSBU_CARTÃO", textoDaOption: "FSBU-Cartão" },
-                    { valorDaOption: "FSBU_ANTECIPAÇÃO", textoDaOption: "FSBU-Antecipação" },
-                    { valorDaOption: "FSBU_CHECKOUT", textoDaOption: "FSBU-Checkout" },
-                    { valorDaOption: "CROSS", textoDaOption: "Cross" },
+                    { valorDaOption: "CorEx-Lead Solutions", textoDaOption: "CorEx-Lead Solutions" },
+                    { valorDaOption: "CorEx-Produtos fisicos", textoDaOption: "CorEx-Produtos fisicos" },
+                    { valorDaOption: "CorEx-Hotmart Pro", textoDaOption: "CorEx-Hotmart Pro" },
+                    { valorDaOption: "CorEx-Player", textoDaOption: "CorEx-Player" },
+                    { valorDaOption: "CorEx-Cloud", textoDaOption: "CorEx-Cloud" },
+                    { valorDaOption: "Core-Club", textoDaOption: "Core-Club" },
+                    { valorDaOption: "Core-CreatorCockpit", textoDaOption: "Core-CreatorCockpit" },
+                    { valorDaOption: "FSBU-CommercialAgent", textoDaOption: "FSBU-CommercialAgent" },
+                    { valorDaOption: "FSBU-BNPL", textoDaOption: "FSBU-BNPL" },
+                    { valorDaOption: "FSBU-Orderbump", textoDaOption: "FSBU-Orderbump" },
+                    { valorDaOption: "FSBU-SmartRecovery", textoDaOption: "FSBU-SmartRecovery" },
+                    { valorDaOption: "FSBU-Cartão", textoDaOption: "FSBU-Cartão" },
+                    { valorDaOption: "FSBU-Antecipação", textoDaOption: "FSBU-Antecipação" },
+                    { valorDaOption: "FSBU-Checkout", textoDaOption: "FSBU-Checkout" },
+                    { valorDaOption: "Cross", textoDaOption: "Cross" },
                     { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
@@ -485,14 +486,14 @@ window.onload = () => {
                 textoDoLabel: "TIPO CONTEÚDO",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "EBOOK", textoDaOption: "E-book" },
+                    { valorDaOption: "Ebook", textoDaOption: "E-book" },
                     { valorDaOption: "LP", textoDaOption: "LP" },
-                    { valorDaOption: "VIDEO", textoDaOption: "Video" },
-                    { valorDaOption: "INFOGRÁFICO", textoDaOption: "Infográfico" },
-                    { valorDaOption: "ONE_PAGE_REVIEW", textoDaOption: "One page review" },
-                    { valorDaOption: "AULA_NO_CLUB", textoDaOption: "Aula no club" },
-                    { valorDaOption: "WEBINÁRIO", textoDaOption: "Webinário" },
-                    { valorDaOption: "BLOGPOST", textoDaOption: "Blogpost" },
+                    { valorDaOption: "Video", textoDaOption: "Video" },
+                    { valorDaOption: "Infográfico", textoDaOption: "Infográfico" },
+                    { valorDaOption: "One page review", textoDaOption: "One page review" },
+                    { valorDaOption: "Aula club", textoDaOption: "Aula no club" },
+                    { valorDaOption: "Webinário", textoDaOption: "Webinário" },
+                    { valorDaOption: "Blogpost", textoDaOption: "Blogpost" },
                     { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
@@ -500,18 +501,18 @@ window.onload = () => {
                 textoDoLabel: "PSICOLOGIA EMAIL",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "NEUTRO", textoDaOption: "Neutro" },
-                    { valorDaOption: "POSITIVO", textoDaOption: "Positivo" },
-                    { valorDaOption: "NEGATIVO", textoDaOption: "Negativo" }
+                    { valorDaOption: "Neutro", textoDaOption: "Neutro" },
+                    { valorDaOption: "Positivo", textoDaOption: "Positivo" },
+                    { valorDaOption: "Negativo", textoDaOption: "Negativo" }
                 ]
             },
             {
                 textoDoLabel: "FUNIL",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "TOFU", textoDaOption: "ToFu" },
-                    { valorDaOption: "MOFU", textoDaOption: "MoFu" },
-                    { valorDaOption: "BOFU", textoDaOption: "BoFu" }
+                    { valorDaOption: "ToFu", textoDaOption: "ToFu" },
+                    { valorDaOption: "MoFu", textoDaOption: "MoFu" },
+                    { valorDaOption: "BoFu", textoDaOption: "BoFu" }
                 ]
             }
         ],        
