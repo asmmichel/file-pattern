@@ -9,6 +9,7 @@ class FormDinamico {
         this.stringDoValorNovo = 'NOVO';
         this.stringDeElementAtivo = 'ativo'
         this.botaoClicado = ''
+        this.stringDoEmail = 'EM01'
         this.iniciar();
     }
 
@@ -283,6 +284,13 @@ class FormDinamico {
             outputFinal = `${prefixo}_${valoresDosSelectsConcatenados}`
             if(prefixo === this.stringDoValorVazio) {
                 outputFinal = outputFinal.slice(1);
+                if(this.botaoClicado === 'botaoDeGerarComData') {
+                    const outputPartes = outputFinal.split('_');
+                    const data = outputPartes.pop();
+                    outputFinal = `${outputPartes.join('_')}_${this.stringDoEmail}_${data}`;
+                } else {
+                    outputFinal = `${outputFinal}_${this.stringDoEmail}`;
+                }
             }
             let elementoParagrafo = document.querySelector(`#prefixo_${prefixo}`);
             elementoParagrafo.textContent = outputFinal;
@@ -311,7 +319,6 @@ class FormDinamico {
         if(this.botaoClicado === 'botaoDeGerarComData') {
             const dataAtual = this.pegarDataAtualInvertida();
             valoresDosSelectsConcatenados = `${valoresDosSelectsConcatenados}_${dataAtual}`;
-            //console.log(`${valoresDosSelectsConcatenados}_${dataAtual}`);
         }
 
         return valoresDosSelectsConcatenados;
