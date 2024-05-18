@@ -384,60 +384,109 @@ window.onload = () => {
                 textoDoLabel: "OFFICE",
                 nameDoSelect: "office",
                 options: [
-                    { valorDaOption: "BR", textoDaOption: "Brazil"  },
-                    { valorDaOption: "AM", textoDaOption: "Amsterdam" },
-                    { valorDaOption: "ES", textoDaOption: "Spain"  }
+                    { valorDaOption: "BR", textoDaOption: "Brazil" },
+                    { valorDaOption: "CO", textoDaOption: "Colombia" },
+                    { valorDaOption: "MX", textoDaOption: "Mexico" },
+                    { valorDaOption: "LAT", textoDaOption: "Latin America" },
+                    { valorDaOption: "ES", textoDaOption: "Spain" },
+                    { valorDaOption: "US", textoDaOption: "United States" }
                 ]
             },
             {
-                textoDoLabel: "TIPO DE CAMPANHA",
-                nameDoSelect: "tipoCampanha",
+                textoDoLabel: "TIPO",
+                nameDoSelect: "tipo",
                 options: [
-                    { valorDaOption: "ADH", textoDaOption: "ADHOC" },
-                    { valorDaOption: "JOR", textoDaOption: "Journey" },
-                    { valorDaOption: "TRAN", textoDaOption: "Transactional" }
+                    { valorDaOption: "ADH", textoDaOption: "Adhoc" },
+                    { valorDaOption: "JOR", textoDaOption: "Jornada" }
                 ]
             },
             {
-                textoDoLabel: "NOME DA CAMPANHA",
-                nameDoSelect: "nomeCampanha",
+                textoDoLabel: "CATEGORIA",
+                nameDoSelect: "categoria",
                 options: [
-                    { valorDaOption: "SML", textoDaOption: "Produtor SML" },
-                    { valorDaOption: "PROD_INI", textoDaOption: "Produtor Iniciante" },
-                    { valorDaOption: "AFI_LADEIRINHA", textoDaOption: "Afiliado Ladeirinha" },
+                    { valorDaOption: "POS", textoDaOption: "Pós" },
+                    { valorDaOption: "PRE", textoDaOption: "Pré" },
+                    { valorDaOption: "EDUCATION", textoDaOption: "Education" },
+                    { valorDaOption: "TRANSACIONAL", textoDaOption: "Transacional" },
+                    { valorDaOption: "INSTITUCIONAL", textoDaOption: "Institucional" },
+                    { valorDaOption: "MPD", textoDaOption: "Marketing produto" },
+                    { valorDaOption: "EVENTO", textoDaOption: "Evento" },
+                    { valorDaOption: "NEWS", textoDaOption: "News" },
+                    { valorDaOption: "CS", textoDaOption: "CS" },
+                    { valorDaOption: "WEBINAR", textoDaOption: "Webinar" },
+                    { valorDaOption: "ESG", textoDaOption: "ESG" },
+                    { valorDaOption: "MPD_CORE", textoDaOption: "MPD_Core" },
+                    { valorDaOption: "MPD_FSBU", textoDaOption: "MPD_FSBU" },
                     { valorDaOption: "NOVO", textoDaOption: "Novo" }
                 ]
             },
             {
-                textoDoLabel: "CAMPO TESTE",
-                nameDoSelect: "campoTeste",
+                textoDoLabel: "SUBCATEGORIA",
+                nameDoSelect: "subcategoria",
                 options: [
-                    { valorDaOption: "TESTE", textoDaOption: "Teste Qualquer" },
+                    { valorDaOption: "COREX_LEAD_SOLUTIONS", textoDaOption: "CorEx-Lead Solutions" },
+                    { valorDaOption: "COREX_PRODUTOS_FISICOS", textoDaOption: "CorEx-Produtos fisicos" },
+                    { valorDaOption: "COREX_HOTMART_PRO", textoDaOption: "CorEx-Hotmart Pro" },
+                    { valorDaOption: "COREX_PLAYER", textoDaOption: "CorEx-Player" },
+                    { valorDaOption: "COREX_CLOUD", textoDaOption: "CorEx-Cloud" },
+                    { valorDaOption: "CORE_CLUB", textoDaOption: "Core-Club" },
+                    { valorDaOption: "CORE_CREATORCOCKPIT", textoDaOption: "Core-CreatorCockpit" },
+                    { valorDaOption: "FSBU_COMMERCIALAGENT", textoDaOption: "FSBU-CommercialAgent" },
+                    { valorDaOption: "FSBU_BNPL", textoDaOption: "FSBU-BNPL" },
+                    { valorDaOption: "FSBU_ORDERBUMP", textoDaOption: "FSBU-Orderbump" },
+                    { valorDaOption: "FSBU_SMARTRECOVERY", textoDaOption: "FSBU-SmartRecovery" },
+                    { valorDaOption: "FSBU_CARTÃO", textoDaOption: "FSBU-Cartão" },
+                    { valorDaOption: "FSBU_ANTECIPAÇÃO", textoDaOption: "FSBU-Antecipação" },
+                    { valorDaOption: "FSBU_CHECKOUT", textoDaOption: "FSBU-Checkout" },
+                    { valorDaOption: "CROSS", textoDaOption: "Cross" },
                     { valorDaOption: "NOVO", textoDaOption: "Novo" }
                 ]
             },
             {
-                textoDoLabel: "PSICOLOGIA DO EMAIL",
-                nameDoSelect: "psicologia",
+                textoDoLabel: "NOME DISPARO",
+                nameDoSelect: "nomeDisparo",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "NEUTRO", textoDaOption: "Neutro" },
-                    { valorDaOption: "POSIT", textoDaOption: "Positivo" },
-                    { valorDaOption: "NEGAT", textoDaOption: "Negativo" },
                     { valorDaOption: "NOVO", textoDaOption: "Novo" }
                 ]
             },
             {
-                textoDoLabel: "TIPO CONTEUDO",
+                textoDoLabel: "TIPO CONTEÚDO",
                 nameDoSelect: "tipoConteudo",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "EBOOK", textoDaOption: "Ebook" },
-                    { valorDaOption: "LP", textoDaOption: "Landing Page" },
-                    { valorDaOption: "WEBINAR", textoDaOption: "Webinario" }
+                    { valorDaOption: "E_BOOK", textoDaOption: "E-book" },
+                    { valorDaOption: "LP", textoDaOption: "LP" },
+                    { valorDaOption: "VIDEO", textoDaOption: "Video" },
+                    { valorDaOption: "INFOGRÁFICO", textoDaOption: "Infográfico" },
+                    { valorDaOption: "ONE_PAGE_REVIEW", textoDaOption: "One page review" },
+                    { valorDaOption: "AULA_NO_CLUB", textoDaOption: "Aula no club" },
+                    { valorDaOption: "WEBINÁRIO", textoDaOption: "Webinário" },
+                    { valorDaOption: "BLOGPOST", textoDaOption: "Blogpost" },
+                    { valorDaOption: "NOVO", textoDaOption: "Novo" }
                 ]
             },
-        ],
-        ['','DE', 'FIL', 'AUT', 'JB', 'IMP', 'EXT', 'FT']
+            {
+                textoDoLabel: "PSICOLOGIA EMAIL",
+                nameDoSelect: "psicologiaEmail",
+                options: [
+                    { valorDaOption: "", textoDaOption: "" },
+                    { valorDaOption: "NEUTRO", textoDaOption: "Neutro" },
+                    { valorDaOption: "POSITIVO", textoDaOption: "Positivo" },
+                    { valorDaOption: "NEGATIVO", textoDaOption: "Negativo" }
+                ]
+            },
+            {
+                textoDoLabel: "FUNIL",
+                nameDoSelect: "funil",
+                options: [
+                    { valorDaOption: "", textoDaOption: "" },
+                    { valorDaOption: "TOFU", textoDaOption: "ToFu" },
+                    { valorDaOption: "MOFU", textoDaOption: "MoFu" },
+                    { valorDaOption: "BOFU", textoDaOption: "BoFu" }
+                ]
+            }
+        ],        
+        ['', 'WA','DE', 'FIL', 'AUT', 'JB', 'IMP', 'EXT', 'FT']
     );
 };
