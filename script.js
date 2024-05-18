@@ -10,6 +10,8 @@ class FormDinamico {
         this.stringDeElementAtivo = 'ativo'
         this.botaoClicado = ''
         this.stringDoEmail = 'EM01'
+        this.stringDoWhatsApp = 'd1'
+        this.prefixoDoWhatsApp = 'WA'
         this.iniciar();
     }
 
@@ -92,7 +94,7 @@ class FormDinamico {
         const elementoOption = document.createElement('option');
         elementoOption.value = this.objDeOptionDoForm.valorDaOption;
         elementoOption.textContent = this.objDeOptionDoForm.textoDaOption;
-        
+
         if(elementoOption.value === this.stringDoValorNovo) {
             elementoOption.style.fontWeight = 'bold';
         }
@@ -278,8 +280,10 @@ class FormDinamico {
     mostrarNomeDaCampanha() {
         const valoresDosSelectsConcatenados = this.concatenarValoresDosSelects();
         let outputFinal = ''
+
         this.arrayDePrefixos.forEach((prefixo) => {
             outputFinal = `${prefixo}_${valoresDosSelectsConcatenados}`
+
             if(prefixo === this.stringDoValorVazio) {
                 outputFinal = outputFinal.slice(1);
                 if(this.botaoClicado === 'botaoDeGerarComData') {
@@ -290,6 +294,19 @@ class FormDinamico {
                     outputFinal = `${outputFinal}_${this.stringDoEmail}`;
                 }
             }
+
+            if(prefixo === this.prefixoDoWhatsApp) {
+                outputFinal = outputFinal.toLowerCase();
+
+                if(this.botaoClicado === 'botaoDeGerarComData') {
+                    const outputPartes = outputFinal.split('_');
+                    const data = outputPartes.pop();
+                    outputFinal = `${outputPartes.join('_')}_${this.stringDoWhatsApp}_${data}`;
+                } else {
+                    outputFinal = `${outputFinal}_${this.stringDoWhatsApp}`;
+                }
+            }
+            
             let elementoParagrafo = document.querySelector(`#prefixo_${prefixo}`);
             elementoParagrafo.textContent = outputFinal;
         })
