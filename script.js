@@ -15,6 +15,8 @@ class FormDinamico {
         this.iniciar();
     }
 
+
+
     //PRINCIPAIS METODOS
     iniciar() {
         this.criarEscolhas();
@@ -49,6 +51,8 @@ class FormDinamico {
         })
     }
 
+
+
     //CRIADOR DE ELEMENTOS
     criarUmElemento(tipoDoElemento, idDoElemento, classesDoElemento = [], atributosDoElemento = {}, textContentDoElemento) {
         const meuElemento = document.createElement(tipoDoElemento);
@@ -68,6 +72,8 @@ class FormDinamico {
     
         return meuElemento;
     }
+
+
 
     //METODOS DAS ESCOLHAS BASICAS
     formatarOLabelDoSelect() {
@@ -135,6 +141,8 @@ class FormDinamico {
 
         return elementoOption;
     }
+
+
 
     //METODOS DAS ESCOLHAS COM TIPO "NOVO"
     criarEscolhaNova() {
@@ -255,6 +263,8 @@ class FormDinamico {
             elementoSpanDeAviso.classList.remove(this.stringDeElementAtivo);
         });
     }
+
+
 
     //METODOS DOS BOTÕES
     criarBotoesComEvento(textoDoBotao, idDoBotao) {
@@ -389,6 +399,10 @@ class FormDinamico {
     }
 
 }
+
+
+
+
 
 //INPUTS DO USUARIO
 window.onload = () => {
