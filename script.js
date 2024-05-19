@@ -165,7 +165,7 @@ class FormDinamico {
             divDaEscolhaNova.appendChild(elementoSpanDeAviso);
             this.adicionarEventoNoInputDeTextoNovo();
 
-            if(temOpcaoNovo && !temOpcaoVazio) {
+            if(!temOpcaoVazio) {
                 const elementoSpanDeErro = this.criarSpanDeErro();
                 divDaEscolhaNova.appendChild(elementoSpanDeErro);
             }
