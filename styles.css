@@ -1,11 +1,8 @@
-body {
-  background-color: #202020;
-  color: #FFFFFF;
-  }
+/* Geral */
 
-.escolha {
-  padding-bottom: 10px;
-}
+
+
+/* Escolhas */
 
 .escolha.nova {
   display: none;
@@ -31,7 +28,8 @@ body {
   display: block;
 }
 
-.botaoGerador {
-  padding: 5px;
-  margin: 5px;
-}
+/* Botões */
+
+
+
+/* Saidas */

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>JavaScript Form Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<style>
+body {
+  background-color: #d1e2d8;
+  font-size:16px;
+  }
+
+button:first-child {
+  background-color:#d1e2d8;
+  border: 1px solid #000000;
+  color: #000000
+}
+
+#sub-category  option:last-child,
+#pos-signup-journey option:last-child,
+#content-type  option:last-child {
+  font-weight: bold;
+}
+
+.sub-category-new,
+.pos-signup-journey-new,
+.content-type-new {
+  display: none;
+}
+
+.sub-category-new span,
+.pos-signup-journey-new span {
+  font-size: 0.7rem;
+  color: #000000;
+  border: 2px solid #ffd700;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 5px;
+  z-index: 9999;
+  background-color: #ffffff;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  animation: fadeIn .3s ease-in-out;
+}
+
+.sub-category-new span::before,
+.pos-signup-journey-new span::before {
+  content: 'ATENÇÃO: ';
+  color: red;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sub-category-new .empty-warning,
+.pos-signup-journey-new .empty-warning {
+  color: red;
+  font-size: .7rem;
+  display: none;
+}
+
+.btn-secondary {
+  font-size: .8rem;
+  padding: 3px;
+  margin-top: 3px;
+}
+.btn-secondary:hover {
+  background-color: #FF6600;
+}
+.btn-secondary:active {
+  background-color: #FF6600;
+}
+.btn-secondary:focus,
+.btn-secondary:active {
+  box-shadow: 0 0 0 0.2rem #FFA07A;
+}
+</style>
+
+
+
+	</head>
+
+
+	<body>
+		<div class="container">
+			<form action="" method="post" id="signup">
+
+				<div class="form-row">
+
+					<div class="form-group col-6 col-md-3">
+						<label for="office">Office</label>
+									<select id="office" class="form-control only-dropdown">
+											<option value="AM">AMSTERDAM</option>
+											<option value="BR">BRAZIL</option>
+											<option value="CO">COLOMBIA</option>
+											<option value="MX">MEXICO</option>
+											<option value="ES">SPAIN</option>
+											<option value="US">UNITED STATES</option>
+									</select>
+					</div>
+
+					<div class="form-group col-6 col-md-3">
+						<label for="type">Tipo de Campanha</label>
+									<select id="type" class="form-control only-dropdown">
+											<option value="ADH">ADHOC</option>
+											<option value="JOR">JOURNEY</option>
+											<option value="NEWS">NEWSLETTER</option>
+											<option value="TRA">TRANSACTIONAL</option>
+									</select>
+					</div>
+
+					<div class="form-group col-6 col-md-3">
+						<label for="category">Categoria</label>
+									<select id="category" class="form-control only-dropdown">
+											<option value="BUBR">BUBR</option>
+											<option value="BULATAM">BULatam</option>
+											<option value="GTM">GTM</option>
+											<option value="IST">Institucional</option>
+											<option value="EVT">Evento</option>
+											<option value="SAAS">Saas</option>
+											<option value="ROTW">ROTW</option>
+									</select>
+					</div>
+
+					<div class="form-group col-6 col-md-3">
+						<label for="sub-category">Sub-Categoria</label>
+									<select id="sub-category" class="form-control new-input">
+											<option value="POS">Jornada Pós</option>
+											<option value="PRE">Jornada Pré</option>
+											<option value="MPD">MKT Produto</option>
+											<option value="Novo">Nova Sub-Categoria</option>
+									</select>
+					</div>
+
+					<div class="form-group col-6 col-md-3">
+						<label for="pos-signup-journey">Nomes Jornadas Pós</label>
+									<select id="pos-signup-journey" class="form-control new-input">
+											<option value="SML">Produtor SML</option>
+											<option value="BEGGINER">Produtor Iniciante</option>
+											<option value="CURIOUS">Curioso</option>
+											<option value="OTHERS">Outros</option>
+											<option value="NOSALES">Produtor NoSales</option>
+											<option value="SERVICEPROVIDER">Service Provider</option>
+											<option value="AFFILIATE">Affiliate</option>
+											<option value="FUS">FUS</option>
+											<option value="ACP">ACP</option>
+											<option value="GMVJ1">GMV J1</option>
+											<option value="GMVJ2">GMV J2</option>
+											<option value="GMVJ3">GMV J3</option>
+											<option value="ATM">ATM</option>
+											<option value="ALL-IN-ONE">All-in-one</option>
+											<option value="ACPREPRESADO">ACPrepresado</option>
+											<option value="Ladeirinha">Ladeirinha</option>
+											<option value="Learn">Learn</option>
+											<option value="Producer">Producer</option>
+											<option value="Skip">Skip</option>
+							<option value="Novo">Novo Nome</option>
+									</select>
+					</div>
+
+					<div class="form-group col-6 col-md-3">
+						<label for="content-type">Tipo Conteúdo</label>
+									<select id="content-type" class="form-control new-input-optional">
+											<option value=""></option>
+											<option value="EBOOK">E-book</option>
+											<option value="LP">LP</option>
+											<option value="VIDEO">Vídeo</option>
+											<option value="INFOGRAFICO">Infográfico</option>
+											<option value="ONE-PAGE-REVIEW">One page review</option>
+											<option value="AULA-NO-CLUB">Aula no club</option>
+											<option value="WEBINARIO">Webinário</option>
+											<option value="BLOGPOST">Blogpost</option>
+											<option value="Novo">Novo Tipo</option>
+									</select>
+					</div>
+
+					<div class="form-group col-6 col-md-3">
+						<label for="email-psychology">Psicologia Email</label>
+									<select id="email-psychology" class="form-control only-dropdown-optional">
+											<option value=""></option>
+											<option value="NEUTRO">Neutro</option>
+											<option value="POSITIVO">Positivo</option>
+											<option value="NEGATIVO">Negativo</option>
+									</select>
+					</div>
+
+					<div class="form-group col-6 col-md-3">
+						<label for="funnel">Funil</label>
+									<select id="funnel" class="form-control only-dropdown-optional">
+											<option value=""></option>
+											<option value="TOFU">ToFu</option>
+											<option value="MOFU">MoFu</option>
+											<option value="BOFU">BoFu</option>
+									</select>
+					</div>
+
+					<div class="form-group col-6 col-md-3 sub-category-new">
+						<label for="sub-category-new">Nova Sub-Categoria</label>
+						<input type="text" class="form-control never-empty" name="sub-category-new" placeholder="Coloque a nova sub-categoria" />
+						<span>Enviar uma mensagem para 
+							<a class="email-chat" href="mailto:alfredo.jorge@hotmart.com" aria-label="https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE">alfredo.jorge@hotmart.com</a>
+					informando a nova Sub-Categoria digitada para podermos mensurar nos Dashboards!</span>
+						<div class="empty-warning">Não é permitido deixar o campo vazio, escreva algo ou escolha uma opção fixa!</div>
+						</div>					  
+
+					<div class="form-group col-6 col-md-3 pos-signup-journey-new">
+						<label for="pos-signup-journey-new">Novo Nome Jornadas Pós</label>
+						<input type="text" class="form-control never-empty" name="pos-signup-journey-new" placeholder="Coloque o novo nome" />
+						<span>Enviar uma mensagem para 
+							<a class="email-chat" href="mailto:alfredo.jorge@hotmart.com" aria-label="https://mail.google.com/chat/u/0/#chat/dm/7hEiL4AAAAE">alfredo.jorge@hotmart.com</a>
+					informando a nova Jornada Pós digitada para podermos mensurar nos Dashboards!</span>
+						<div class="empty-warning">Não é permitido deixar o campo vazio, escreva algo ou escolha uma opção fixa!</div>
+					</div>
+
+					<div class="form-group col-6 col-md-3 content-type-new">
+						<label for="content-type-new">Novo Tipo Conteúdo</label>
+						<input type="text" class="form-control" name="content-type-new" placeholder="Coloque o novo nome" />
+					</div>
+
+				</div>
+
+				<div class="form-row row flex-column">
+					<div class="col-12 text-center mb-6">
+							<button type="submit" class="btn btn-primary" name="main">Gerar Campanha</button>
+					</div>
+					<div class="col-12 text-center mb-6">
+							<button type="submit" class="btn btn-secondary" name="date">Gerar com Data</button>
+					</div>
+			</div>
+
+				<hr>
+
+				<div class="form-group">
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="emailNameResult">Email Name</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="emailNameResult" name="emailNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="deNameResult">Data Extension</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="deNameResult" name="deNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="filterNameResult">Filter</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="filterNameResult" name="filterNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="sqlNameResult">SQL Query</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="sqlNameResult" name="sqlNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="automationNameResult">Automation</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="automationNameResult" name="automationNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="importNameResult">Import</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="importNameResult" name="importNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="dataExtractNameResult">Data Extract</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="dataExtractNameResult" name="dataExtractNameResult" />
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="form-row col-6 col-md-12">
+						<label class="col-sm-2 col-form-label" for="fileTransferNameResult">File Transfer</label>
+						<div class="col-sm-10">
+							<input class="form-control" type="text" disabled="true" id="fileTransferNameResult" name="fileTransferNameResult" />
+						</div>
+					</div>
+
+				</div>
+
+			</form>	
+		</div>
+
+
+<script>
+class NamePattern {
+	constructor(form) {
+		this.form = document.querySelector(form);
+		this.inputsOBJ = [
+			{
+				select: this.form.querySelector('#office')
+			},
+			{
+				select: this.form.querySelector('#type')
+			},
+			{
+				select: this.form.querySelector('#category')
+			},
+			{
+				select: this.form.querySelector('#sub-category'),
+				newDiv: this.form.querySelector('.sub-category-new')
+			},
+			{
+				select: this.form.querySelector('#pos-signup-journey'),
+				newDiv: this.form.querySelector('.pos-signup-journey-new')
+			},
+			{
+				select: this.form.querySelector('#content-type'),
+				newDiv: this.form.querySelector('.content-type-new')
+			},
+			{
+				select: this.form.querySelector('#email-psychology')
+			},
+			{
+				select: this.form.querySelector('#funnel')
+			},
+		];
+		this.formElementsAndPrefix = [
+			{
+				formElement: 'emailNameResult',
+				prefix: ''
+			},
+			{
+				formElement: 'deNameResult',
+				prefix: 'DE_'
+			},
+			{
+				formElement: 'filterNameResult',
+				prefix: 'FILTER_'
+			},
+			{
+				formElement: 'sqlNameResult',
+				prefix: 'SQL_'
+			},
+			{
+				formElement: 'automationNameResult',
+				prefix: 'AUT_'
+			},
+			{
+				formElement: 'importNameResult',
+				prefix: 'IMPORT_'
+			},
+			{
+				formElement: 'dataExtractNameResult',
+				prefix: 'DATA_EXT_'
+			},
+			{
+				formElement: 'fileTransferNameResult',
+				prefix: 'FT_'
+			}
+		];
+	}
+
+	showBoxWarningAndOpenGmail() {
+		this.inputsOBJ.forEach((obj) => {
+			if(obj.hasOwnProperty('newDiv')) {
+				const { newDiv } = obj;
+				const span = newDiv.querySelector('span');
+				if(span !== null) {
+					newDiv.addEventListener('mouseover', () => span.style.display = 'block');
+					newDiv.addEventListener('mouseout', () => span.style.display = 'none');
+
+					const emailsDivs = newDiv.querySelectorAll('a.email-chat');
+					emailsDivs.forEach((email) => {
+						const ariaLabel = email.getAttribute('aria-label');
+						email.addEventListener('click', (event) => {
+							event.preventDefault();
+							window.open(ariaLabel, '_blank');
+						})
+					})
+				}
+			}
+		})
+	}
+
+	showNewTextInputs() {
+		this.inputsOBJ.forEach(obj => {
+			if(obj.hasOwnProperty('newDiv')) {
+				obj.select.addEventListener('change', () => {
+					if (obj.select.value === 'Novo') obj.newDiv.style.display = 'block';
+					else obj.newDiv.style.display = 'none';
+				});
+			}
+		});
+	}
+
+	showFeatureName(event, index) {
+		let result = `${this.formElementsAndPrefix[index].prefix}`;
+
+		this.inputsOBJ.forEach(obj => {
+			const { select, newDiv } = obj;
+			const onlyDropdown = 					select.classList.contains('only-dropdown');
+			const newInput = 							select.classList.contains('new-input');
+			const newInputOptional = 			select.classList.contains('new-input-optional');
+			const onlyDropdownOptional = 	select.classList.contains('only-dropdown-optional');
+			const hasNewDiv = obj.hasOwnProperty('newDiv');
+			const valueIsNew = 				(select.value === 'Novo');
+			const valueIsNotNew = 		(select.value !== 'Novo');
+			const valueIsNotEmpty = 	(select.value !== '');
+
+			if (onlyDropdown) result += `${select.value}_`;
+
+			if (hasNewDiv) {
+				const newDivValue = newDiv.querySelector('input').value;
+				const newDivValueEmpty = (newDivValue === '');
+				if (newInput) {
+					if (valueIsNotNew) 		result += `${select.value}_`;
+					else if (valueIsNew) 	result += `${newDivValue}_`;
+				}
+				if (newInputOptional) {
+					if (valueIsNotEmpty && valueIsNotNew) 		result += `${select.value}_`;
+					else if (valueIsNew && newDivValueEmpty) 	result = result.replace(/_+$/, '_');
+					else if (valueIsNew) 											result += `${newDivValue}_`;
+				}
+			}
+
+			if (onlyDropdownOptional) {
+				if (valueIsNotEmpty) result += `${select.value}_`;
+			}
+		});
+
+		result = result.replace(/_+$/, '');
+
+		if(event.submitter.name === 'date') return this.showFeatureNameWithDate(result);
+
+		return result.toUpperCase().trim().replaceAll(' ', '-');
+	}
+
+	showFeatureNameWithDate(result) {
+		const date = new Date();
+		const year = String(date.getFullYear()).slice(-2);
+		const month = String(date.getMonth() + 1).padStart(2, '0');
+		const day = String(date.getDate()).padStart(2, '0');
+		result += `-${year}${month}${day}`;
+		return result.toUpperCase().trim().replaceAll(' ', '-');
+	}
+
+	checkIfNewTextInputsAreEmpty() {
+		const emptyCheckerArray = [];
+		this.inputsOBJ.forEach((obj) => {
+			if(obj.hasOwnProperty('newDiv')) {
+				const { select, newDiv } = obj;
+				const emptyWarningDiv = newDiv.querySelector('.empty-warning');
+				const newDivInput = newDiv.querySelector('.never-empty');
+
+				if(emptyWarningDiv && newDivInput !== null) {
+					if (select.value === 'Novo' && newDivInput.value === '') {
+						emptyWarningDiv.style.display = 'block';
+						newDivInput.style.border = '1px solid red';
+						emptyCheckerArray.push(true);
+					} else {
+						emptyWarningDiv.style.display = 'none';
+						newDivInput.style.border = 'none';
+						emptyCheckerArray.push(false);
+					}
+				}
+			}
+		})
+		return emptyCheckerArray;
+	}
+
+	checkTheLengthAndSendValues(result, index) {
+		if (result.length >= 100) return true;
+		else this.form.elements[ this.formElementsAndPrefix[index].formElement].value = result; return false;
+	}
+
+	init() {
+		this.showBoxWarningAndOpenGmail();
+		this.showNewTextInputs();
+		this.form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const resultsLenghtArray = [];
+			this.formElementsAndPrefix.forEach((element, index) => {
+				let result = this.showFeatureName(event, index);
+				const emptyCheckerArray = this.checkIfNewTextInputsAreEmpty();
+				if(emptyCheckerArray.includes(true)) result = '';
+				resultsLenghtArray.push(this.checkTheLengthAndSendValues(result, index));
+			});
+			if (resultsLenghtArray.every((result) => result === true)) {
+				alert('Erro, o nome ultrapassou 100 caracteres, retire algumas partes opcionais ou diminua os termos!');
+			}
+		});
+	}
+}
+
+new NamePattern('#signup').init();
+
+</script>
+
+	</body>
+</html>

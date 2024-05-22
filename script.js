@@ -25,7 +25,7 @@ class FormDinamico {
     }
 
     criarEscolhas() {
-        const divDasEscolhas = this.criarUmElemento('div','escolhas');
+        const divDasEscolhas = this.criarUmElemento('div','escolhas', ['form-row']);
         this.meuFormDinamico.appendChild(divDasEscolhas);
         this.arrayObjsDoForm.forEach(objDoForm => {
             this.objDoForm = objDoForm;
@@ -35,19 +35,33 @@ class FormDinamico {
     }
 
     criarBotoes() {
-        const divDosBotoes = this.criarUmElemento('div','botoes');
+        const divDosBotoes = this.criarUmElemento('div','botoes', ['botaoGerador', 'form-row', 'row', 'flex-column']);
         this.meuFormDinamico.appendChild(divDosBotoes);
-        this.criarBotoesComEvento('Gerar Campanha', 'botaoGerarCampanha');
-        this.criarBotoesComEvento('Gerar com Data', 'botaoDeGerarComData');
+        this.criarBotoesComEvento('Gerar Campanha', 'botaoGerarCampanha', ['botaoGerador', 'btn', 'btn-primary']);
+        this.criarBotoesComEvento('Gerar com Data', 'botaoDeGerarComData', ['botaoGerador', 'btn', 'btn-secondary']);
     }
 
     criarSaidas() {
-        const divDasSaidas = this.criarUmElemento('div','saidas');
+        const divDasSaidas = this.criarUmElemento('div','saidas', ['form-group']);
         this.meuFormDinamico.appendChild(divDasSaidas);
         this.arrayDePrefixos.forEach((prefixo) => {
-            const elementoParagrafo = this.criarUmElemento('p', `prefixo_${prefixo}`, ['saida']);
-            const divDasSaidas = document.querySelector('#saidas');
-            divDasSaidas.appendChild(elementoParagrafo);
+
+            const divDaSaida = this.criarUmElemento('div', `div_${prefixo}`, ['div_saida', 'form-row', 'col-12', 'col-md-12']);
+
+
+            const labelDaSaida = this.criarUmElemento('label', `label_${prefixo}`, ['label_saida', 'col-sm-2', 'col-form-label'], { "for": `prefixo_${prefixo}`}, 'Opaa');
+
+
+            const divDoInputDeSaida = this.criarUmElemento('div', `div_input_${prefixo}`, ['div_input_saida', 'col-sm-10']);
+
+
+            const inputDeSaida = this.criarUmElemento('input', `prefixo_${prefixo}`, ['input_saida', 'form-control'], { "name": `prefixo_${prefixo}`, "type": "text", "disabled": "true"});
+
+
+            divDasSaidas.appendChild(divDaSaida);
+            divDaSaida.appendChild(labelDaSaida);
+            divDaSaida.appendChild(divDoInputDeSaida);
+            divDoInputDeSaida.appendChild(inputDeSaida);
         })
     }
 
@@ -99,7 +113,7 @@ class FormDinamico {
 
     criarDivDaEscolha() {
         this.formatarOLabelDoSelect();
-        const divDaEscolha = this.criarUmElemento('div',`escolha_${this.objDoForm.nameDoSelect}`, ['escolha']);
+        const divDaEscolha = this.criarUmElemento('div',`escolha_${this.objDoForm.nameDoSelect}`, ['escolha', 'form-group', 'col-6', 'col-md-3']);
         return divDaEscolha;
     }
 
@@ -126,7 +140,7 @@ class FormDinamico {
     }
     
     criarSelect() {
-        const elementoSelect = this.criarUmElemento('select', this.objDoForm.nameDoSelect, [], { "name": this.objDoForm.nameDoSelect });
+        const elementoSelect = this.criarUmElemento('select', this.objDoForm.nameDoSelect, ['form-control', 'only-dropdown'], { "name": this.objDoForm.nameDoSelect });
         return elementoSelect;
     }
     
@@ -193,7 +207,7 @@ class FormDinamico {
     }
 
     criarInputDeTextoNovo() {
-        const elementoInputDeTextoNovo = this.criarUmElemento('input', `nova_${this.objDoForm.nameDoSelect}`, [], { "name": `nova_${this.objDoForm.nameDoSelect}` });
+        const elementoInputDeTextoNovo = this.criarUmElemento('input', `nova_${this.objDoForm.nameDoSelect}`, ['form-control'], { "name": `nova_${this.objDoForm.nameDoSelect}`, "placeholder": `Escreva o novo termo aqui` });
         return elementoInputDeTextoNovo;
     }
 
@@ -267,10 +281,12 @@ class FormDinamico {
 
 
     //METODOS DOS BOTÕES
-    criarBotoesComEvento(textoDoBotao, idDoBotao) {
-        const botaoGerador = this.criarUmElemento('button', idDoBotao, ['botaoGerador'], { "type": "button" }, textoDoBotao);
+    criarBotoesComEvento(textoDoBotao, idDoBotao, classeDoBotao) {
+        const divDoBotaoGerador = this.criarUmElemento('div', null, ['divDoBotaoGerador', 'col-12', 'text-center', 'mb-6']);
+        const botaoGerador = this.criarUmElemento('button', idDoBotao, classeDoBotao, { "type": "button" }, textoDoBotao);
         const divDosBotoes = document.querySelector('#botoes');
-        divDosBotoes.appendChild(botaoGerador);
+        divDoBotaoGerador.appendChild(botaoGerador);
+        divDosBotoes.appendChild(divDoBotaoGerador);
         botaoGerador.addEventListener('click', this.gerarCampanha.bind(this));
     }
 
@@ -327,8 +343,9 @@ class FormDinamico {
                 outputFinal = this.concertarOrdemDaDataNoOutput(outputFinal, this.stringDoWhatsApp);
             }
 
-            let elementoParagrafo = document.querySelector(`#prefixo_${prefixo}`);
-            elementoParagrafo.textContent = outputFinal;
+            let elementoInputDeSaida = document.querySelector(`#prefixo_${prefixo}`);
+            console.log(elementoInputDeSaida);
+            elementoInputDeSaida.value = outputFinal;
         })
     }
 
@@ -387,8 +404,8 @@ class FormDinamico {
 
     limparStringConcatenadaDaSaida() {
         this.arrayDePrefixos.forEach((prefixo) => {
-            let elementoParagrafo = document.querySelector(`#prefixo_${prefixo}`);
-            elementoParagrafo.textContent = '';
+            let elementoInputDeSaida = document.querySelector(`#prefixo_${prefixo}`);
+            elementoInputDeSaida.value  = '';
         })
     }
 
@@ -397,6 +414,12 @@ class FormDinamico {
         const valorDoInputDeTextoNovo = inputDeTextoNovo.value.toUpperCase();
         return valorDoInputDeTextoNovo;
     }
+
+
+    //METODOS DAS SAIDAS
+
+
+
 
 }
 
@@ -410,7 +433,7 @@ window.onload = () => {
         'meuFormDinamico', 
         [
             {
-                textoDoLabel: "OFFICE",
+                textoDoLabel: "Office",
                 options: [
                     { valorDaOption: "BR", textoDaOption: "Brazil" },
                     { valorDaOption: "CO", textoDaOption: "Colombia" },
@@ -421,14 +444,14 @@ window.onload = () => {
                 ]
             },
             {
-                textoDoLabel: "TIPO",
+                textoDoLabel: "Tipo",
                 options: [
                     { valorDaOption: "ADH", textoDaOption: "Adhoc" },
                     { valorDaOption: "JOR", textoDaOption: "Jornada" }
                 ]
             },
             {
-                textoDoLabel: "CATEGORIA",
+                textoDoLabel: "Categoria",
                 options: [
                     { valorDaOption: "Pós", textoDaOption: "Pós" },
                     { valorDaOption: "Pré", textoDaOption: "Pré" },
@@ -447,7 +470,7 @@ window.onload = () => {
                 ]
             },
             {
-                textoDoLabel: "SUBCATEGORIA",
+                textoDoLabel: "Subcategoria",
                 options: [
                     { valorDaOption: "CorEx-Lead Solutions", textoDaOption: "CorEx-Lead Solutions" },
                     { valorDaOption: "CorEx-Produtos fisicos", textoDaOption: "CorEx-Produtos fisicos" },
@@ -468,14 +491,14 @@ window.onload = () => {
                 ]
             },
             {
-                textoDoLabel: "NOME DISPARO",
+                textoDoLabel: "Nome da Campanha",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
             {
-                textoDoLabel: "TIPO CONTEÚDO",
+                textoDoLabel: "Tipo Conteúdo",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "Ebook", textoDaOption: "E-book" },
@@ -490,7 +513,7 @@ window.onload = () => {
                 ]
             },
             {
-                textoDoLabel: "PSICOLOGIA EMAIL",
+                textoDoLabel: "Psicologia Email",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "Neutro", textoDaOption: "Neutro" },
@@ -499,7 +522,7 @@ window.onload = () => {
                 ]
             },
             {
-                textoDoLabel: "FUNIL",
+                textoDoLabel: "Funil",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "ToFu", textoDaOption: "ToFu" },
