@@ -1,6 +1,8 @@
 /* Geral */
 
-
+body {
+  background-color: #d1e2d8;
+}
 
 /* Escolhas */
 
@@ -12,12 +14,56 @@
   display: block;
 }
 
+/* SPAN DE ERRO */
+
+.span_erro_campo_vazio {
+  color: red;
+  font-size: .7rem;
+  display: none;
+}
+
 .span_erro_campo_vazio {
   display: none;
 }
 
 .span_erro_campo_vazio.ativo {
   display: block;
+}
+
+
+/* SPAN DE AVISO */
+
+.span_aviso_informar_termo {
+  font-size: 0.7rem;
+  color: #000000;
+  border: 2px solid #ffd700;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 5px;
+  z-index: 9999;
+  background-color: #ffffff;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  animation: fadeIn .3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.span_aviso_informar_termo::before {
+  content: 'Atenção! ';
+  color: red;
+  font-weight: bold;
 }
 
 .span_aviso_informar_termo {
@@ -28,8 +74,23 @@
   display: block;
 }
 
+
+
+
 /* Botões */
 
+#botaoGerarCampanha {
+  margin-bottom: 3px;
+}
+
+#botaoDeGerarComData {
+  margin-top: 3px;
+}
 
 
 /* Saidas */
+
+
+.div_saida {
+  margin: 20px;
+}

@@ -45,19 +45,10 @@ class FormDinamico {
         const divDasSaidas = this.criarUmElemento('div','saidas', ['form-group']);
         this.meuFormDinamico.appendChild(divDasSaidas);
         this.arrayDePrefixos.forEach((prefixo) => {
-
-            const divDaSaida = this.criarUmElemento('div', `div_${prefixo}`, ['div_saida', 'form-row', 'col-12', 'col-md-12']);
-
-
-            const labelDaSaida = this.criarUmElemento('label', `label_${prefixo}`, ['label_saida', 'col-sm-2', 'col-form-label'], { "for": `prefixo_${prefixo}`}, 'Opaa');
-
-
-            const divDoInputDeSaida = this.criarUmElemento('div', `div_input_${prefixo}`, ['div_input_saida', 'col-sm-10']);
-
-
+            const divDaSaida = this.criarUmElemento('div', null, ['div_saida', 'form-row', 'col-12', 'col-md-12']);
+            const labelDaSaida = this.criarUmElemento('label', null, ['label_saida', 'col-sm-2', 'col-form-label'], { "for": `prefixo_${prefixo}`}, 'Opaa');
+            const divDoInputDeSaida = this.criarUmElemento('div', null, ['div_input_saida', 'col-sm-10']);
             const inputDeSaida = this.criarUmElemento('input', `prefixo_${prefixo}`, ['input_saida', 'form-control'], { "name": `prefixo_${prefixo}`, "type": "text", "disabled": "true"});
-
-
             divDasSaidas.appendChild(divDaSaida);
             divDaSaida.appendChild(labelDaSaida);
             divDaSaida.appendChild(divDoInputDeSaida);
@@ -259,15 +250,16 @@ class FormDinamico {
             `span_aviso_informar_termo_nova_${this.objDoForm.nameDoSelect}`,
             ['span_aviso_informar_termo'],
             {},
-            `Atenção! Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com informando 
+            `Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com informando 
             o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`
         );
         return elementoSpanDeAviso;
     }
 
     adicionarEventoNoInputDeTextoNovo() {
-        const elementoInputDeTextoNovo = this.meuFormDinamico.querySelector(`input#nova_${this.objDoForm.nameDoSelect}`);
+        const elementoInputDeTextoNovo = this.meuFormDinamico.querySelector(`#escolha_nova_${this.objDoForm.nameDoSelect}`);
         const elementoSpanDeAviso = this.meuFormDinamico.querySelector(`#span_aviso_informar_termo_nova_${this.objDoForm.nameDoSelect}`);
+        console.log(elementoSpanDeAviso);
 
         elementoInputDeTextoNovo.addEventListener('mouseover', () => {
             elementoSpanDeAviso.classList.add(this.stringDeElementAtivo);
@@ -414,12 +406,6 @@ class FormDinamico {
         const valorDoInputDeTextoNovo = inputDeTextoNovo.value.toUpperCase();
         return valorDoInputDeTextoNovo;
     }
-
-
-    //METODOS DAS SAIDAS
-
-
-
 
 }
 
