@@ -1,8 +1,8 @@
 class FormDinamico {
-    constructor(idDoForm, arrayObjsDoForm, arrayDePrefixos) {
+    constructor(idDoForm, arrayObjsDoForm, arrayObjsDePrefixos) {
         this.meuFormDinamico = document.querySelector(`#${idDoForm}`);
         this.arrayObjsDoForm = arrayObjsDoForm;
-        this.arrayDePrefixos = arrayDePrefixos;
+        this.arrayObjsDePrefixos = arrayObjsDePrefixos;
         this.objDoForm = {};
         this.objDeOptionDoForm = {};
         this.stringDoValorVazio ='';
@@ -11,7 +11,7 @@ class FormDinamico {
         this.botaoClicado = ''
         this.stringDoEmail = 'EM01'
         this.stringDoWhatsApp = 'd1'
-        this.prefixoDoWhatsApp = 'WA'
+        this.prefixoDoWhatsApp = 'MI'
         this.iniciar();
     }
 
@@ -44,9 +44,9 @@ class FormDinamico {
     criarSaidas() {
         const divDasSaidas = this.criarUmElemento('div','saidas', ['form-group']);
         this.meuFormDinamico.appendChild(divDasSaidas);
-        this.arrayDePrefixos.forEach((prefixo) => {
+        this.arrayObjsDePrefixos.forEach(({textoDaSaida, prefixo}) => {
             const divDaSaida = this.criarUmElemento('div', null, ['div_saida', 'form-row', 'col-12', 'col-md-12']);
-            const labelDaSaida = this.criarUmElemento('label', null, ['label_saida', 'col-sm-2', 'col-form-label'], { "for": `prefixo_${prefixo}`}, 'Opaa');
+            const labelDaSaida = this.criarUmElemento('label', null, ['label_saida', 'col-sm-2', 'col-form-label'], { "for": `prefixo_${prefixo}`}, `${textoDaSaida}`);
             const divDoInputDeSaida = this.criarUmElemento('div', null, ['div_input_saida', 'col-sm-10']);
             const inputDeSaida = this.criarUmElemento('input', `prefixo_${prefixo}`, ['input_saida', 'form-control'], { "name": `prefixo_${prefixo}`, "type": "text", "disabled": "true"});
             divDasSaidas.appendChild(divDaSaida);
@@ -259,7 +259,6 @@ class FormDinamico {
     adicionarEventoNoInputDeTextoNovo() {
         const elementoInputDeTextoNovo = this.meuFormDinamico.querySelector(`#escolha_nova_${this.objDoForm.nameDoSelect}`);
         const elementoSpanDeAviso = this.meuFormDinamico.querySelector(`#span_aviso_informar_termo_nova_${this.objDoForm.nameDoSelect}`);
-        console.log(elementoSpanDeAviso);
 
         elementoInputDeTextoNovo.addEventListener('mouseover', () => {
             elementoSpanDeAviso.classList.add(this.stringDeElementAtivo);
@@ -322,7 +321,7 @@ class FormDinamico {
         const valoresDosSelectsConcatenados = this.concatenarValoresDosSelects();
         let outputFinal = ''
 
-        this.arrayDePrefixos.forEach((prefixo) => {
+        this.arrayObjsDePrefixos.forEach(({ prefixo }) => {
             outputFinal = `${prefixo}_${valoresDosSelectsConcatenados}`
 
             if(prefixo === this.stringDoValorVazio) {
@@ -336,7 +335,6 @@ class FormDinamico {
             }
 
             let elementoInputDeSaida = document.querySelector(`#prefixo_${prefixo}`);
-            console.log(elementoInputDeSaida);
             elementoInputDeSaida.value = outputFinal;
         })
     }
@@ -395,7 +393,7 @@ class FormDinamico {
     }
 
     limparStringConcatenadaDaSaida() {
-        this.arrayDePrefixos.forEach((prefixo) => {
+        this.arrayObjsDePrefixos.forEach((prefixo) => {
             let elementoInputDeSaida = document.querySelector(`#prefixo_${prefixo}`);
             elementoInputDeSaida.value  = '';
         })
@@ -419,104 +417,89 @@ window.onload = () => {
         'meuFormDinamico', 
         [
             {
-                textoDoLabel: "Office",
+                textoDoLabel: "Localização",
                 options: [
-                    { valorDaOption: "BR", textoDaOption: "Brazil" },
-                    { valorDaOption: "CO", textoDaOption: "Colombia" },
-                    { valorDaOption: "MX", textoDaOption: "Mexico" },
-                    { valorDaOption: "LAT", textoDaOption: "Latin America" },
-                    { valorDaOption: "ES", textoDaOption: "Spain" },
-                    { valorDaOption: "US", textoDaOption: "United States" }
+                    { valorDaOption: "NY", textoDaOption: "Nova Iorque" },
+                    { valorDaOption: "LA", textoDaOption: "Los Angeles" },
+                    { valorDaOption: "SF", textoDaOption: "São Francisco" },
+                    { valorDaOption: "LDN", textoDaOption: "Londres" },
+                    { valorDaOption: "PAR", textoDaOption: "Paris" },
+                    { valorDaOption: "TKY", textoDaOption: "Tóquio" }
                 ]
             },
             {
-                textoDoLabel: "Tipo",
+                textoDoLabel: "Tipo de Projeto",
                 options: [
-                    { valorDaOption: "ADH", textoDaOption: "Adhoc" },
-                    { valorDaOption: "JOR", textoDaOption: "Jornada" }
+                    { valorDaOption: "WEB", textoDaOption: "Desenvolvimento Web" },
+                    { valorDaOption: "APP", textoDaOption: "Desenvolvimento de Aplicativos" },
+                    { valorDaOption: "UI", textoDaOption: "Design de Interface" },
+                    { valorDaOption: "UX", textoDaOption: "Experiência do Usuário" }
                 ]
             },
             {
                 textoDoLabel: "Categoria",
                 options: [
-                    { valorDaOption: "Pós", textoDaOption: "Pós" },
-                    { valorDaOption: "Pré", textoDaOption: "Pré" },
-                    { valorDaOption: "Education", textoDaOption: "Education" },
-                    { valorDaOption: "Transacional", textoDaOption: "Transacional" },
-                    { valorDaOption: "Institucional", textoDaOption: "Institucional" },
-                    { valorDaOption: "MPD", textoDaOption: "Marketing produto" },
-                    { valorDaOption: "Evento", textoDaOption: "Evento" },
-                    { valorDaOption: "News", textoDaOption: "News" },
-                    { valorDaOption: "CS", textoDaOption: "CS" },
-                    { valorDaOption: "Webinar", textoDaOption: "Webinar" },
-                    { valorDaOption: "ESG", textoDaOption: "ESG" },
-                    { valorDaOption: "MPD_Core", textoDaOption: "MPD_Core" },
-                    { valorDaOption: "MPD_FSBU", textoDaOption: "MPD_FSBU" },
-                    { valorDaOption: "NOVO", textoDaOption: "NOVO" }
+                    { valorDaOption: "Educação", textoDaOption: "Educação" },
+                    { valorDaOption: "Entretenimento", textoDaOption: "Entretenimento" },
+                    { valorDaOption: "Saúde", textoDaOption: "Saúde" },
+                    { valorDaOption: "Finanças", textoDaOption: "Finanças" }
                 ]
             },
             {
                 textoDoLabel: "Subcategoria",
                 options: [
-                    { valorDaOption: "CorEx-Lead Solutions", textoDaOption: "CorEx-Lead Solutions" },
-                    { valorDaOption: "CorEx-Produtos fisicos", textoDaOption: "CorEx-Produtos fisicos" },
-                    { valorDaOption: "CorEx-Hotmart Pro", textoDaOption: "CorEx-Hotmart Pro" },
-                    { valorDaOption: "CorEx-Player", textoDaOption: "CorEx-Player" },
-                    { valorDaOption: "CorEx-Cloud", textoDaOption: "CorEx-Cloud" },
-                    { valorDaOption: "Core-Club", textoDaOption: "Core-Club" },
-                    { valorDaOption: "Core-CreatorCockpit", textoDaOption: "Core-CreatorCockpit" },
-                    { valorDaOption: "FSBU-CommercialAgent", textoDaOption: "FSBU-CommercialAgent" },
-                    { valorDaOption: "FSBU-BNPL", textoDaOption: "FSBU-BNPL" },
-                    { valorDaOption: "FSBU-Orderbump", textoDaOption: "FSBU-Orderbump" },
-                    { valorDaOption: "FSBU-SmartRecovery", textoDaOption: "FSBU-SmartRecovery" },
-                    { valorDaOption: "FSBU-Cartão", textoDaOption: "FSBU-Cartão" },
-                    { valorDaOption: "FSBU-Antecipação", textoDaOption: "FSBU-Antecipação" },
-                    { valorDaOption: "FSBU-Checkout", textoDaOption: "FSBU-Checkout" },
-                    { valorDaOption: "Cross", textoDaOption: "Cross" },
-                    { valorDaOption: "NOVO", textoDaOption: "NOVO" }
+                    { valorDaOption: "OnlineCourse", textoDaOption: "Curso Online" },
+                    { valorDaOption: "GameApp", textoDaOption: "Jogo para Aplicativo" },
+                    { valorDaOption: "FitnessTracker", textoDaOption: "Rastreador de Fitness" },
+                    { valorDaOption: "BudgetPlanner", textoDaOption: "Planejador Financeiro" }
                 ]
             },
             {
-                textoDoLabel: "Nome da Campanha",
+                textoDoLabel: "Nome do Projeto",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
                     { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
             {
-                textoDoLabel: "Tipo Conteúdo",
+                textoDoLabel: "Tipo de Conteúdo",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "Ebook", textoDaOption: "E-book" },
-                    { valorDaOption: "LP", textoDaOption: "LP" },
-                    { valorDaOption: "Video", textoDaOption: "Video" },
+                    { valorDaOption: "Artigo", textoDaOption: "Artigo" },
+                    { valorDaOption: "Vídeo", textoDaOption: "Vídeo" },
                     { valorDaOption: "Infográfico", textoDaOption: "Infográfico" },
-                    { valorDaOption: "One page review", textoDaOption: "One page review" },
-                    { valorDaOption: "Aula club", textoDaOption: "Aula no club" },
-                    { valorDaOption: "Webinário", textoDaOption: "Webinário" },
-                    { valorDaOption: "Blogpost", textoDaOption: "Blogpost" },
-                    { valorDaOption: "NOVO", textoDaOption: "NOVO" }
+                    { valorDaOption: "Webinar", textoDaOption: "Webinar" }
                 ]
             },
             {
-                textoDoLabel: "Psicologia Email",
+                textoDoLabel: "Tom do Email",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "Neutro", textoDaOption: "Neutro" },
-                    { valorDaOption: "Positivo", textoDaOption: "Positivo" },
-                    { valorDaOption: "Negativo", textoDaOption: "Negativo" }
+                    { valorDaOption: "Profissional", textoDaOption: "Profissional" },
+                    { valorDaOption: "Amigável", textoDaOption: "Amigável" },
+                    { valorDaOption: "Formal", textoDaOption: "Formal" }
                 ]
             },
             {
-                textoDoLabel: "Funil",
+                textoDoLabel: "Etapas",
                 options: [
                     { valorDaOption: "", textoDaOption: "" },
-                    { valorDaOption: "ToFu", textoDaOption: "ToFu" },
-                    { valorDaOption: "MoFu", textoDaOption: "MoFu" },
-                    { valorDaOption: "BoFu", textoDaOption: "BoFu" }
+                    { valorDaOption: "Consciência", textoDaOption: "Consciência" },
+                    { valorDaOption: "Interesse", textoDaOption: "Interesse" },
+                    { valorDaOption: "Decisão", textoDaOption: "Decisão" }
                 ]
             }
-        ],        
-        ['', 'WA','DE', 'FIL', 'AUT', 'JB', 'IMP', 'EXT', 'FT']
+        ],
+        [
+            { textoDaSaida: "Canal de Comunicação", prefixo: "" },
+            { textoDaSaida: "Mensagem Instantânea", prefixo: "MI" },
+            { textoDaSaida: "Filtragem", prefixo: "FL" },
+            { textoDaSaida: "Automatização de Processos", prefixo: "AP" },
+            { textoDaSaida: "Jornada do Usuário", prefixo: "JU" },
+            { textoDaSaida: "Importação de Dados", prefixo: "ID" },
+            { textoDaSaida: "Extração de Informações", prefixo: "EI" },
+            { textoDaSaida: "Transferência de Arquivos", prefixo: "TA" }
+        ]
+        
     );
 };
