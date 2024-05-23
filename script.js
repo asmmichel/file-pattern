@@ -250,7 +250,7 @@ class FormDinamico {
             `span_aviso_informar_termo_nova_${this.objDoForm.nameDoSelect}`,
             ['span_aviso_informar_termo'],
             {},
-            `Caso necessário, enviar uma mensagem para alfredo.jorge@hotmart.com informando 
+            `Caso necessário, enviar uma mensagem para pessoa@hotmail.com informando 
             o novo termo de ${textoDoLabelFormatado}, para podermos mensurar nos Dashboards!`
         );
         return elementoSpanDeAviso;
@@ -393,7 +393,7 @@ class FormDinamico {
     }
 
     limparStringConcatenadaDaSaida() {
-        this.arrayObjsDePrefixos.forEach((prefixo) => {
+        this.arrayObjsDePrefixos.forEach(({prefixo}) => {
             let elementoInputDeSaida = document.querySelector(`#prefixo_${prefixo}`);
             elementoInputDeSaida.value  = '';
         })
@@ -442,7 +442,8 @@ window.onload = () => {
                     { valorDaOption: "Educação", textoDaOption: "Educação" },
                     { valorDaOption: "Entretenimento", textoDaOption: "Entretenimento" },
                     { valorDaOption: "Saúde", textoDaOption: "Saúde" },
-                    { valorDaOption: "Finanças", textoDaOption: "Finanças" }
+                    { valorDaOption: "Finanças", textoDaOption: "Finanças" },
+                    { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
             {
@@ -451,7 +452,8 @@ window.onload = () => {
                     { valorDaOption: "OnlineCourse", textoDaOption: "Curso Online" },
                     { valorDaOption: "GameApp", textoDaOption: "Jogo para Aplicativo" },
                     { valorDaOption: "FitnessTracker", textoDaOption: "Rastreador de Fitness" },
-                    { valorDaOption: "BudgetPlanner", textoDaOption: "Planejador Financeiro" }
+                    { valorDaOption: "BudgetPlanner", textoDaOption: "Planejador Financeiro" },
+                    { valorDaOption: "NOVO", textoDaOption: "NOVO" }
                 ]
             },
             {
