@@ -2,6 +2,7 @@
 
 body {
   background-color: #d1e2d8;
+  font-size:16px;
 }
 
 /* Escolhas */
@@ -79,13 +80,16 @@ body {
 
 /* Botões */
 
-#botaoGerarCampanha {
-  margin-bottom: 3px;
+#botaoGerarCampanha, #botaoDeGerarComData {
+  margin: 3px;
+  background-color:#d1e2d8;
+  color: #000000
 }
 
-#botaoDeGerarComData {
-  margin-top: 3px;
+#botaoGerarCampanha:active, #botaoDeGerarComData:active {
+  background-color: #FFFFFF;
 }
+
 
 
 /* Saidas */
