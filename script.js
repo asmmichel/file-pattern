@@ -22,6 +22,7 @@ class FormDinamico {
         this.criarEscolhas();
         this.criarBotoes();
         this.criarSaidas();
+        console.log('opa');
     }
 
     criarEscolhas() {
@@ -401,7 +402,7 @@ class FormDinamico {
 
     pegarValorDoInputDeTextoNovo(select) { 
         const inputDeTextoNovo = document.querySelector(`input[name="nova_${select.name}"]`);
-        const valorDoInputDeTextoNovo = inputDeTextoNovo.value.toUpperCase();
+        const valorDoInputDeTextoNovo = inputDeTextoNovo.value.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c').replace(/[\s-]/g, '_');
         return valorDoInputDeTextoNovo;
     }
 

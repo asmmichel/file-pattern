@@ -123,7 +123,7 @@
 		</div>
 
         <script>
-        class FormDinamico {
+        class FormDinamico2 {
             constructor(idDoForm, arrayObjsDoForm, arrayObjsDePrefixos) {
                 this.meuFormDinamico = document.querySelector(`#${idDoForm}`);
                 this.arrayObjsDoForm = arrayObjsDoForm;
@@ -410,7 +410,6 @@
                 this.botaoClicado = event.target.id;
                 const valoresObrigatoriosEstaoPreenchidos = this.verificarSeValoresObrigatoriosEstaoPreenchidos();
                 const todosOsValoresObrigatoriosEstaoPreenchidos = valoresObrigatoriosEstaoPreenchidos.every(valor => valor === true);
-
                 if(todosOsValoresObrigatoriosEstaoPreenchidos) {
                     this.mostrarNomeDaCampanha();
                 } else {
@@ -526,7 +525,7 @@
 
             pegarValorDoInputDeTextoNovo(select) { 
                 const inputDeTextoNovo = document.querySelector(`input[name="nova_${select.name}"]`);
-                const valorDoInputDeTextoNovo = inputDeTextoNovo.value.toUpperCase();
+                const valorDoInputDeTextoNovo = inputDeTextoNovo.value.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ç/g, 'c').replace(/[\s-]/g, '_');
                 return valorDoInputDeTextoNovo;
             }
 
